@@ -1,0 +1,4 @@
+{{object.get_absolute_url}}
+{{ object.title }}
+{{ object.user.get_full_name }}
+{{ object.body }}

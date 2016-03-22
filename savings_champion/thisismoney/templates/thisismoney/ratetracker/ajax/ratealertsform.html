@@ -1,0 +1,12 @@
+<div class="rate-alerts" id="rate-alerts">
+    <h2>Sign up to our Rate alerts!</h2>
+
+    <form action="{% url 'timsubssignupra' %}?ratealerts=true" method="post" id="subForm" target="_blank">
+        {% csrf_token %}
+        <div class="input-area">
+            {{ratealertsform.source}}
+            {{ratealertsform.email.label_tag}}{{ratealertsform.email}}
+            <input class="button" type="image" value="Submit" alt="Signup to rate alerts submit button" src="{{STATIC_URL}}img/submit.png"/>
+        </div>
+    </form>
+</div><!-- end rate alerts -->

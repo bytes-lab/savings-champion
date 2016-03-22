@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block additional_head %}
+    <link rel="stylesheet" href="{{STATIC_URL}}css/administration/administration.css">
+{% endblock additional_head %}
+
+{% block contenthtml %}
+<div id="fscs">
+    <div class="content-width">
+        <div class="left-section">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sem tellus, dictum eu consequat et, pulvinar suscipit ipsum. 
+                Sed malesuada porta viverra. In ut urna id erat malesuada suscipit id quis mauris. Aenean vel mauris nec tortor cursus vulputate 
+                at non erat. Vivamus aliquam facilisis eleifend. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc faucibus diam eu nisl 
+                feugiat et tristique massa commodo. Mauris libero felis, auctor quis molestie et, luctus et nulla. Maecenas ultricies posuere arcu a 
+                scelerisque. Nunc placerat ultricies hendrerit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at lectus in erat rhoncus 
+                malesuada hendrerit vel quam. Suspendisse pellentesque porta sem, nec tempor urna convallis eleifend. Phasellus quis dui nunc, ultricies 
+                luctus felis. Maecenas rutrum fringilla diam. Integer magna nunc, porttitor sit amet consectetur at, varius id mi.
+
+                Vivamus posuere nulla tincidunt eros convallis tincidunt. Nulla luctus, odio ut lobortis viverra, magna justo facilisis sapien, a sodales 
+                elit eros ut mi. Nulla ornare mauris non turpis mattis rutrum. Aenean nec arcu ante, vitae tincidunt nibh. Nunc non dolor odio. Sed lacinia, 
+                dui id varius lacinia, metus ligula pulvinar nisl, at congue mauris augue vitae quam. Maecenas et ante nec elit pellentesque rutrum ut vitae 
+                erat. Quisque iaculis convallis dui, in dictum quam tempor eget. Aliquam venenatis metus in lacus facilisis sagittis. Vivamus sed magna eu mi 
+                feugiat vehicula quis vitae odio.
+            </p>
+            
+        </div>
+        <div class="right-section">
+            <p class="filter show-all" style="display:none;" data-filter="*"><a href="#">Show All</a></p>
+            <div id="grid" class="box-section">            
+                {% for provider in providers %}
+                    <div class="box {{provider.fscs_parent}}" data-filter=".{{provider.fscs_parent}}" data-group="{{provider.fscs_parent}}">
+                        <a href="#"><p>{{provider.title}}</p></a>
+                    </div>
+                {% endfor %}            
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-width">
+</div>
+{% endblock contenthtml %}
+
+{% block footer_scripts %}
+<script type="text/javascript" src="{{STATIC_URL}}js/libs/jquery.isotope.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#grid div').hover(function(e) {
+        var el = $(this);
+        var group = el.data('group');
+        var groupMembers = el.closest('#grid').find('div[data-group='+group+']');
+        groupMembers.addClass('active');
+    },function(e) {
+        var el = $(this);
+        var group = el.data('group');
+        var groupMembers = el.closest('#grid').find('div[data-group='+group+']');
+        groupMembers.removeClass('active');
+    })
+    
+    $('#grid').isotope({animationEngine : 'best-available' });
+    $('.box').click(function(){
+        var selector = $(this).attr('data-filter');
+        $('#grid').isotope({ filter: selector, animationEngine : 'best-available' });
+        $('.show-all').show();
+        return false;
+    });
+    $('.show-all').click(function(){
+        var selector = $(this).attr('data-filter');
+        $('#grid').isotope({ filter: selector, animationEngine : 'best-available' });
+        $('.show-all').hide();
+        return false;
+    });
+});
+</script>
+{% endblock footer_scripts %}

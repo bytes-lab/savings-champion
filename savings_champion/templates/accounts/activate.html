@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block bannertext %}
+    <div id="left-banner">
+        <h2>Activation completed</h2>
+    </div>
+{% endblock bannertext %}
+
+{% block contenthtml %}
+<div id="activation">
+    <div class="content-width">
+        <p>You have successfully activated. You will be redirected to your portfolio in 5 seconds, alternatively 
+            <a class="bluea" href="{% url 'healthcheck-portfolio' %}">click here</a></p>
+    </div>
+</div>
+{% endblock contenthtml %}
+
+{% block footer_scripts %}
+<script type="text/javascript">
+    setTimeout(function(){
+        window.location.href = "{% url 'healthcheck-portfolio' %}";
+    }, 5000);
+</script>
+{% endblock footer_scripts %}

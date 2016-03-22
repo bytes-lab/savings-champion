@@ -1,0 +1,31 @@
+.icon-list li {
+  padding: 0 0 5px 26px;
+  display: block;
+  position: relative;
+}
+
+.icon-list li:before {
+  font-family: 'Glyphicons Halflings';
+  position: absolute;
+  left: 0px;
+}
+
+.icon-list--green li:before {
+  color: hsl(120, 60%, 40%);
+}
+
+.chevron-right li:before {
+  content: '\e080';
+}
+
+.checkmark li:before {
+  content: '\e067';
+}
+
+.tick li:before {
+  content: '\e013';
+}
+
+.arrow-right li:before {
+  content: '\e092';
+}

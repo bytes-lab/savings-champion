@@ -1,0 +1,67 @@
+<!doctype html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/thisismoney.css">
+    <link rel="icon" href="{{ STATIC_URL }}favicon.ico">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}js/libs/jquery-ui-1.8.16.custom.min.js"></script>
+    <script src="{{ STATIC_URL }}js/libs/jquery.infieldlabel.js"></script>
+    <script src="{{ STATIC_URL }}js/libs/jquery.validate.min.js"></script>
+    <script src="{{ STATIC_URL }}js/libs/slides.min.jquery.js"></script>
+    <script src="{{ STATIC_URL }}js/script.js"></script>
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-27017192-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+
+
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-27017192-1', 'savingschampion.co.uk');
+        ga('send', 'pageview');
+    </script>
+    <title>{% block title %}{% endblock title %} | Savings Champion</title>
+
+</head>
+
+<iframe src="{% url 'timiframeheader' %}" width="964" height="137" scrolling="no" frameborder="0"></iframe>
+
+
+{% block rtMessage %}
+    <div id="rt-header">
+        <span class="rtLogo"><img src="{{ STATIC_URL }}img/tri-lrg.png" alt="Rate Tracker Logo"/>    Rate Tracker</span>
+        <span class="scLogo">Powered By <a href="https://thisismoney.savingschampion.co.uk" target="_blank"><img
+                src="{{ STATIC_URL }}img/logo60.png"/></a></span><br/>
+
+        <p class="rtSummary">Tired of providers leaving you in the dark about your savings rates?
+            You’re now just one click away from letting <strong>savingschampion.co.uk</strong> shine a light on your
+            savings accounts. Quick, free and easy.
+            A better way to track your savings rates today, tomorrow, forever. Rate Tracker, helping savers make the
+            most of their money.</p>
+    </div>
+{% endblock rtMessage %}
+{% block content %}{% endblock content %}
+{% block footer %}
+    <iframe src="{% url 'timiframefooter' %}" width="964" height="333" frameborder="0" scrolling="no" marginwidth="0"
+            marginheight="0"></iframe>
+{% endblock footer %}

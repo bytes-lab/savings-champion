@@ -1,0 +1,10 @@
+Dear {{ name }},
+
+Thank you for your interest in the Priority Savers List.
+
+We're actively working on getting you the very best accounts, and will
+notify you whenever we secure market leading and exclusive rates.
+
+Kind regards,
+
+Anna Bowes | Director Savings Champion

@@ -1,0 +1,5 @@
+standby_mode = 'on'
+{% for host in groups['master_database'] %}
+primary_conninfo = 'host={{ host}} port=5432 user=repmgr password='
+{% endfor %}
+trigger_file = '/tmp/postgresql.trigger.5432'

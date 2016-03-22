@@ -1,0 +1,24 @@
+{% load nav_tags %}
+<div id="navigation-block">
+    <div class="nav-bar">
+        <div class="bar-width content-width">
+            <div class="main-nav">
+                <ul>
+                    <a href="{% url 'home' %}"><li class="left home">Home</li></a>
+                    <a href="{% url 'healthcheck' %}"><li class="rate-tracker">Rate Tracker</li></a>
+                    <a href="{% url 'top_accounts' %}"><li class="best-buys">Best Buys</li></a>
+                    <a href="{% url 'video_signup' %}?autoplay=0"><li class="concierge">Concierge Service</li></a>
+                    <a href="{% url 'news_index' %}"><li class="news">News &amp; Alerts</li></a>
+                    <a href="{% url 'advice_guides' %}"><li class="advice">Advice &amp; Guides</li></a>
+                    {% get_main_nav as pages %}    
+                    
+                    {% for page in pages %}
+                        <a href="{{page.get_absolute_url}}"><li class="page">{{page}}</li></a>
+                    {% endfor %}
+                </ul>
+                
+            </div>
+        </div>
+    </div>    
+    
+</div>

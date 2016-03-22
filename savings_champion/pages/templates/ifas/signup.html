@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load block_tags cache %}
+
+{% block title %}
+    Concierge Managed Savings Service
+{% endblock %}
+
+{% block meta_description %}
+    Find the best savings rates for your client or if you are Power of Attorney. Savings Champion researches and monitors all savings accounts, and offers a Managed Savings Service.
+{% endblock %}
+
+{% cache 43200 business_signup %}
+{% block bannertext %}
+<div id="left-banner">
+    {% get_static_block intermediary-landing banner.heading as block %}
+        <h2>{{block|safe|striptags}}</h2>
+    {% get_static_block intermediary-landing banner.subheading as block %}
+        <h5>{{block|safe|striptags}}</h5>
+</div>
+{% endblock bannertext %}
+
+{% block subbanner %}
+<div id="concierge-subbanner">
+    <div class="content-width">
+    <div class="messages">
+        <div class="left conc-message">
+            <img src="{{STATIC_URL}}img/concierge/new-clipboard-small.png" alt="Image of clipboard" class="graph-image" />
+            {% get_static_block concierge-landing banner.step1 as block %}
+                {{block|safe}}
+        </div>
+        <div class="conc-message">
+            <img src="{{STATIC_URL}}img/concierge/graph-small.png" alt="Image of graph" class="graph-image" />
+            {% get_static_block concierge-landing banner.step2 as block %}
+                {{block|safe}}
+        </div>
+        <div class="right conc-message">
+            <img src="{{STATIC_URL}}img/concierge/padlock-small.png" alt="Image of padlock" class="image" />
+            {% get_static_block concierge-landing banner.step3 as block %}
+                {{block|safe}}
+        </div>
+    </div>
+   </div>
+</div>
+{% endblock subbanner %}
+
+{% block contenthtml %}
+<div id="concierge">
+    <div class="content-width">
+        <div class="left-section">
+            <div class="summary">
+                {% get_static_block intermediary-landing summary.heading as block %}
+                    <h1><span>{{block|safe|striptags}}</span></h1>
+                {% get_static_block intermediary-landing summary.text as block %}
+                    {{block|safe}}
+            </div>
+            <div class="testimonials">
+                <h1><span>What our clients say</span></h1>
+                {% get_static_block intermediary-landing testimonial.section as block %}
+                    {{block|safe}}
+            </div>
+        </div>
+        
+        <div class="right-section">
+            <div class="enquire">
+                <p>Enquire Now - 0800 321 3581</p>
+                <form action="{% url 'concierge_thankyou' %}" method="post" class="form concierge-form">
+                    {% csrf_token %}
+                    {{form.name.label_tag}}{{form.name}}
+                    {{form.email.label_tag}}{{form.email}}
+                    {{form.telephone.label_tag}}{{form.telephone}}
+                    {{form.timetocall.label_tag}}{{form.timetocall}}
+                    {{form.source}}
+                    <input type="submit" value="Enquire Now" class="bluesubmit form-control">
+                </form>
+            </div>
+            <div class="faq-block">
+                <div class="faq-header">
+                    <h3>Frequently asked questions</h3>
+                </div>
+                <div class="faq-questions">
+                    <ul>
+                        {% load faq_tags %}
+                        
+                        {% get_concierge_faqs as faqs %}
+                        {% for faq in faqs %}
+                            <li><a href="{% url 'concierge_faq' %}">> {{faq.question}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="faq-link">
+                    <p><a href="{% url 'concierge_faq' %}">View all ></a></p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endblock contenthtml %}
+
+{% block footer_scripts %}
+    <script type="text/javascript" src="{{STATIC_URL}}js/libs/additional-methods.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/validation/concierge-val.js"></script>
+{% endblock footer_scripts %}
+{% endcache %}

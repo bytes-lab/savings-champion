@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block additional_head %}
+    <link rel="stylesheet" href="{{STATIC_URL}}css/administration/administration.css">
+{% endblock additional_head %}
+
+{% block bannertext %}
+    <div id="left-banner">
+        <h1>Administration</h1>
+        <h3>Please make sure when you enter values you get them correct!</h3>
+    </div>
+{% endblock bannertext %}
+{% block contenthtml %}
+
+<div id="administration-index">
+    <div class="content-width">
+        <h3>Tools to change customer data</h3>
+        {% if perms.profile.change %}
+        <p><a href="{% url 'sccodeinitial' %}">Update SC Codes for multiple accounts</a></p>
+        {% endif %}
+        {% if perms.profile.add_product %}
+            <p>
+                <a href="{% url 'add_customer_product' %}">Add a product to a customers portfolio</a>
+            </p>
+        {% endif %}
+        <p>
+            <a href="{% url 'view_customer_portfolio' %}">View a customer portfolio</a>
+        </p>
+        {% if perms.profile.change_user_portfolio %}
+            <p>
+                <a href="{% url 'change_customer_portfolio' %}">Change a customers portfolio</a>
+            </p>
+        {% endif %}
+        
+        <h3>Customer Administration tools</h3>
+        <p><a href="{% url 'view_user_status' %}">View the status of a user</a></p>
+        {% if perms.profile.change_user_activation %}
+        <p><a href="{% url 'resend_activation_admin' %}">Resend a users activation email</a></p>
+        {% endif %}
+        {% if perms.profile.change_user_email %}
+        <p><a href="{% url 'change_user_email' %}">Change a users email</a></p>
+        {% endif %}
+        {% if perms.common.add_campaignsignup %}
+        <p><a href="{% url 'create_concierge_client' %}">Create a concierge client</a></p>
+        {% endif %}
+        {% if perms.common.remove_campaignsignup %}
+        <p><a href="{% url 'remove_concierge_client' %}">Remove a concierge client</a></p>
+        {% endif %}
+        {% if perms.profile.change_user_password %}
+        <p><a href="{% url 'change_user_password' %}">Change a users password + mark them as active</a></p>
+        {% endif %}
+        {% if perms.profile.change_user_subscriptions %}
+        <p><a href="{% url 'unsubscribe_user' %}">Unsubscribe User from Campaign Monitor</a></p>
+        {% endif %}
+        <p><a href="{% url 'user_breakdown' %}">Pauls personal headache</a></p>
+        {% if perms.profile.delete_user %}
+        <p><a href="{% url 'delete_user' %}">Delete User</a></p>
+        {% endif %}
+        {% if perms.profile.change_users_sync %}
+        <p><a href="{% url 'sync_user' %}">Force sync a users products to Salesforce</a></p>
+        {% endif %}
+        {% if perms.profile.check_user_portfolio %}
+        <p><a href="{% url 'check_client_portfolios_for_issues' %}">Force check of all portfolios</a></p>
+        {% endif %}
+
+        <h3>Bestbuy tools</h3>
+        {% if perms.products.add_bestbuy %}
+        <p><a href="{% url 'manual_bestbuy_add' %}">Manually set a bestbuy product</a></p>
+            <p><a href="{% url 'update_products_from_salesforce' %}">Update all providers, products, product tiers, bestbuys.</a></p>
+        {% endif %}
+        
+        <h3>General Tools</h3>
+        <p><a href="{% url 'list_ips' %}">View the number of signups from each ip <strong>May take a while to load..</strong></a></p>
+        <p><a href="{% url 'memcached_status' %}">Memcached Status</a></p>
+        <p><a href="{% url 'clear_cache' %}">Clear the cache</a></p>
+        <p><a href="{% url 'fscs_test' %}">Concept code for FSCS Info Tool</a></p>
+        <p><a href="{% url 'provider_logos' %}">All Provider Logos</a></p>
+
+        <h3>Referral Tools</h3>
+        <p><a href="{% url 'referral_reporting' %}">Referrals Unpaid</a></p>
+    </div>
+</div>
+
+{% endblock contenthtml %}

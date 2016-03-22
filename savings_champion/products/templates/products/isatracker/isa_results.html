@@ -1,0 +1,44 @@
+{% extends "products/ratetracker/results.html" %}
+
+{% load product_tags %}
+
+{% block title %}My Results, One Minute ISA Check{% endblock title %}
+
+{% block extra_scripts %}
+<script type="text/javascript">
+	$(function() {
+		$('input[name="reset"]').click(function(){
+			window.location.href="{% url isa_rate_check %}";
+	  });
+	  var left_height = $('td.track-account').height();
+	  var right_height = $('td.facts-row').height();
+	  
+	  if((left_height > 0) || (right_height > 0)){
+	  	if(left_height > right_height){
+	  		$('td.facts-row').height(left_height);
+	  	} else {
+	  		$('td.track-account').height(right_height);
+	  	}
+	  }
+		
+		$('#track-this').click(function(){
+			$('#track-product').submit();
+	  });
+	  
+	});
+</script>
+
+{% endblock extra_scripts %}
+
+{% block meta_description %}
+    <meta name="description" content="Register for Savings Champion’s unique and free ISA Tracker service and we’ll tell you when you need to move your savings account to get the best rate.">
+{% endblock %}
+
+{% block tracker_tabs %}
+	<ul class="tracker-tabs">
+		<li><a href="{% url isa_rate_check %}" class="active">One Minute ISA Check</a></li>
+		<li><a href="{% url isa_tracker %}">My ISA Tracker &trade; Portfolio</a></li>
+	</ul>
+{% endblock tracker_tabs %}
+
+{% block form_endpoint %}{% url isa_rate_check %}{% endblock form_endpoint %}

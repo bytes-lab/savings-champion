@@ -1,0 +1,69 @@
+{% extends "pages/generic.html" %}{% load page_tags %}
+
+{% block title %}
+{% get_block jargon.message as message %}
+{{message.block_title}}
+{% endblock title %}
+
+{% block content_class %}light pad{% endblock content_class %}
+
+{% block navigation %}
+  {% include "main_navigation.html"%}
+{% endblock navigation %}
+    
+{% block content %}
+      
+    {% get_block jargon.message as message %}
+    {% if message %}
+	    <h1>{{message.block_title}}</h1>
+       {{message.text|safe}}
+    {% endif %}
+    <ul class='jargon-list'>
+        <li><a href="#a">A</a></li>
+        <li><a href="#b">B</a></li>
+        <li><a href="#c">C</a></li>
+        <li><a href="#d">D</a></li>
+        <li><a href="#e">E</a></li>
+        <li><a href="#f">F</a></li>
+        <li><a href="#g">G</a></li>
+        <li><a href="#h">H</a></li>
+        <li><a href="#i">I</a></li>
+        <li><a href="#j">J</a></li>
+        <li><a href="#k">K</a></li>
+        <li><a href="#l">L</a></li>
+        <li><a href="#m">M</a></li>
+        <li><a href="#n">N</a></li>
+        <li><a href="#o">O</a></li>
+        <li><a href="#p">P</a></li>
+        <li><a href="#q">Q</a></li>
+        <li><a href="#r">R</a></li>
+        <li><a href="#s">S</a></li>
+        <li><a href="#t">T</a></li>
+        <li><a href="#u">U</a></li>
+        <li><a href="#v">V</a></li>
+        <li><a href="#w">W</a></li>
+        <li><a href="#x">X</a></li>
+        <li><a href="#y">Y</a></li>
+        <li><a href="#z">Z</a></li>
+    </ul>
+  
+{% regroup jargon_list by first_char as ordered_list %}
+ 
+ {% for jargon_list in ordered_list %}
+   <h2 id="{{jargon_list.grouper}}">{{jargon_list.grouper}}</h2>
+   <dl class="jargon-definition-list">
+     {% for jargon in jargon_list.list %}
+      <dt>{{jargon.title}}</dt>
+      <dd>{{jargon.description|safe}}</dd>
+      {% endfor %}
+  </dl>
+ {% endfor %}
+ 
+    
+{% endblock content %}
+
+{% block post_content %}
+<div id="h-nav-wrap">
+    {% include "h-nav.html" %}
+</div>
+{% endblock post_content %}

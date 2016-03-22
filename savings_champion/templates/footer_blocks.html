@@ -1,0 +1,39 @@
+{% load block_tags %}
+    <div class="row">
+        <div class="aboutus-teaser col-sm-3">
+            {% get_static_block footer aboutus.title as block %}
+            <h5>{{ block|safe|striptags }}</h5>
+            {% get_static_block footer aboutus.text as block %}
+            {{ block|safe }}
+            <a href="/about-us/">Read more about us ></a>
+        </div>
+        <div class="col-sm-6">
+            <div class="top-savings-accounts">
+                <h5>Top Savings Accounts</h5>
+                {% load  product_tags %}
+                {% get_bestbuy_types as bestbuys %}
+                {% if bestbuys %}
+                    <div class="row">
+                    {% for bestbuy in bestbuys %}
+                        <div class="col-md-4">
+                            <a href="{{ bestbuy.get_bestbuy_table }}" class="link-block">{{ bestbuy.get_client_type_display }} {{ bestbuy }}</a>
+                        </div>
+                        {% cycle '' '' '</div><div class="row">' %}
+                    {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-sm-3">
+            {% get_static_block footer newsletter.title as block %}
+            <h5>{{ block|safe|striptags }}</h5>
+            {% get_static_block footer newsletter.text as block %}
+            {{ block|safe }}
+            <form class="newsletterform form-inline" action="{% url 'healthcheck_basket_signup' %}" method="post">
+                {% csrf_token %}
+                <input type="email" name="email" class="email textinput textInput form-control" required
+                       placeholder="Enter your email address"/>
+                <input class="btn btn-primary btn-block" style="margin-top: 5px;" type="submit" value="Sign Up"/>
+            </form>
+        </div>
+    </div>

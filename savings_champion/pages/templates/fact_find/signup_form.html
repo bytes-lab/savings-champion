@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% load block_tags static crispy_forms_tags %}
+
+{% block additional_head %}
+    <style>
+        a.btn {
+            color: white;
+        }
+    </style>
+{% endblock %}
+
+{% block title %}
+    50 Pound Challenge
+{% endblock title %}
+
+{% block bannertext %}
+    <div id="left-banner">
+        {% get_static_block fact-find-form incentive as block %}
+        <h2 class="js-banner-title" style="font-size: 30px">{{ block|safe }}</h2>
+    </div>
+{% endblock bannertext %}
+
+{% block contenthtml %}
+    <div id="ifa-landing">
+        <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col-sm-8">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    {% get_static_block fact-find-form enquire as block %}
+                                    {{ block|safe }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <img class="img-responsive"
+                                         src="{% static 'img/fifty_pound_challenge/take-the-challenge.jpg' %}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="js-form-container">
+                            <div class="col-md-6">
+                                {% crispy form %}
+                            </div>
+                            <p class="col-md-8 col-md-offset-4">Enter brief details of your existing
+                                accounts (Optional)</p>
+
+                            <div class="row">
+                                {% crispy account_form account_form_helper %}
+                                <input type="button" name="submit" value="Take the Challenge"
+                                   class="btn btn-primary btn-success col-md-offset-10 col-sm-offset-9 col-xs-offset-1 take-the-fact-find" id="submit-id-submit">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="well well-sm">
+                                        {% get_static_block fact-find-form alternate_method as block %}
+                                        {{ block|safe }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col-sm-12">
+                            <h3 style="text-align: left;">Terms and Conditions</h3>
+                            <ul>
+                                <li>This offer closes on {{ end_date|date:"d/m/Y" }}</li>
+                            </ul>
+                            {% get_static_block fact-find-form need-to-know as block %}
+                            {{ block|safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenthtml %}
+
+{% block footer_scripts %}
+    <script src="{% static '3rd_party/django-dynamic-formset/src/jquery.formset.js' %}"></script>
+    <script>
+        $('.js-account-row').formset({
+            prefix: '{{ account_form.prefix }}',
+            formCssClass: 'dynamic-accounts',
+            addText: 'Add More Accounts',
+            deleteText: 'Remove This Account',
+            addCssClass: 'add-row-fact-find btn btn-info col-md-offset-10 col-sm-offset-9 col-xs-offset-1',
+            deleteCssClass: 'delete-row-fact-find btn btn-danger col-md-offset-10 col-sm-offset-9 col-xs-offset-1'
+        });
+
+        fifty_pound_challenge_success = function (data, textStatus, jqXHR) {
+            document.open();
+            document.write(data);
+            document.close();
+        };
+
+        $('body').on('click', '#submit-id-submit', function () {
+            data = $('.js-challenge, .js-accounts').serialize();
+            url = $('.js-challenge').attr('action');
+            $.ajax({
+                data: data,
+                method: 'POST',
+                url: url,
+                success: fifty_pound_challenge_success
+            })
+        })
+    </script>
+{% endblock %}

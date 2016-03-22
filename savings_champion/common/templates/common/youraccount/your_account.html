@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Your Account
+{% endblock title %}
+{% block bannertext %}
+    <div id="left-banner">
+        <h2>Your Profile</h2>
+    </div>    
+{% endblock bannertext %}
+
+{% block contenthtml %}
+
+<div id="your-account">
+    <div class="content-width">
+        <div class="panel panel-default">
+            <div class="details">
+                <h1><span>Personal Details</span></h1>
+                <p><span class="bold">Name: </span>{{user.first_name}} {{user.last_name}}</p>
+                <p><span class="bold">Email: </span>{{user.email}}</p>
+                <p><span class="bold">Telephone: </span>
+                    {% if profile.telephone %}
+                        {{profile.telephone}}
+                    {% else %}
+                        Unspecified
+                    {% endif %}
+                    </p>
+                <p><span class="bold">Year of Birth: </span>
+                    {% if profile.dob %}
+                        {{profile.dob|date:" Y "}}
+                    {% else %}
+                        Unspecified
+                    {% endif %}
+
+                    </p>
+                <p><span class="bold">Postcode: </span>
+                    {% if profile.postcode %}
+                        {{profile.postcode}}
+                    {% else %}
+                        Unspecified
+                    {% endif %}
+                    </p>
+                <p>
+                    <a href="{% url 'healthcheck' %}"><button class="btn btn-info">Where do I enter my account details?</button></a>
+                    <a href="#" class="edit-details"><button class="btn btn-info">"Edit personal details</button></a>
+                    <a href="#" class="edit-password"><button class="btn btn-info">Change password</button></a>
+                    <a href="#" class="delete-account"><button class="btn btn-danger" type="button">Delete your account</button></a>
+            </div>
+
+            <div class="notifications">
+                <h1><span>Notification Settings</span></h1>
+                <form action="{% url 'update_subscriptions' %}" method="post">
+                    {% csrf_token %}
+                    <p><span class="bold">Rate Alert emails</span></p>
+                    <p>
+                        {{subscriptionform.ratealert}}
+                        Sign up to our free Rate Alerts, keeping you informed of competitive rates as they hit the market
+                    </p>
+                    <p><span class="bold">Newsletter</span></p>
+                    <p>
+                        {{subscriptionform.newsletter}}
+                        Receive our newsletter filled with all the latest savings news and views and how we can help you make the most of your money
+                    </p>
+                    <p><input type="submit" value="Save Details" class="btn btn-info" /></p>
+                </form>
+            </div>
+        </div>
+        {% include "common/youraccount/deleteform.html" %}
+        {% include "common/youraccount/personal_detailsform.html" %}
+        {% include "common/youraccount/changepasswordform.html" %}
+    </div>    
+</div>
+
+{% endblock contenthtml %}
+
+{% block footer_scripts %}
+    <script type="text/javascript" src="{{STATIC_URL}}js/youraccount/youraccount.js"></script>
+{% endblock footer_scripts %}

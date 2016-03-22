@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags page_tags %}
+
+{% block content %}
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                {% get_block ifa.mfpa-thankyou-heading as message %}
+                <h3>{{ message.text|safe }}</h3>
+            </div>
+            {% get_block ifa.mfpa-thankyou-body as message %}
+            <div class="panel-body">
+                {{ message.text|safe }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

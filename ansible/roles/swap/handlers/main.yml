@@ -1,0 +1,17 @@
+---
+
+- name: set swap size
+  command: dd if=/dev/zero of=/var/swap.img bs=1024k count=1000
+  notify:
+  - initialise swap image
+  sudo: true
+
+- name: initialise swap image
+  command: mkswap /var/swap.img
+  notify:
+  - start swap
+  sudo: true
+
+- name: start swap
+  command: swapon /var/swap.img
+  sudo: true

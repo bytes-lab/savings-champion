@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+{% load product_filters humanize %}
+
+{% block title %}
+    Your product compared to the top 5 
+{% endblock %}
+{% block bannertext %}
+<div id="left-banner">
+    <h2>Your Savings Healthcheck</h2>
+</div>
+{% endblock bannertext %}
+
+<!-- I highly recommend closing code blocks etc -->
+{% block contenthtml %}
+<div id="topaccounts-compare">
+    <div class="content-width">
+        <div class="table-section">
+            <p class="return-link"><a href="{% url 'healthcheck-portfolio' %}">< Back to all accounts</a></p>
+            <div class="header">
+                <h1><span>Your {{portfolio.account_type}} compared to the Top 5</span></h1>
+            </div>
+            <div class="product-section">
+                <table class="table table-bordered">
+                    <tr>
+                        <td class="your-account">Your Account</td>
+                        {% for product in products %}
+                            <td class="{% cycle 'odd' 'even'%}">{{forloop.counter}}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td class="your-account">
+                            <div class="logo">
+                                {% if portfolio.provider.logo %}<img class="img-responsive" src="{{MEDIA_URL}}{{portfolio.provider.logo }}" alt="Logo for {{portfolio.provider}}">{% else %}{{product.provider}}{% endif %}
+                                <p>{{portfolio.account_type}}</p>
+                            </div>
+                        </td>
+                        {% for product in products %}
+                            <td class="{% cycle 'odd' 'even'%}">
+                                <div class="logo">
+                                    {% if product.provider.logo %}<img class="img-responsive" src="{{MEDIA_URL}}{{product.provider.logo }}" alt="Logo for {{product.provider}}">{% else %}{{product.provider}}{% endif %}
+                                    <p>{{product.title}}</p>
+                                </div>
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="{{ products.count }}" class="td-heading"><h3>Our Verdict</h3></td>
+                    </tr>
+                    
+                    <tr>
+                        <td></td>
+                        {% for product in products %}
+                            <td class="{% cycle 'odd' 'even'%}">
+                                <div class="verdict">
+                                    <p>{{product.verdict}}</p>
+                                </div>      
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    
+                    
+                    <tr>
+                        <td colspan="{{ products.count }}" class="td-heading"><h3>Term</h3></td>
+                    </tr>
+                    
+                    <tr>
+                        <td></td>
+                        {% for product in products %}
+                            <td class="{% cycle 'odd' 'even'%}">
+                                <div class="verdict">
+                                    <p>{{product.get_term}}</p>
+                                </div>      
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td colspan="{{ products.count }}" class="td-heading"><h3>Gross Interest Rate</h3></td>
+                    </tr>
+                    
+                    <tr>
+                        <td></td>
+                        {% for product in products %}
+                            <td class="{% cycle 'odd' 'even'%}">        
+                                <div class="gross-rate">
+                                    <p>{{product.gross_rate|floatformat:2}}%</p>
+                                </div>
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    
+                    
+                    <tr>
+                        <td colspan="{{ products.count }}" class="td-heading"><h3>AER</h3></td>
+                    </tr>
+                    
+                    <tr>
+                        <td></td>
+                        {% for product in products %}
+                            <td class="{% cycle 'odd' 'even'%}">        
+                                <div class="aer-rate">
+                                    <p>{{product.aer|floatformat:2}}%</p>
+                                </div>  
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    
+                    
+                    
+                    <tr>
+                        <td colspan="{{ products.count }}" class="td-heading"><h3>Minimum Deposit</h3></td>
+                    </tr>
+                    
+                    <tr>
+                        <td></td>
+                        {% for product in products %}
+                            <td class="{% cycle 'odd' 'even'%}">        
+                                <div class="min-deposit">
+                                    <p>&pound;{{product.minimum|intcomma}}</p>
+                                </div>
+                                
+                            </td>
+                        {% endfor %}
+                    </tr>
+                                        
+                    <tr>
+                        <td colspan="{{ products.count }}" class="td-heading"><h3>Access</h3></td>
+                    </tr>
+                    
+                    <tr>
+                        <td></td>
+                        {% for product in products %}
+                            <td class="{% cycle 'odd' 'even'%}">        
+                                <div class="access">
+                                    <p>
+                                        {{product.get_access}}
+                                    </p>
+                                </div>
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    
+                    {% if portfolio.account_type.title == "Variable Rate ISA" or portfolio.account_type.title == "Fixed Rate ISAs" %}
+                        <tr>
+                            <td colspan="{{ products.count }}" class="td-heading"><h3>Transfers in allowed</h3></td>
+                        </tr>
+                        
+                        <tr>
+                            <td></td>
+                            {% for product in products %}
+                                <td class="{% cycle 'odd' 'even'%}">
+                                    <div class="verdict">
+                                        <p>{% if product.is_isa_transfers_in %}Yes{% else %}No{% endif %}</p>
+                                    </div>      
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <td colspan="{{ products.count }}" class="td-heading"><h3>Facts</h3></td>
+                    </tr>
+                    
+                    <tr>
+                        <td></td>
+                        {% for product in products %}
+                            <td class="{% cycle 'odd' 'even'%}">        
+                                <div class="facts">
+                                    <p>{{product.facts}}</p>
+                                </div>    
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="{{ products.count }}" class="td-heading"><h3>Financial Services Compensation Scheme</h3></td>
+                    </tr>
+                    
+                    <tr>
+                        <td></td>
+                        {% for product in products %}
+                            <td class="{% cycle 'odd' 'even'%}">
+                                <div class="facts">
+                                    <p>{{product.fscs_licence}}</p>
+                                </div>    
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td></td>
+                        {% for product in products %}
+                            <td class="{% cycle 'odd' 'even'%}">
+                                <div class="apply">
+                                    <a class="apply-link" href="{{product.url}}"><input type="button"
+                                                                                        class="btn btn-success"
+                                                                                        value="Apply Now"></a>
+                                </div>      
+                            </td>
+                        {% endfor %}
+                    </tr>
+                </table>
+            </div> 
+        </div>            
+    </div>    
+</div>
+{% endblock contenthtml %}

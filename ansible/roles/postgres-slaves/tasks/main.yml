@@ -1,0 +1,18 @@
+---
+
+- name: Ensure Postgresql is stopped
+  service: name=postgresql state=stopped
+  sudo: true
+
+- name: Remove existing databases
+  file: path=/var/lib/postgresql/9.3/ state=absent
+
+- name: Clone all data from master_database
+  command: repmgr -D /var/lib/postgresql/9.3/main/ --force -d savings_champion -p 5432 -U repmgr -R postgres standby clone {{ item }}
+  with_items: groups['master_database']
+  sudo: true
+  sudo_user: postgres
+
+- name: Ensure Postgresql is started
+  service: name=postgresql state=started
+  sudo: true

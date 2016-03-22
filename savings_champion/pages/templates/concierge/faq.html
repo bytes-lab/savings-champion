@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Concierge Managed Savings Service
+{% endblock %}
+
+{% block meta_description %}
+    Frequently asked questions about the Concierge Managed Savings Service
+{% endblock %}
+
+{% block bannertext %}
+<div id="left-banner">
+    <h2>Concierge Service</h2>
+    <h5>Moving your money around for the best interest rates can be a pain. 
+        Let us do the hard work for you</h5>
+</div>
+{% endblock bannertext %}
+
+{% block contenthtml %}
+
+<div id="concierge-faq">
+    <div class="content-width">
+        <div class="question-section">
+            <h1><span>Frequently Asked Questions</span></h1>
+            {% for faq in faqs %}
+                <div id="{{ faq.question|slugify }}" class="question-block">
+                    <div class="question">
+                        <p>{{faq.question}}</p>
+                        <a href="#" class="arrow close-arrow">
+                            <img class="expanded-arrow-img" src="{{STATIC_URL}}img/portfolio/downarrow.png" alt="Minimise Portfolio Button">
+                            <img class="closed-arrow-img" style="display: none;" src="{{STATIC_URL}}img/portfolio/sidearrow.png" alt="Minimise Portfolio Button">
+                        </a>
+                    </div>
+                    <div class="answer">{{faq.answer|safe}}</div>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <div class="enquiry-section">
+            <div class="enquire">
+                <p>Enquire Now - 0800 321 3581</p>
+                <form action="{% url 'concierge_thankyou' %}" method="post" class="form concierge-form">
+                    {% csrf_token %}
+                    {{form.name.label_tag}}{{form.name}}
+                    {{form.email.label_tag}}{{form.email}}
+                    {{form.telephone.label_tag}}{{form.telephone}}
+                    {{form.timetocall.label_tag}}{{form.timetocall}}
+                    <input type="submit" value="Enquire Now" class="bluesubmit concierge-faq-signup form-control">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock contenthtml %}
+
+{% block footer_scripts %}
+    <script type="text/javascript" src="{{STATIC_URL}}js/faq/faq.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/libs/additional-methods.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/validation/concierge-faq-val.js"></script>
+{% endblock footer_scripts %}

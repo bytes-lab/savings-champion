@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% load block_tags cache static %}
+
+{% block title %}
+    Rate Tracker
+{% endblock %}
+
+{% block meta_description %}
+    Loyalty rarely pays for savers. Don’t get caught out by your bank. Get a free savings healthcheck.
+{% endblock %}
+
+{% cache 43200 healthcheck_landing %}
+{% block bannertext %}
+<div id="left-banner">
+    {% get_static_block healthcheck-landing banner.heading as block %}
+        <h2>{{block|safe|striptags}}</h2>
+    {% get_static_block healthcheck-landing banner.subheading as block %}
+        <h5>{{block|safe|striptags}}</h5>
+</div>
+{% endblock bannertext %}
+
+{% block subbanner %}
+<div id="healthcheck-subbanner">
+    <div class="additional-banner"><!-- required so we can overlap the next div --></div>
+    <div class="savings-healthcheck-container container">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 style="text-align: center">Rate Tracker</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <img class="center-block" src="{% static 'img/index/step1-old.png' %}" alt="Step 1 Image"/>
+                {% get_static_block healthcheck-landing banner.step1 as block %}
+                <span class="center-block text-center">{{ block|safe }}</span>
+            </div>
+            <div class="col-md-4">
+                <img class="center-block" src="{% static 'img/index/step2-old.png' %}" alt="Step 2 Image"/>
+                {% get_static_block healthcheck-landing banner.step2 as block %}
+                <span class="center-block text-center">{{ block|safe }}</span>
+            </div>
+            <div class="col-md-4">
+                <img class="center-block" src="{% static 'img/index/step3-old.png' %}" alt="Step 3 Image"/>
+                {% get_static_block healthcheck-landing banner.step3 as block %}
+                <span class="center-block text-center">{{ block|safe }}</span>
+            </div>
+        </div>
+    </div>
+        <div class="signup">
+            <form action="{% url 'healthcheck_signup' %}" method="post" class="content-width signup-form form-inline">
+                {% csrf_token %}
+
+                {% for f in form.hidden_fields %}
+                    {{ f }}
+                {% endfor %}
+
+                <span>Enter your email address to get started: </span>
+                {{form.email}}
+                <input type="submit" alt="Submit" value="Take the One Minute Healthcheck" class="index-signup healthcheck-signup btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock subbanner %}
+
+{% block contenthtml %}
+<div id="healthcheck-landing">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="how-it-works-section" class="panel panel-default">
+                    <div class="how-it-works-header">
+                        <h1><span>How it works</span></h1>
+                    </div>
+                    <div class="section-block">
+                        <div class="image-block left">
+                            <img src="{% static 'img/healthcheck/img1.png' %}" alt="Step 2 Image"/>
+                        </div>
+                        <div class="text-block right">
+                            {% get_static_block healthcheck-landing howitworks.step1 as block %}
+                            {{ block|safe }}
+                        </div>
+                    </div>
+                    <div class="section-block">
+                        <div class="image-block right">
+                            <img src="{% static 'img/healthcheck/img2.png' %}" alt="Step 2 Image"/>
+                        </div>
+                        <div class="text-block left">
+                            {% get_static_block healthcheck-landing howitworks.step2 as block %}
+                            {{ block|safe }}
+                        </div>
+                    </div>
+                    <div class="section-block">
+                        <div class="image-block left">
+                            <img src="{% static 'img/healthcheck/img3.png' %}" alt="Step 2 Image"/>
+                        </div>
+                        <div class="text-block right">
+                            {% get_static_block healthcheck-landing howitworks.step3 as block %}
+                            {{ block|safe }}
+                        </div>
+                    </div>
+                    <div class="section-block">
+                        <div class="image-block right">
+                            <img src="{% static 'img/healthcheck/img4.png' %}" alt="Step 2 Image"/>
+                        </div>
+                        <div class="text-block left">
+                            {% get_static_block healthcheck-landing howitworks.step4 as block %}
+                            {{ block|safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="panel panel-default" style="width:50%;margin:15px auto;">
+                <div class="panel-heading">
+                    <h3>Enter your email address to get started: </h3>
+                </div>
+                <div class="panel-body">
+                    <form action="{% url 'healthcheck_signup' %}" method="post" class="form-inline">
+                        {% csrf_token %}
+
+                        {% for f in form.hidden_fields %}
+                            {{ f }}
+                        {% endfor %}
+                        <div>
+                            {{ form.email }}
+                            <input type="submit" alt="Submit" value="Sign up now, it's FREE!"
+                                   class="index-signup btn btn-primary btn-block">
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="faq-block">
+                <div class="faq-header">
+                    <h3>Frequently asked questions</h3>
+                </div>
+                <div class="faq-questions">
+                    <ul>
+                        {% load faq_tags %}
+
+                        {% get_healthcheck_faqs as faqs %}
+                        {% for faq in faqs %}
+                            <li>
+                                <a href="{% url 'healthcheck_faq' %}#{{ faq.question|slugify }}">> {{ faq.question }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="faq-link">
+                    <p><a href="{% url 'healthcheck_faq' %}">View all ></a></p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+{% endblock contenthtml %}
+
+
+{% block footer_scripts %}
+    <script type="text/javascript" src="{% static 'js/analytics/healthcheck_landing.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/validation/healthcheck-landing-val.js' %}"></script>
+{% endblock footer_scripts %}
+
+{% endcache %}

@@ -1,0 +1,16 @@
+{% extends "pages/generic.html" %}
+{% load page_tags %}
+
+{% block title %}
+{% get_block newsletters.complete as message %}
+{{message.block_title}}
+{% endblock title %}
+{% block meta_description %}{% get_block newsletter.meta as message %}
+<meta name="description" content="{{message.text|striptags}}">
+{% endblock meta_description %}
+{% block content %}
+	{% get_block newsletters.complete as message %}
+	<h1>{{message.block_title}}</h1>
+
+	{{message.text|safe}}
+{% endblock content %}

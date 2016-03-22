@@ -1,0 +1,299 @@
+ 
+<script type="text/javascript">
+  decisionMessageTexts = {
+     id_investment_amount : {
+      changeAction : function() {
+        $('#id_investment_amount').valid();
+      },
+      validate : function(inputElem) {
+        var val = $(inputElem).val();
+        if(parseInt(val) && parseInt(val) > 85000) {
+          if($(inputElem).parent().siblings('.u-message').html() == "") {
+            inputElem.attr('fix', 'true');
+          }
+          return "value2";
+        } else {
+          return "value1";
+        }
+      },
+      value1 : "It's considered wise to keep at least 3 - 6 months worth of income in available cash, in case of emergency.  Any more than that may or may not be appropriate, depending on the level of risk you are happy to take.",
+      value2 : "The FSCS will protect up to &pound;85,000 per person, per savings institiution, so investing any more than that with one provider may leave some of your cash vulnerable, if they were to go bust."
+    },
+    id_estate_value : "It's generally considered wise not to put all of your money into the same type of investment as even lower risk products such as cash can be damaging to your wealth over the longer term.  Having a balanced investment portfolio is generally more sensible but what this comprises of is down to how much risk you are prepared to take.",
+    id_easy_access_required : {
+      action : function(inputElem) {
+        if($(inputElem).val() == "No") {
+          $(inputElem).parent().siblings('a').show();
+        } else {
+          $(inputElem).parent().siblings('a').hide();
+        }
+      },
+      Yes : "As you have indicated that you need access to your cash, an easy access account may be the most appropriate type of account for you.  <a href='/best-buys/'>Click here</a> to go through to our best buys section.  You should be aware that if you are prepared to tie up at least some of your cash, you may be able to get a better return",
+      No : "",
+      none : ""
+    },
+    id_terms : {
+      action : function(inputElem) {
+        if($(inputElem).val() == "More than 1 Year" || $(inputElem).val() == "More than 5 Years" ) {
+          $(inputElem).parent().siblings('a').show();
+        } else {
+          $(inputElem).parent().siblings('a').hide();
+        }
+      },
+      none : "",
+      '1 Year' : "If you are likely to want access to the money within a year, cash is really the best place to keep your money, as in the shorter term there is less risk to its value.  However, if you are unlikely to need access to all of the money and would like to see the value grow in real terms over time, some alternative investments, as well as cash, may be more appropriate.",
+      'More than 1 Year' : "",
+      'More than 5 Year2' : "",
+    },
+    id_growth_income : {
+      action : function(inputElem) {
+        if($(inputElem).val() != "none") {
+          $(inputElem).parent().siblings('a').show();
+        } else {
+          $(inputElem).parent().siblings('a').hide();
+        }
+      },
+      validate : function(inputElem) {
+        var termVal = $('#id_terms').val();
+	
+	var val = $(inputElem).val();
+        if(val == "none") {
+          return 'none';
+        }
+        if(termVal == 'More than 1 Year') {
+          if(val == "Growth") {
+            return 'growthShortFull';
+          }
+          if(val == "Income") { 
+            return 'incomeShortFull';
+          }
+        }
+        if(termVal == 'More than 5 Years') {
+          if(val == "Growth") {
+            return 'growthLongFull';
+          }
+          if(val == "Income") {
+            return 'incomeLongFull';
+          }
+        }
+        if(termVal == 'none') {
+          if(val == "Growth") {
+            return 'growthShort';
+          }
+          if(val == "Income") {
+            return 'incomeShort';
+          }
+        }
+        if(termVal == 'none') {
+          if(val == "Growth") {
+            return 'growthLong';
+          }
+          if(val == "Income") {
+            return 'incomeLong';
+          }
+        }
+        return "none";
+      },
+      none : "",
+      incomeShort : "If you feel able to tie some of your money up, fixed rate bonds may be the most appropriate cash investment, as they will produce a fixed interest for an agreed term, However, the capital value will always remain the same if you withdraw the income and therefore fall in real terms over time, due to inflation.  If you are happy to take a little more risk with some of your money, or if you don't think you'll need access to all of the capital, other investment opportunities may be appropriate so you may want to talk to a financial adviser about alternative options to cash.",
+      incomeLong : "It's important to distinguish between interest and income as if you are dependent on your capital to supplement the income you need for day to day expenses, then it's unlikely you can afford to use that capital in anyway than to produce that income.  As a result, do you really need income and access to the capital.  If you do, then you'll need to leave you money in cash.  However, the capital value will always remain the same if you withdraw the income and therefore fall in real terms over time, due to inflation.  ",
+      growthShort : "If you may need access to your money within a five year period, your options in addition to cash investments are limited.  You may be able to get a better return in a fixed rate bond, but remember that if interest rates rise, the fixed rate bond rates will not rise as well, so think carefully before tying up all your money.",
+      growthLong : "As you are looking for growth from your savings, leaving everything in cash may not be appropriate, especially with inflation being so relatively high.  But where you can invest does depend on how long you are prepared to tie up your money and how mush risk you are happy to take.",
+      incomeShortFull : "If you need income from your cash it's really important to shop around for the best rates as interest rates are very low at the moment, whilst inflation is high, which can be a very damaging combination.  <br /> <br /> If you feel able to tie some of your money up, fixed rate bonds may be the most appropriate cash investment, as they will produce a fixed interest for an agreed term, However, the capital value will always remain the same if you withdraw the income and therefore fall in real terms over time, due to inflation.  If you are happy to take a little more risk with some of your money, or if you don't think you'll need access to all of the capital, other investment opportunities may be appropriate so you may want to talk to a financial adviser about alternative options to cash.",
+      incomeLongFull : "If you need income from your cash it's really important to shop around for the best rates as interest rates are very low at the moment, whilst inflation is high, which can be a very damaging combination.  <br /><br /> It's important to distinguish between interest and income as if you are dependent on your capital to supplement the income you need for day to day expenses, then it's unlikely you can afford to use that capital in anyway than to produce that income.  As a result, do you really need income and access to the capital.  If you do, then you'll need to leave you money in cash.  However, the capital value will always remain the same if you withdraw the income and therefore fall in real terms over time, due to inflation.  ",
+      growthShortFull : "As you are looking for growth from your savings, leaving everything in cash may not be appropriate, especially with inflation being so relatively high.  But where you can invest does depend on how long you are prepared to tie up your money and how mush risk you are happy to take.<br /><br /> If you may need access to your money within a five year period, your options in addition to cash investments are limited.  You may be able to get a better return in a fixed rate bond, but remember that if interest rates rise, the fixed rate bond rates will not rise as well, so think carefully before tying up all your money.",
+      growthLongFull : "As you are looking for growth from your savings, leaving everything in cash may not be appropriate, especially with inflation being so relatively high.  But where you can invest does depend on how long you are prepared to tie up your money and how mush risk you are happy to take.<br /><br /> As you are looking for growth rather than income, if you are happy to leave the money invested for at least five years, a balanced investment portfolio may be more sensible than leaving everything in cash, but it's best to seek advice, as how much risk you are prepared to take will have a bearing on where you should invest."
+    },
+    id_uk_tax_payer : {
+      merge : "id_marital_status"
+    },
+    id_marital_status : {
+      validate : function(inputElem) {
+        //merged with id_uk_tax_payer
+        var taxVal = $('#id_uk_tax_payer').val();
+        var marriedVal = $('#id_marital_status').val();
+
+        var returnVal = "empty";
+
+        if(taxVal == "Yes") {
+          if(marriedVal == "Single" || marriedVal == "Divorced" || marriedVal == "Widowed" || marriedVal == "") {
+            returnVal = "taxNotMarried";
+          } else if(marriedVal == "Married") {
+            returnVal = "taxMarried";
+          }
+        }
+
+        if(taxVal == "No") {
+          if(marriedVal == "Single" || marriedVal == "Divorced" || marriedVal == "Widowed" || marriedVal == "") {
+            returnVal = "nontaxNotMarried";
+          } else if(marriedVal == "Married") {
+            returnVal = "nontaxMarried";
+          }
+	}
+
+
+        return returnVal;
+      },
+      action : function(inputElem) {
+        var taxVal = $('#id_uk_tax_payer').val();
+	var marriedVal = $('#id_marital_status').val();
+
+        if(taxVal != 'none' && marriedVal != "none") {
+          $(inputElem).parent().siblings('a').show();
+        } else {
+          $(inputElem).parent().siblings('a').hide();
+        }
+      },
+      empty : "",
+      taxMarried : "As you are married, it's sensible to ensure that you both consider using your tax allowances, such as ISAs, pensions and even capital gains tax allowances, in order to keep the tax you pay on your savings and investments to a minimum.",
+      taxNotMarried : "It's sensible to check that you are using all of your appropriate tax allowances such as ISAs, pensions and even capital gains tax allowances, in order to keep the tax you pay on your savings and investments to a minimum.  ",
+      nontaxMarried : "Even though you are a non taxpayer, it's still wise to consider using the tax allowances that are available in case your circumstances change. And as you are married, make sure that you are both using your allowances.",
+      nontaxNotMarried : "Even though you are a non taxpayer, it's still wise to consider using the tax allowances that are available in case your circumstances change."
+      },
+      id_account_type : {
+        savings_ac : "", 
+        cash_isa : "",
+        kids_ac : "From the answer you have supplied, we suggest you take a look at our <a href='{% url view_bestbuy_table 'childrens' %}'>Childrens Best Buy table</a>.",
+        regular : "From the answer you have supplied, we suggest you take a look at our <a href='{% url view_bestbuy_table 'regular-savings' %}'>Regular Savings table</a>.", 
+        none : ""
+      },
+      id_access : {
+        Easy: "From the answers you have supplied, we suggest you take a look at our Easy Acess BB",
+        Notice: "From the answers you have supplied, we suggest you take a look at our Notice BB",
+        FixedBonds: "From the answers you have supplied, we suggest you take a look at our Fixed Bonds BB",
+        VariableIsa: "From the answers you have supplied, we suggest you take a look at our Variable ISA",
+        FixedRateIsa: "From the answers you have supplied, we suggest you take a look at our Fixed rate ISA BB"
+      },
+      id_is_monthly_income : {
+            validate : function (inputElem) {
+
+            //this shouldn't be here now
+            var val = $(inputElem).val();
+
+            if(val == "none" || val == "No"){
+              return "none";
+            } else if(val == "Yes") {
+              return "Yes";
+            }
+
+            
+            return "magic";
+        },
+        none : "",
+        Yes : "From the answer you have supplied, we suggest you take a look at our <a href='{% url view_bestbuy_table 'monthly-income' %}'>Monthly Income table</a>.",
+        magic : "Magic",
+        Easy: "From the answers you have supplied, we suggest you take a look at our Easy Acess BB",
+        Notice: "From the answers you have supplied, we suggest you take a look at our Notice BB",
+        FixedBonds: "From the answers you have supplied, we suggest you take a look at our Fixed Bonds BB",
+        VariableIsa: "From the answers you have supplied, we suggest you take a look at our Variable ISA",
+        FixedRateIsa: "From the answers you have supplied, we suggest you take a look at our Fixed rate ISA BB"
+      }
+  };
+
+  //get and display message if available for form elements
+  function decisionMessage(inputElem, change) {
+    var message = '';
+    var messageObj;
+    var noFade = false;
+
+    //if we can't find the id then bail out.
+    if( typeof decisionMessageTexts[$(inputElem).attr("id")] === 'undefined') {
+      return;
+    }
+    messageObj = decisionMessageTexts[$(inputElem).attr("id")];
+
+    //check if the logic for this element is merged with
+    if( typeof messageObj["merge"] !== 'undefined') {
+      messageObj = decisionMessageTexts[messageObj["merge"]];
+    }
+
+    //account for different change message
+    if( typeof messageObj["change"] !== 'undefined' && change) {
+      messageObj = messageObj["change"];
+    }
+
+    //simple string goes straight to message
+    if( typeof messageObj == "string") {
+      message = decisionMessageTexts[$(inputElem).attr("id")];
+    } else {
+      if( typeof messageObj.validate !== 'undefined') {
+        //something more complex required
+        messageChoice = messageObj.validate(inputElem);
+        message = messageObj[messageChoice];
+        noFade = true;
+      } else {
+        //the simple case of a select element
+        message = messageObj[$(inputElem).val()];
+      }
+    }
+
+    //call any actions
+    if( typeof messageObj.action !== 'undefined') {
+      messageChoice = messageObj.action(inputElem);
+    }
+
+    if( typeof messageObj.changeAction !== 'undefined' && change) {
+      messageChoice = messageObj.changeAction(inputElem);
+    }
+
+    //XXX fragile relies on the message box being a sibling of the parent of this
+    if(message == '' || typeof message === 'undefined') {
+      $(inputElem).parent().siblings('.u-message').html(message).hide();
+      return;
+    }
+
+    var fadeTime = 1000;
+    //fade in time in ms
+    if(change && noFade) {
+      fadeTime = 0;
+    }
+
+    //if message is fixed from validation then append for one shot
+    /*if( typeof $(inputElem).attr('fix') !== 'undefined' && $(inputElem).attr('fix')) {
+      message = $(inputElem).parent().siblings('.u-message').html() + " <hr> " + message;
+      //inputElem.attr('fix','false');
+    }*/
+
+    // we're about to create a message, check if we already had one on screen
+    $msg = $(inputElem).parents('div.pane').find('p.u-message');
+    if($msg.length > 0) {
+      $msg.html(message).show();
+    } else {
+       $msg = $('<p class="u-message">' + message + "</p>");
+       $msg.insertAfter($(inputElem).parents('div.pane').children('p:last'));
+    }
+    return;
+  }
+
+  function resetForm() {
+    $('#desForm')[0].reset();
+    $('.u-message').hide();
+    $('label.error').hide();
+    return true;
+  }
+
+  //wrapper around descisionMessage sets change to true
+  function decisionChangeMessage(inputElem) {
+    decisionMessage(inputElem, true);
+  }
+
+  //attach message functionality to events.
+$(function() {
+    $('div.decision-tree :input').focus(function() {
+      decisionMessage($(this), false);
+    });
+    $('div.decision-tree :input').change(function() {
+      decisionChangeMessage($(this));
+    });
+    $('#reset-des').click(function () {
+      resetForm();
+    });
+    //reset the form on load otherwise validation is difficult
+    var $forms = $('#desForm');
+    if(($forms != undefined) && ($forms.length > 0)){
+	    $forms[0].reset();
+    }
+
+});
+
+</script>

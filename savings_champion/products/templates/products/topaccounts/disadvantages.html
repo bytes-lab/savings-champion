@@ -1,0 +1,4 @@
+{% load static %}
+{% for con in cons %}
+<p><img src="{% get_static_prefix %}img/disadvantage.png" alt="Disadvantage"  class="procon-symbol"/>{{con.text}}</p>
+{% endfor %}

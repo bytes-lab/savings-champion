@@ -1,0 +1,37 @@
+Hi {{ first_name }}, thanks for signing our petition!
+
+Even though we've only just launched our campaign, we have already written to George Osborne, Chancellor of the Exchequer.
+
+We hope he will use this golden opportunity for savers, at no cost to the government in his 2014 budget statement. We have attached our letter to this email.
+
+It's a good start but just the very beginning and we need your help.
+
+The bigger the petition, the bigger the message we send that savers deserve better from banks and building societies.
+
+Can you forward the email below to your friends now and ask them to add their names to the petition?
+
+Can you also spread the word on Facebook and Twitter, if you use them? You can tell your friends about the petition easily by clicking the quick links below:
+
+Facebook share: http://www.facebook.com/sharer.php?u=http%3A%2F%2Fbit.ly%2F1lbOElS%20%23switchmysavings
+Twitter share: http://twitter.com/share?text=Get%20better%20interest%20rates%20on%20your%20savings.%20Join%20our%20campaign%20%27Switch%20my%20Savings%27%20http%3A%2F%2Fbit.ly%2F1lbOElS%20%23switchmysavings
+
+Thanks again,
+Anna Bowes and the SavingsChampion team
+
+--
+
+Hi,
+
+Have a look at this:
+https://www.savingschampion.co.uk/switch-my-savings-petition-campaign/
+
+Savers need help! With record low interest rates savers have suffered for long enough and providers are profiting from your inertia.
+
+I've signed a petition telling George Osborne to help make it easier to switch savings accounts, which will increase competition and in turn improve rates, without costing the government a penny.
+
+If enough of us get involved we can empower change.
+
+Please sign the petition here:
+https://www.savingschampion.co.uk/switch-my-savings-petition-campaign/
+
+From, {{ first_name }}

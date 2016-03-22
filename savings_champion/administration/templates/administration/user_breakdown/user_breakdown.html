@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags static %}
+
+{% block bannertext %}
+    <h3>User Breakdown</h3>
+{% endblock %}
+
+{% block contenthtml %}
+    <div class="container-fluid">
+    {% include 'administration/user_breakdown/user_breakdown_ajax.html' %}
+    </div>
+{% endblock %}
+
+{% block footer_scripts %}
+    <script src="{% static 'js/administration/user_breakdown.js' %}"></script>
+{% endblock %}

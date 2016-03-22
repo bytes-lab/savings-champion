@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags crispy_forms_filters static %}
+
+{% block bannertext %}
+    <h3>Add Bestbuy</h3>
+{% endblock %}
+
+{% block additional_head %}
+    {{ form.media.css }}
+{% endblock %}
+
+{% block contenthtml %}
+
+<div class="container">
+
+  <p>{{success}}</p>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#personal" aria-controls="Personal Bestbuys" role="tab" data-toggle="tab">Personal</a></li>
+    <li role="presentation"><a href="#business" aria-controls="Business Bestbuys" role="tab" data-toggle="tab">Business</a></li>
+    <li role="presentation"><a href="#charity" aria-controls="Charity Bestbuys" role="tab" data-toggle="tab">Charity</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+<form action="{% url 'manual_bestbuy_add' %}" method="post">
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="personal">
+    {{ personal_formset.management_form|crispy }}
+    {% for form in personal_formset %}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                {% crispy form %}
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+    <div role="tabpanel" class="tab-pane" id="business">
+    {{ business_formset.management_form|crispy }}
+    {% for form in business_formset %}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                {% crispy form %}
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+    <div role="tabpanel" class="tab-pane" id="charity">
+    {{ charity_formset.management_form|crispy }}
+    {% for form in charity_formset %}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                {% crispy form %}
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+        <input type="submit" class="btn btn-primary" value="Update Bestbuy Tables">
+  </div>
+</form>
+
+</div>
+
+
+
+{% endblock %}

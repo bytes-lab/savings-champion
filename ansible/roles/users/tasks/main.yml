@@ -1,0 +1,4 @@
+---
+- name: Create Savings Champion User
+  user: name=savingschampion shell=/bin/bash groups=sudo append=yes state=present 
+  sudo: true

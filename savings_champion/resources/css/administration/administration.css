@@ -1,0 +1,92 @@
+/* file used to tidy up some small parts of the administration pages
+ * #administration-index
+ * #ip-list
+ * #fscs
+ *
+ * */
+/*
+ *
+ * #administration-index
+ * =========================================================================
+ */
+#administration-index {
+  text-align: left;
+  padding: 10px 0px; }
+  #administration-index h3 {
+    margin: 10px 0px;
+    border-bottom: 1px solid black; }
+  #administration-index a {
+    color: #0099CC;
+    margin-bottom: 10px;
+    display: block; }
+
+/*
+ *
+ * #ip-list
+ * =========================================================================
+ */
+#iplist {
+  text-align: center;
+  margin: auto;
+  padding: 30px; }
+  #iplist table {
+    border-collapse: collapse; }
+  #iplist td {
+    width: 300px;
+    border: 1px solid black;
+    text-align: center; }
+
+/*
+ *
+ * #fscs
+ * ==================================================================
+ */
+#fscs {
+  padding: 30px 0px;
+  overflow: auto; }
+  #fscs .left-section {
+    float: left;
+    display: inline-block;
+    width: 25%; }
+  #fscs .right-section {
+    float: right;
+    width: 74%;
+    display: inline-block; }
+  #fscs .show-all {
+    text-align: left;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px; }
+  #fscs .box-section {
+    text-align: center;
+    width: 100%; }
+    #fscs .box-section .box {
+      display: inline-block;
+      background-color: #E77207;
+      border: white 1px solid;
+      color: white;
+      font-weight: bold;
+      width: 125px;
+      height: 100px;
+      font-size: 14px;
+      cursor: pointer; }
+      #fscs .box-section .box .provider-parent {
+        display: none; }
+      #fscs .box-section .box p {
+        padding: 5px; }
+    #fscs .box-section .active {
+      background-color: #0085B2;
+      color: black; }
+
+.print-header {
+  display: none; }
+
+@media print {
+  #portfolio .menu-section, .compare, .apply-now, .arrow, .add-products-button, #advisor-box, .push, .updateportfolio, .delete {
+    display: none; }
+  .print-header {
+    display: block; }
+  #portfolio-container, .content-width {
+    width: auto; } }
+
+/*# sourceMappingURL=administration.css.map */

@@ -1,0 +1,118 @@
+{% load cache static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/external/mymoneydiva.css' %}"/>
+</head>
+<body>
+{#{% cache 43200 'money2themasses' bestbuy_table bestbuy.slug user.is_authenticated %}#}
+    <div class="comp-table comp-5-col all-layout">
+        <div class="row">
+        {% for product in products %}
+            {% if forloop.counter|divisibleby:5 %}
+            <div class="one_fifth last">
+            {% else %}
+            <div class="one_fifth">
+            {% endif %}
+                <ul class="comp-col layout-wrap" data-sc-uuid="{{ product }}">
+                    <li class="number">
+                    <span class="cell">
+                        <span>{{ forloop.counter }}</span>
+                    </span>
+                    </li>
+                    <li class="logo">
+                    <span class="cell">
+                        <img class="image" src="{% static product.provider.logo.url %}">
+                    </span>
+                    </li>
+                    <li class="text ">
+                        <span class="cell"><b>{{ product.title }}</b></span>
+                    </li>
+                    {% if bestbuy.title == 'Fixed Rate Bonds' or bestbuy.title == "Fixed Rate ISAs" %}
+                        <li class="text ">
+                            <span class="cell"><b>Term:</b> {{ product.term }} months</span>
+                        </li>
+                    {% endif %}
+
+                    {% if bestbuy.title == "Notice Accounts" %}
+                        <li class="text ">
+                            <span class="cell"><b>Term:</b> {{ product.notice }} days</span>
+                        </li>
+                    {% endif %}
+
+                    {% if bestbuy.title == "Variable Rate ISAs" or bestbuy.title == "Fixed Rate ISAs" %}
+                        <li class="text ">
+                        <span class="cell"><b>Transfers In:</b> {% if product.is_isa_transfers_in %}Yes{% else %}
+                            No{% endif %}</span>
+                        </li>
+                    {% endif %}
+
+                    {% if bestbuy.title == "Regular Savings" %}
+                        <li class="text ">
+                            <span class="cell"><b>Minimum Monthly:</b> £{{ product.minimum_monthly }}</span>
+                        </li>
+                        <li class="text ">
+                            <span class="cell"><b>Maximum Monthly:</b> £{{ product.maximum_monthly }}</span>
+                        </li>
+                    {% endif %}
+
+                    <li class="text emphasize">
+                        <span class="cell">{{ product.aer|floatformat:"-2" }}% AER</span>
+                    </li>
+                    <li class="text ">
+                        <span class="cell"><b>Minimum Deposit:</b> £{{ product.minimum }}</span>
+                    </li>
+                    <li class="text ">
+                        <span class="cell"><b>Access:</b> {{ product.get_access }}</span>
+                    </li>
+                    <li class="text ">
+                    <span class="cell"><b>Safety:</b>
+                        {% if product.fscs_licence == 'Own Licence' or product.fscs_licence == 'Shared Licence' %}
+                            Full £85,000 UK protection, {{ product.fscs_licence }}
+                        {% elif product.fscs_licence == 'The Treasury' %}
+                            Unlimited Protection, protected by The Treasury.
+                        {% elif product.fscs_licence == 'Own Licence - EEA Netherlands' %}
+                            Protected by the EEA, up to 100,000 Euros
+                        {% else %}
+                            Protection level currently unknown
+                        {% endif %}
+                    </span>
+                    </li>
+
+                    {% if bestbuy.slug == "childrens-accounts" %}
+                        <li class="text ">
+                            <span class="cell"><b>Minimum Age:</b> {{ product.minimum_age }}</span>
+                        </li>
+                        <li class="text ">
+                            <span class="cell"><b>Maximum Age:</b> {{ product.maximum_age }}</span>
+                        </li>
+                    {% endif %}
+
+                    <li class="text ">
+                        <span class="cell"><b>Notes:</b> {{ product.facts }}</span>
+                    </li>
+                    <li class="link">
+                    <span class="cell">
+                        <a href="{{ bestbuy.get_bestbuy_table }}?utm_source=mymoneydiva&utm_medium=cpa&utm_term=bestbuy&utm_campaign=mymoneydiva"
+                           class="read-more" target="_parent">More info</a>
+                    </span>
+                    </li>
+                </ul>
+            </div>
+            {% if forloop.counter|divisibleby:5 %}
+                </div>
+                <div class="row">
+            {% endif %}
+        {% endfor %}
+        </div>
+        <div class="clear"></div>
+        <div class="center">
+            <h3>Best buys provided by unbiased savings advice website, <a href="https://savingschampion.co.uk?utm_source=mymoneydiva&utm_medium=cpa&utm_term=bestbuy&utm_campaign=mymoneydiva">SavingsChampion.co.uk</a></h3>
+        </div>
+    </div>
+{#{% endcache %}#}
+</body>
+</html>
+

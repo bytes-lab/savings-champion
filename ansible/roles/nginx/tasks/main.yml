@@ -1,0 +1,47 @@
+---
+- name: Install Nginx
+  apt: name=nginx state=latest
+  sudo: true
+
+- name: Upload SSL Certificate and Key
+  copy: src={{ item }} dest=/etc/nginx/
+  sudo: true
+  with_items:
+    - wildcard_savingschampion_co_uk.crt
+    - wildcard_savingschampion_co_uk.key
+
+- name: Configure Nginx
+  template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf
+  sudo: true
+  notify:
+  - restart nginx
+
+- name: Configure Nginx - HTTP
+  template: src=savingschampion.conf.j2 dest=/etc/nginx/sites-available/savingschampion.conf
+  sudo: true
+  notify:
+  - restart nginx
+
+- name: Configure Nginx - HTTPS
+  template: src=savingschampion_ssl.conf.j2 dest=/etc/nginx/sites-available/savingschampion_ssl.conf
+  sudo: true
+  notify:
+  - restart nginx
+
+- name: Enable HTTP
+  file: state=link src=/etc/nginx/sites-available/savingschampion.conf dest=/etc/nginx/sites-enabled/savingschampion.conf
+  sudo: true
+  notify:
+  - restart nginx
+
+- name: Enable HTTPS
+  file: state=link src=/etc/nginx/sites-available/savingschampion_ssl.conf dest=/etc/nginx/sites-enabled/savingschampion_ssl.conf
+  sudo: true
+  notify:
+  - restart nginx
+
+- name: Disable Default
+  file: state=absent path=/etc/nginx/sites-enabled/default
+  sudo: true
+  notify:
+  - restart nginx

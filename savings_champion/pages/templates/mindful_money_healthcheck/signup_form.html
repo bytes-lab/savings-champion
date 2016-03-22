@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load block_tags static crispy_forms_tags %}
+
+{% block title %}
+    Mindful Money Healthcheck
+{% endblock title %}
+
+{% block bannertext %}
+    <div id="left-banner">
+        {% get_static_block pension-options incentive as block %}
+        <h2 class="js-banner-title" style="font-size: 30px">{{ block|safe }}</h2>
+    </div>
+{% endblock bannertext %}
+
+{% block contenthtml %}
+    <div id="ifa-landing">
+        <div class="container">
+            <div class="row" style="padding-top: 10px;"><img src="{% static 'img/mindful_money_healthcheck/shutterstock_267932624.jpg' %}"
+                                                             class="img-responsive" style="width:100%;"></div>
+            <div class="row mindful-money-healthcheck--lower-bar-offset">
+
+                <div class="col-md-4 col-md-offset-7">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h2>Free Savings Review</h2>
+                            <p>Many people have abandoned their savings in accounts collecting dust, not
+                                interest.</p>
+                            <p>If you are one of these then savings champion can help by offering a <b>FREE</b>
+                                savings review</p>
+                            <ul>
+                                <li>Quick & Simple</li>
+                                <li>Identify the best saving accounts for you</li>
+                                <li>Earn more interest</li>
+                                <li>Ensure your savings are fully protected</li>
+                            </ul>
+                            <p>Simply complete the form and Savings Champion will call you at a convenient time
+                                for you,
+                                or call now on 0800 321 3581</p>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {% crispy form %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenthtml %}
+

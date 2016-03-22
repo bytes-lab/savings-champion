@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>List of users on the product:</p>
+
+<table>
+    <thead>
+        <tr>
+            <td>Username</td>
+            <td>Email</td>
+            <td>Provider</td>
+            <td>Product</td>
+            <td>Balance</td>
+            <td>Deleted</td>
+        </tr>
+    </thead>    
+    <tbody>
+        {% for portfolio in portfolioList %}
+            <tr>
+                <td>{{portfolio.user.username}}</td>
+                <td>{{portfolio.user.email}}</td>
+                <td>{{portfolio.provider}}</td>
+                <td>{{portfolio.master_product}}</td>
+                <td>{{portfolio.balance}}</td>
+                <td>{{portfolio.is_deleted}}</td>                    
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<p>Enter the new sccode for the users:</p>
+
+<form action="{% url 'sccodeprocess' %}" method="post" autocomplete="off">
+    {% for f in sccodeform.hidden_fields %}{{f}}{% endfor %}
+    {% csrf_token %}
+    
+    {{sccodeform.sccode}}
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}

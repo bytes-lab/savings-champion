@@ -1,0 +1,31 @@
+<html>
+<p>The portfolios have been changed to:</p>
+
+<table>
+    <thead>
+        <tr>
+            <td>Username</td>
+            <td>Email</td>
+            <td>Provider</td>
+            <td>Product</td>
+            <td>Balance</td>
+            <td>Deleted</td>
+        </tr>
+    </thead>    
+    <tbody>
+        {% for portfolio in portfolioList %}
+            <tr>
+                <td>{{portfolio.user.username}}</td>
+                <td>{{portfolio.user.email}}</td>
+                <td>{{portfolio.provider}}</td>
+                <td>{{portfolio.master_product}}</td>
+                <td>{{portfolio.balance}}</td>
+                <td>{{portfolio.is_deleted}}</td>                    
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+
+</html>

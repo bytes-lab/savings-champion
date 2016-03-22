@@ -1,0 +1,312 @@
+@media print {
+
+  * {
+    background: transparent !important;
+    color: black !important;
+    text-shadow: none !important;
+    filter: none !important;
+    -ms-filter: none !important;
+  }
+  /* Black prints faster: h5bp.com/s */
+  a, a:visited {
+    text-decoration: underline;
+  }
+  a[href]:after {
+    content: "";
+  }
+  abbr[title]:after {
+    content: "";
+  }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+    content: "";
+  }
+  /* Don't show links for images, or javascript/internal links */
+  pre, blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+  thead {
+    display: table-header-group;
+  }
+  /* h5bp.com/t */
+  tr, img {
+    page-break-inside: avoid;
+  }
+  img {
+    max-width: 100% !important;
+  }
+  @page {
+    margin: 0.5cm;
+  }
+  p, h2, h3 {
+    orphans: 3;
+    widows: 3;
+  }
+  h2, h3 {
+    page-break-after: avoid;
+  }
+  p {
+    font-size: 12px!important;
+  }
+  body {
+    -ms-overflow-style: none;
+    overflow: visible !important;
+  }
+
+//  @page {
+//    size: landscape
+//  }
+
+  .best-buy-signup-toaster-container {
+    display: none !important;
+  }
+  .btn {
+    display: none!important;
+  }
+  .img-responsive {
+    max-width: 134px;
+  }
+  #topaccounts-sidebar {
+    display: none !important;
+  }
+  #topaccounts-table {
+    padding: 0;
+    text-align: left;
+    overflow: auto;
+    .table-section {
+      width: 100%;
+      display: inline-block;
+      zoom: 1;
+      *display: inline;
+    }
+    .header {
+      h1 {
+        font-size: 16px;
+        color: #CC5500;
+        border-top: #CCCCCC 1px solid;
+        margin-top: 20px;
+        span {
+          background-color: #F3F3F3;
+          padding: 0px 15px;
+          position: relative;
+          top: -20px;
+        }
+      }
+    }
+    .table-summary {
+      display: block;
+      .summary {
+        vertical-align: top;
+        display: inline-block;
+        zoom: 1;
+        *display: inline;
+        padding: 10px;
+        background-color: #CFEBF2;
+        width: 75%;
+        p {
+          margin-bottom: 10px;
+        }
+      }
+      .sueimage {
+        width: 15%;
+        height: auto;
+        display: inline-block;
+        zoom: 1;
+        *display: inline;
+      }
+      .author {
+        display: block;
+        padding: 5px 20px;
+        color: #666666;
+        font-size: 14px;
+      }
+    }
+    .product-section {
+      padding: 0px 0px;
+      table {
+        table-layout: fixed;
+      }
+      .account-table {
+        tr {
+          width: 100%;
+          display: table-row;
+          border-top: 2px solid #E7E7E7;
+          border-bottom: 2px solid #E7E7E7;
+        }
+        td {
+          padding: 0;
+          margin:0;
+          display: table-cell;
+          vertical-align: top;
+          max-width: 160px;
+          height: 100%;
+        }
+        p {
+          margin: 0;
+          font-size: 14px;
+        }
+        .number {
+          margin: 0;
+          margin-bottom: 5px;
+          font-size: 16px;
+          text-align: center;
+          padding: 0px 0px;
+          border-bottom: #E7E7E7 2px solid;
+          font-weight: bold;
+          background-color: #F3F3F3;
+          border-top: none;
+          p {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            font-size: 14px;
+            color: #fff;
+            line-height: 50px;
+            text-align: center;
+            background: #000;
+            display: inline-block;
+          }
+        }
+        .column-header {
+          height: 20px;
+          border-bottom: #E7E7E7 2px solid;
+          display: block;
+          background-color: #F3F3F3;
+        }
+        .td-heading {
+          h3 {
+            font-size: 14px;
+            margin-top: 0px;
+            padding: 5px 10px;
+          }
+          a {
+            color: #0085B2;
+            font-size: 14px;
+            margin-left: 10px;
+          }
+        }
+      }
+      .even {
+        background-color: #E7E7E7;
+      }
+      .account-table {
+        .logo {
+          text-align: center;
+          padding-top: 10px;
+          .down-arrow {
+            display:none;
+          }
+          p {
+            font-size: 14px;
+            text-align: left;
+            padding: 0px 10px;
+            font-weight: bold;
+          }
+        }
+        .gross-rate p {
+          color: #CC5500;
+        }
+        .apply {
+          height: 40px;
+          color: white;
+          text-align: center;
+          background-color: #00B3E6;
+          border: 2px solid #0085B2;
+          width: 80%;
+          display: inline-block;
+          vertical-align: middle;
+          margin-left: 10%;
+          a {
+            font-weight: bold;
+            font-size: 14px;
+            margin-top: 10px;
+            display: block;
+          }
+        }
+        .verdict-signup p {
+          padding: 10px 0px;
+        }
+        .verdict p, .facts p {
+          font-size: 14px;
+        }
+      }
+    }
+    .verdict-signup {
+      background-color: white;
+      height: 70px;
+    }
+    a {
+      font-weight: bold;
+    }
+  }
+  #apply-box {
+    text-align: left;
+    background-color: white;
+    width: 650px;
+    min-width: 450px;
+    overflow: hidden;
+    border: 4px solid black;
+    h3 {
+      font-size: 22px;
+      color: #CC5300;
+      margin: 15px;
+    }
+    .left-side {
+      width: 45%;
+      float: left;
+      display: inline-block;
+      zoom: 1;
+      *display: inline;
+      border-right: 3px solid #E7E7E7;
+      padding-right: 4%;
+    }
+    .right-side {
+      width: 45%;
+      float: right;
+      display: inline-block;
+      zoom: 1;
+      *display: inline;
+    }
+    p {
+      margin: 10px 15px;
+      color: #444444;
+    }
+    .heading {
+      font-weight: bold;
+      font-size: 20px;
+      color: black;
+    }
+    .continue-box {
+      margin: 10px 15px;
+      background-color: #00B3E6;
+      border: 2px solid #0085B2;
+    }
+    a {
+      padding: 10px 15px;
+      display: block;
+      color: white;
+      font-weight: bold;
+    }
+    form {
+      margin: 10px 15px;
+    }
+    input {
+      padding: 8px 4px;
+      width: 250px;
+      margin-bottom: 10px;
+    }
+    .bluesubmit {
+      height: auto;
+      white-space: normal;
+    }
+  }
+  #advisor-box, .js-best-buy-signup-toaster-container, .print-button, .how-we-make-money, .print-hidden, .topaccounts-sidebar{
+    display: none !important;
+  }
+
+  .print-shown {
+    display: block ! important;
+  }
+
+
+}

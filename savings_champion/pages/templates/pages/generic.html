@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block body_class %}generic{% endblock body_class %}
+
+{% block content_class %}light pad{% endblock content_class %}
+
+{% block content %}
+<h1>{% block title %}{{current_page}}{% endblock title %}</h1>
+
+{{current_page.body.text|safe}}
+{% endblock content %}
+
+{% block post_content %}
+<div id="h-nav-wrap">
+    {% include "h-nav.html" %}
+</div>
+{% endblock post_content %}

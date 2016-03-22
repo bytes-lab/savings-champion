@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{subtitle}}
+{% endblock title %}
+
+{% block bannertext %}
+    <div id="left-banner">
+        <h2>Advice &amp; Guides</h2>
+    </div>
+    
+{% endblock bannertext %}
+
+{% block contenthtml %}
+<div id="page">
+    <div class="container-fluid">
+        {% include "advice/leftnav.html" %}
+        <div class="content-section col-sm-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1>{{ subtitle|safe }} </h1>
+                </div>
+                <div class="panel-body">
+                    {{ body|safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock contenthtml %}

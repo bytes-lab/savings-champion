@@ -1,0 +1,32 @@
+{% extends "pages/generic.html" %}
+
+
+{% block content_class %}light pad{% endblock content_class %}
+
+{% load page_tags %}
+
+{% block content %}
+<div class="form-wrap login-form">
+    <form action="{% url 'get_email' %}" method="post">
+        {% csrf_token %}
+        
+        {% for f in form.hidden_fields %}
+            {{ f }}
+        {% endfor %}
+        
+        <p class="emailNotification">{{error_message}}</p>
+        
+        <div class="group">
+            {{form.username.label_tag}}:{{form.username}}
+            {{form.password.label_tag}}:{{form.password}}
+        </div>
+        
+        <div class="group ">
+            <input class="button" type="image" value="submit" alt="Submit" src="{{STATIC_URL}}img/submit.png">
+        </div>
+        <br/>
+        
+        <a href="{% url 'sc_password_reset' %}">Click here if you have forgotten your password</a>
+    </form>
+</div>
+{% endblock content %}

@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static crispy_forms_tags block_tags %}
+
+{% block bannertext %}
+    <h3>Thanks for signing the petition; We'll make sure to keep you updated.</h3>
+{% endblock %}
+
+{% block contenthtml %}
+    <style type="text/css">
+        #share-buttons img {
+            padding: 5px;
+            border: 0;
+            box-shadow: 0;
+        }
+    </style>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h4 style="font-size: 20px;font-weight: bold;">Thank you, we're hard at work fighting
+                            for better rates</h4>
+                        <h5 style="margin-top:5px;">Can you help by sharing this petition with your friends?</h5>
+                        <br>
+
+                        <div class="container-fluid">
+                            <div class="col-sm-9 col-sm-offset-1">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="well">
+                                            <div style="text-align: left;">
+                                                <p>The more people that join this campaign the better our chances to
+                                                    create change and improve savings rates, for everyone.</p>
+
+                                                <p style="margin-top: 20px;">Can you ask your friends to get
+                                                    involved by
+                                                    clicking the share buttons
+                                                    to the right or using the email form below?</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        {% crispy form %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div id="share-buttons" style="margin: 0 auto;">
+                                    <!-- Email -->
+                                    <a href="mailto:?Subject=Switch%20My%20Savings&Body=I%20was%20looking%20on%20the%20internet%20and%20discovered%20this%20petition%20to%20improve%20the%20situation%20for%20savers.%0A%0AI%20thought%20you%27d%20appreciate%20it%2C%20so%20I%27ve%20forwarded%20it%20to%20you.%0A%0A{{ share_url }}">
+                                        <img src="{% static 'img/petition/sharing/email.png' %}" alt="Email"/>
+                                    </a>
+
+                                    <!-- Facebook -->
+                                    <a href="http://www.facebook.com/sharer.php?u={{ share_url }}"
+                                       target="_blank">
+                                        <img src="{% static 'img/petition/sharing/facebook.png' %}"
+                                             alt="Facebook"/>
+                                    </a>
+
+                                    <!-- Twitter -->
+                                    <a href="http://twitter.com/share?text=Get%20better%20interest%20rates%20on%20your%20savings.%20Join%20our%20campaign%20%27Switch%20my%20Savings%27%20http%3A%2F%2Fbit.ly%2F1lbOElS%20%23switchmysavings"
+                                       target="_blank">
+                                        <img src="{% static 'img/petition/sharing/twitter.png' %}"
+                                             alt="Twitter"/>
+                                    </a>
+
+                                    <!-- Google+ -->
+                                    <a href="https://plus.google.com/share?url={{ share_url }}"
+                                       target="_blank">
+                                        <img src="{% static 'img/petition/sharing/google.png' %}" alt="Google"/>
+                                    </a>
+
+                                    <!-- Digg -->
+                                    <a href="http://www.digg.com/submit?url={{ share_url }}"
+                                       target="_blank">
+                                        <img src="{% static 'img/petition/sharing/diggit.png' %}" alt="Digg"/>
+                                    </a>
+
+                                    <!-- Reddit -->
+                                    <a href="http://reddit.com/submit?url={{ share_url }}&title=Switch%20My%20Savings"
+                                       target="_blank">
+                                        <img src="{% static 'img/petition/sharing/reddit.png' %}" alt="Reddit"/>
+                                    </a>
+
+                                    <!-- LinkedIn -->
+                                    <a href="http://www.linkedin.com/shareArticle?mini=true&url={{ share_url }}"
+                                       target="_blank">
+                                        <img src="{% static 'img/petition/sharing/linkedin.png' %}"
+                                             alt="LinkedIn"/>
+                                    </a>
+
+                                    <!-- StumbleUpon-->
+                                    <a href="http://www.stumbleupon.com/submit?url={{ share_url }}&title=Switch%20My%20Savings"
+                                       target="_blank">
+                                        <img src="{% static 'img/petition/sharing/stumbleupon.png' %}"
+                                             alt="StumbleUpon"/>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer_scripts %}
+    <script async src="{% static 'js/petition/petition.js' %}"></script>
+{% endblock %}

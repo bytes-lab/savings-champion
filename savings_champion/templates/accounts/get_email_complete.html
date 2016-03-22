@@ -1,0 +1,25 @@
+{% extends "pages/generic.html" %}
+
+{% block content %}    
+    <div class="form-wrap login-form">
+        <form action="{% url 'auth_login' %}" method="post">
+            {% csrf_token %}
+            {% if next %}
+                <input type="hidden" name="next" value="{{next}}"/>
+            {% endif %}
+            {% for f in form.hidden_fields %}
+                {{ f }}
+            {% endfor %}
+            <p class="emailNotification">The email you have signed up with is {{email}} and it has automatically been filled in below.</p>
+            <div class="group">
+                {{ form.as_p }}
+            </div>
+            <div class="group ">
+                <input class="button" type="image" value="submit" alt="Submit" src="{{STATIC_URL}}img/login-small.png">
+            </div>
+            <br/>
+            <a href="{% url 'sc_password_reset' %}">Click here if you have forgotten your password</a>
+        </form>
+
+    </div>
+{% endblock %}

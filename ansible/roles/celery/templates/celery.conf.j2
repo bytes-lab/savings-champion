@@ -1,0 +1,29 @@
+[program:celery-1]
+autorestart=true
+command=/home/savingschampion/.virtualenvs/savings_champion/bin/celery worker -E -A celeryapp --concurrency=10 -n worker1.localhost
+directory=/srv/savings_champion/savings_champion
+environment=DJANGO_SETTINGS_MODULE=settings
+redirect_stderr=True
+stdout_logfile=/tmp/celeryd-savingschampion.log
+user=savingschampion
+
+[program:celery-2]
+autorestart=true
+command=/home/savingschampion/.virtualenvs/savings_champion/bin/celery worker -E -A celeryapp --concurrency=10 -n worker2.localhost
+directory=/srv/savings_champion/savings_champion
+environment=DJANGO_SETTINGS_MODULE=settings
+redirect_stderr=True
+stdout_logfile=/tmp/celeryd-savingschampion.log
+user=savingschampion
+
+[program:celery-3]
+autorestart=true
+command=/home/savingschampion/.virtualenvs/savings_champion/bin/celery worker -E -A celeryapp --concurrency=10 -n worker3.localhost
+directory=/srv/savings_champion/savings_champion
+environment=DJANGO_SETTINGS_MODULE=settings
+redirect_stderr=True
+stdout_logfile=/tmp/celeryd-savingschampion.log
+user=savingschampion
+
+[group:celery]
+programs=celery-1,celery-2,celery-3

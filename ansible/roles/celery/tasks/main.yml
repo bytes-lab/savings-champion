@@ -1,0 +1,13 @@
+---
+
+- name: Ensure Supervisor is installed
+  apt: name=supervisor state=latest
+  sudo: true
+
+- name: Set Up Uwsgi with Supervisor
+  template: src=celery.conf.j2 dest=/etc/supervisor/conf.d/celery.conf
+  sudo: true
+
+- name: Ensure uwsgi is started
+  supervisorctl: name='celery:' state=restarted
+  sudo: true

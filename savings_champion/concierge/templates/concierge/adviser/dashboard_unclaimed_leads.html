@@ -1,0 +1,15 @@
+{% for enquiry in concierge_enquiries %}
+    <tr>
+        <td>{{ enquiry.name }}</td>
+        <td>{{ enquiry.email }}</td>
+        <td>{{ enquiry.interaction_started }}</td>
+        <td>
+            <input class="js-claim-enquiry btn btn-success btn-sm" type="button" value="Claim"
+                   data-claim-enquiry="{% url 'adviser_claim_client' enquiry.pk %}">
+        </td>
+        <td>
+            <input class="js-fake-enquiry btn btn-info btn-sm" type="button" value="Mark as fake"
+                   data-fake-enquiry="{% url 'adviser_fake_client' enquiry.pk %}">
+        </td>
+    </tr>
+{% endfor %}

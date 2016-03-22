@@ -1,0 +1,31 @@
+<div class="product-form">
+    <div class="switch-button-container">
+        <a title="Switch to Variable Rate Product" class="switch to-variable selected">Variable Rate Product</a>
+        <a title="Switch to Fixed Rate Product" class="switch to-fixed">Click to add Fixed Rate Product</a>
+    </div>
+    <input type="hidden" class="fixedindicator" name="is_fixed" original="is_fixed"/>
+    <p id="variable-rate-message" class="message">You are adding a Variable Rate product. If you can't find your account provider or account, it may be because it is a Fixed Rate product.</p>
+    <p id="fixed-rate-message" class="message" style="display: none;">You are adding a Fixed Rate product or or Index Linked Certificate. We will remind you when your product matures.</p>
+    <p>Account Provider</p>
+    <select class="required number providerselect" name="provider" original="provider"></select>
+    <p>Balance (£)</p>
+    <input type="text" class="commaNumber balanceinput form-control" value="1" name="balance" original="balance" style="width:100%!important;" />
+    <div class="variable-section">
+        <p>Account Name</p>
+        <select class="text productselect" name="product" min="1" original="product"></select>
+        <div class="opening-date-group" style="display:none;">
+            <p>Opening Date:</p>
+            <select class="datestyle number required opening_month" min="1" name="opening_date_month" original="opening_date_month"></select>
+            <select class="datestyle number required opening_year" min="1" name="opening_date_year" original="opening_date_year"></select>
+        </div>  
+    </div>
+    <div class="fixed-section" style="display:none;">
+        <p>Account Type</p>
+        <select id="id_account_type" class="accounttype required number" name="account_type" original="account_type" style="width:100%!important;"></select>
+        <div class="maturity-date-group">
+            <p>Maturity Date</p>
+            <select class="datestyle number maturity_month" min="1" name="maturity_date_month" original="maturity_date_month"></select>
+            <select class="datestyle number maturity_year" min="1" name="maturity_date_year" original="maturity_date_year"></select>
+        </div>  
+    </div>
+</div>

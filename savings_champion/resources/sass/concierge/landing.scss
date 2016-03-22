@@ -1,0 +1,95 @@
+#header {
+  color: #333333;
+  height: auto;
+}
+
+.landing-image-form {
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  div.justify {
+    padding-top: 10px;
+    line-height: 1;
+  }
+}
+
+.jumbotron {
+  padding: 0;
+}
+
+.inline-text {
+  display: inline;
+}
+
+// Fix for rendering issue with landing page form
+#div_id_current_accounts {
+  position: static;
+  display: block;
+  min-height: 0;
+  margin: 0;
+}
+
+.js-form-part{
+  padding-bottom: 10px;
+}
+
+.empty-form {
+  display: none;
+}
+
+label.control-label {
+  font-size: 14px;
+}
+
+.flex-container {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.flex-col {
+     margin: (16px / 2);
+     flex: 1 1 calc((83% / 3) - 16px );
+}
+
+.flex-img-responsive {
+  width: 100%;
+}
+
+img.logo {
+  max-height:75px;
+}
+
+.collapse.navbar-collapse.concierge-menu {
+  text-align: left;
+}
+
+.navbar-default .navbar-nav > li > span {
+color: #ebebeb;
+}
+
+.form-inline .form-group {
+  padding: 0;
+}
+
+.slide-text h3, .slide-text p {
+text-align: center !important;
+}
+
+a.carousel-control {
+    color: #333!important;
+}
+
+.panel-body h3 {
+  text-align: left;
+}
+
+.navbar-default .navbar-nav > li > span:hover,
+.navbar-default .navbar-nav > li > span:focus {
+  color: #ebebeb;
+  background-color: transparent;
+}
+
+.navbar-default .navbar-nav > li > span:hover, .navbar-default .navbar-nav > li > span:focus {
+  color: #ebebeb;
+  background-color: #777777;
+}

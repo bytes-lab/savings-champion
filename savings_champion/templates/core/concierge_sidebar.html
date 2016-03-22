@@ -1,0 +1,20 @@
+{% load page_tags %}
+<div id="conciergesidebar">
+    <h2>Testimonials</h2>
+    {% get_block concierge.testimonialabout as message %}
+    <div class="concmessage">{{message.text|safe}}</div>
+    <div class="expandable">
+        <div class="testimonial">
+        {% get_block concierge.testimonial1 as message %}
+            {{message.text|safe}}
+        </div>
+        <div class="testimonial">
+        {% get_block concierge.testimonial2 as message %}
+            {{message.text|safe}}
+        </div>
+        <div class="testimonial">    
+        {% get_block concierge.testimonial3 as message %}
+            {{message.text|safe}}
+        </div>
+    </div>
+</div>

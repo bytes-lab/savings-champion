@@ -1,0 +1,50 @@
+{% load static %}
+<div class="top-bar">
+    <nav class="navbar" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target="#profile-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <p>Profile</p>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="profile-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'help_index' %}">Help</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'your_account' %}">Your Profile</a></li>
+                        <li class="logout"><a href="{% url 'sc_logout' %}">Logout</a></li>
+                        {% if user.is_staff %}
+                            {% if perms.concierge.engine %}
+                                <li><a href="{% url 'engine_index' %}">Concierge Engine</a></li>
+                            {% endif %}
+                            {% if perms.concierge.adviser %}
+                                <li><a href="{% url 'adviser_dashboard' %}">Adviser Dashboard</a></li>
+                            {% endif %}
+                            {% if perms.concierge.manage_advisers %}
+                                <li><a href="{% url 'management_dashboard' %}">Management Dashboard</a></li>
+                            {% endif %}
+                            {% if perms.user.superuser %}
+                            <li><a href="/admin/">Django Admin</a></li>
+                            {% endif %}
+                            <li><a href="/administration/">Administration</a></li>
+                        {% endif %}
+                    {% else %}
+                        <li class="active"><a href="{% url 'healthcheck' %}" class="register-now">Register
+                            Now</a></li>
+                        <li><a href="{% url 'auth_login' %}?next=/rate-tracker/">Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+</div>

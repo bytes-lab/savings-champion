@@ -1,0 +1,25 @@
+{% load nav_tags static %}
+<div class="bottom-bar row">
+    <div class="footer-nav col-xs-6">
+        <ul class="inline">
+            {% get_footer_nav as pages %}    
+                    
+            {% for page in pages %}
+                <li><a href="{{page.get_absolute_url}}">{{page}}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="social col-xs-6">
+        <ul class="pull-right">
+            <li><a href="https://twitter.com/savingschampion" target="_blank" class="twitter-click">
+                <img class="logo-image" src="{% static 'img/twitter-footer.png' %}" />
+                @savingschampion</a></li>
+            <li><a href="http://www.facebook.com/pages/Savings-Champion/291011897600153" target="_blank" class="facebook-click">
+                <img class="logo-image" src="{% static 'img/facebook-footer.png' %}" />
+                Find us on Facebook</a></li>
+        </ul>
+    </div>
+
+</div>
+

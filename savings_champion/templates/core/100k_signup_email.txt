@@ -1,0 +1,29 @@
+{% load product_filters humanize block_tags cache %}
+
+{{ user.email }} has just {% if activated %}activated{% else %}signed up{% endif %} with £{{ total }}.
+{% if user.get_profile.telephone != None and user.get_profile.telephone != "" %}Telephone number: {{ user.get_profile.telephone }}{% else %}
+This user did not provide a telephone number at this stage.
+{% endif %}
+
+
+Accounts:
+-----------------------------------
+{% for account in signup_accounts %}
+{{ account.type }}{% if account.is_isa %} ISA{% endif %} Account:-
+Provider: {{ account.provider }}
+Account Name: {{ account.title }}
+Account Type: {{ account.account_type }}
+Balance: £{{ account.balance|floatformat:2|intcomma }}
+{% if account.type == "Fixed Rate" %}
+Maturity Date: {{ account.maturity_date }}
+{% elif account.type == "Variable Rate" %}
+AER: {% if account.rates.aer %}{{ account.rates.aer|floatformat:2 }}%{% else %}N/A{% endif %}
+{% endif %}
+Gross Rate: {% if account.rates.gr %}{{ account.rates.gr|floatformat:2 }}%{% else %}N/A{% endif %}
+Underlying Gross Rate: {% if account.rates.ugr %}{{ account.rates.ugr|floatformat:2 }}%{% else %}N/A{% endif %}
+{% if account.bonus.amount != None and account.bonus.amount > 0 %}Bonus Amount: {{ account.bonus.amount|floatformat:2 }}%{% endif %}
+Bonus Term: {% if account.bonus.term %}{{ account.bonus.term }}{% else %}N/A{% endif %}
+Bonus End Date: {% if account.bonus.end_date %}{{ account.bonus.end_date }}{% else %}N/A{% endif %}
+Date Opened: {% if account.opening_date %}{{ account.opening_date }} {% else %} N/A {% endif %}
+-----------------------------------
+{% endfor %}

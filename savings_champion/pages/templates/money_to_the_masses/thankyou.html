@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load block_tags static %}
+
+{% block title %}
+    Money To The Masses
+{% endblock title %}
+
+{% block bannertext %}
+    <div id="left-banner" style="text-align: center;">
+        {% get_static_block money-to-the-masses title as block %}
+        <h2>{{ block|striptags }}</h2>
+    </div>
+{% endblock bannertext %}
+
+{% block contenthtml %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="panel panel-default" style="margin-top: 20px;">
+                    <div class="panel-heading">
+                        {% get_static_block money-to-the-masses heading as block %}
+                        <p>{{ block|striptags }}</p>
+                    </div>
+                    <div class="panel-body">
+                        {% get_static_block money-to-the-masses message as block %}
+                        {{ block|safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenthtml %}

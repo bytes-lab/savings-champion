@@ -1,0 +1,378 @@
+
+
+{% if forloop.first %}
+    <table class="account-table table">
+        <thead>
+        <tr class="number">
+            {% for product in products %}
+                <td class="padding"><p>{{ forloop.counter }}</p></td>
+            {% endfor %}
+        </tr>
+        <tr>
+            {% for product in products %}
+                <td class="{% cycle 'odd' 'even' %}">
+                    <div class="logo padding">
+                        {% if product.provider.logo %}
+                            <img class="img-responsive center-block"
+                                 src="{{ MEDIA_URL }}{{ product.provider.logo }}"
+                                 alt="Logo for {{ product.provider }}">
+                            <img src="{% static 'img/pr-arr.png' %}"
+                                 class="down-arrow img-responsive center-block">
+                        {% else %}{{ product.provider }}{% endif %}
+                        <p>
+                            {{ product.master_product.title }}{% if product.is_paid %}
+                                *{% endif %}
+                        </p>
+                    </div>
+                </td>
+            {% endfor %}
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td class="td-heading" colspan="5"><h3>Our Verdict</h3></td>
+        </tr>
+        {% if request.user.is_authenticated %}
+            <tr>
+                {% for product in products %}
+                    <td class="{% cycle 'odd' 'even' %}">
+                        <div class="verdict padding">
+                            <p>
+                                {{ product.verdict }}
+                            </p>
+                        </div>
+                    </td>
+                {% endfor %}
+            </tr>
+        {% else %}
+            <tr class="verdict-signup">
+                <td colspan="5">
+                    <p>
+                        <a href="{% url 'auth_login' %}?next={% url 'personal_table' bestbuy.slug %}"
+                           class="bluea">Sign in</a>
+                        or
+                        <a href="{% url 'healthcheck_basket_signup' %}" class="bluea"
+                           target="_blank">register</a>
+                        to view our verdict on these accounts
+
+                    </p></td>
+            </tr>
+        {% endif %}
+
+        {% if bestbuy.title == "Fixed Rate Bonds" or bestbuy.title == "Fixed Rate ISAs" %}
+            <tr>
+                <td class="td-heading" colspan="5"><h3>Term</h3></td>
+            </tr>
+
+            <tr>
+                {% for product in products %}
+                    <td class="{% cycle 'odd' 'even' %}">
+                        <div class="padding">
+                            <p>
+                                {{ product.get_term }}
+                            </p>
+                        </div>
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endif %}
+        <tr>
+            <td class="td-heading" colspan="5">
+                <h3>
+                    {% if bestbuy.title == "Monthly Income" %}
+                        Monthly
+                    {% endif %}
+                    Gross Interest Rate
+
+                    <a href="#" class="whatis">What's This?</a>
+                </h3>
+                {% get_static_block bestbuy-table grossrate.explanation as block %}
+                <div class="explanation" style="display:none;">{{ block|safe }}</div>
+            </td>
+        </tr>
+        <tr>
+            {% for product in products %}
+                <td class="{% cycle 'odd' 'even' %}">
+                    <div class="gross-rate padding">
+                        <p>
+                            {% if bestbuy.title == "Monthly Income" %}
+                                {{ product.monthly_gross|floatformat:2 }}%
+                            {% else %}
+                                {{ product.gross_rate|floatformat:2 }}%
+                            {% endif %}
+                        </p>
+                    </div>
+                </td>
+            {% endfor %}
+        </tr>
+        {% if bestbuy.title == "Easy Access" %}
+            <tr>
+                <td colspan="{{ products|length }}">
+                    <a class="js-high-interest-current-accounts-5-percent"
+                       href="{% url 'personal_table' 'high-interest-current-account' %}">
+                        <img class="img-responsive print-hidden"
+                             src="{% static 'img/topaccounts/5_percent_ticket.png' %}">
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td class="td-heading" colspan="{{ products|length }}">
+                    <h3 style="font-size: large; color:#C50;">Call Moneyline on 0800 321
+                        3581 to see if there are better rates available for you
+                        personally
+                        <a href="#" class="whatis">Why?</a></h3>
+                    {% get_static_block bestbuy-table moneyline.explanation as block %}
+                    <div class="explanation"
+                         style="display:none;">{{ block|safe }}</div>
+                </td>
+            </tr>
+        {% endif %}
+        <tr>
+            <td class="td-heading" colspan="5">
+                <h3>AER <a href="#" class="whatis">What's This?</a></h3>
+                {% get_static_block bestbuy-table aer.explanation as block %}
+                <div class="explanation" style="display:none;">{{ block|safe }}</div>
+            </td>
+        </tr>
+
+        <tr>
+            {% for product in products %}
+                <td class="{% cycle 'odd' 'even' %}">
+                    <div class="aer-rate padding">
+                        <p>
+                            {{ product.aer|floatformat:2 }}%
+                        </p>
+                    </div>
+                </td>
+            {% endfor %}
+        </tr>
+
+        {% if bestbuy.slug == "childrens-accounts" %}
+            <tr>
+                <td class="td-heading" colspan="5"><h3>Minimum Age</h3></td>
+            </tr>
+
+            <tr>
+                {% for product in products %}
+                    <td class="{% cycle 'odd' 'even' %}">
+                        <div class="padding">
+                            <p>
+                                {{ product.minimum_age }}
+                            </p>
+                        </div>
+                    </td>
+                {% endfor %}
+            </tr>
+
+            <tr>
+                <td class="td-heading" colspan="5"><h3>Maximum Age</h3></td>
+            </tr>
+
+            <tr>
+                {% for product in products %}
+                    <td class="{% cycle 'odd' 'even' %}">
+                        <div class="padding">
+                            <p>
+                                {{ product.maximum_age }}
+                            </p>
+                        </div>
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endif %}
+
+        {% if bestbuy.title == "Notice Accounts" %}
+            <tr>
+                <td class="td-heading" colspan="5"><h3>Notice</h3></td>
+            </tr>
+
+            <tr>
+                {% for product in products %}
+                    <td class="{% cycle 'odd' 'even' %}">
+                        <div class="padding">
+                            <p>
+                                {{ product.notice }} days
+                            </p>
+                        </div>
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endif %}
+
+        <tr>
+            <td class="td-heading" colspan="5"><h3>Minimum Deposit</h3></td>
+        </tr>
+
+        <tr>
+            {% for product in products %}
+                <td class="{% cycle 'odd' 'even' %}">
+                    <div class="min-deposit padding">
+                        <p>
+                            &pound;{{ product.minimum|intcomma }}
+                        </p>
+                    </div>
+                </td>
+            {% endfor %}
+        </tr>
+
+        {% if bestbuy.title == "Regular Savings" %}
+            <tr>
+                <td class="td-heading" colspan="5"><h3>Minimum per month</h3></td>
+            </tr>
+
+            <tr>
+                {% for product in products %}
+                    <td class="{% cycle 'odd' 'even' %}">
+                        <div class="padding">
+                            <p>
+                                &pound;{{ product.minimum_monthly }}
+                            </p>
+                        </div>
+                    </td>
+                {% endfor %}
+            </tr>
+
+            <tr>
+                <td class="td-heading" colspan="5"><h3>Maximum per month</h3></td>
+            </tr>
+
+            <tr>
+                {% for product in products %}
+                    <td class="{% cycle 'odd' 'even' %}">
+                        <div class="padding">
+                            <p>
+                                &pound;{{ product.maximum_monthly }}
+                            </p>
+                        </div>
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endif %}
+
+        <tr>
+            <td class="td-heading" colspan="5">
+                <h3 class="heading-important">For the best rates on deposits over
+                    £100,000 call 0800 321 3582.</h3>
+                {% get_static_block bestbuy-table betterrates.explanation as block %}
+                <div class="explanation">{{ block|safe }}</div>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="td-heading" colspan="5"><h3>Access</h3></td>
+        </tr>
+
+        <tr>
+            {% for product in products %}
+                <td class="{% cycle 'odd' 'even' %}">
+                    <div class="access padding">
+                        <p>
+                            {{ product.get_access }}
+                        </p>
+                    </div>
+                </td>
+            {% endfor %}
+        </tr>
+
+        {% if bestbuy.title == "Variable Rate ISAs" or bestbuy.title == "Fixed Rate ISAs" %}
+            <tr>
+                <td class="td-heading" colspan="5"><h3>Transfers in allowed</h3></td>
+            </tr>
+
+            <tr>
+                {% for product in products %}
+                    <td class="{% cycle 'odd' 'even' %}">
+                        <div class="padding">
+                            <p>
+                                {% if product.is_isa_transfers_in %}Yes{% else %}
+                                    No{% endif %}
+                            </p>
+                        </div>
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endif %}
+        <tr class="bestbuy-signup">
+            <td colspan="5">
+                <p>
+                    <a href="{% url 'auth_login' %}?next={% url 'personal_table' bestbuy.slug %}"
+                       class="bluea">Sign in</a>
+                    or
+                </p>
+
+                <div style="padding: 10px;">
+                    <form>
+                        {% csrf_token %}
+                        <input type="text" class="form-control"
+                               placeholder="Enter your email address">
+                        <input type="button" class="form-control bluesubmit"
+                               value="Register">
+                    </form>
+                </div>
+                <p>
+                    for our weekly best buy tables via email.
+
+                </p></td>
+        </tr>
+        <tr>
+            <td class="td-heading" colspan="5"><h3>Facts</h3></td>
+        </tr>
+
+        <tr>
+            {% for product in products %}
+                <td class="{% cycle 'odd' 'even' %}">
+                    <div class="facts padding">
+                        <p>
+                            {{ product.facts }}
+                        </p>
+                    </div>
+                </td>
+            {% endfor %}
+        </tr>
+
+        <tr>
+            <td class="td-heading" colspan="5">
+                <h3>Financial Services Compensation Scheme <a href="#" class="whatis">What's
+                    This?</a>
+                </h3>
+                {% get_static_block bestbuy-table fscs.explanation as block %}
+                <div class="explanation" style="display:none;">{{ block|safe }}</div>
+            </td>
+        </tr>
+
+        <tr>
+            {% for product in products %}
+                <td class="{% cycle 'odd' 'even' %}">
+                    <div class="facts padding">
+                        <p>
+                            {{ product.fscs_licence }}
+                        </p>
+                    </div>
+                </td>
+            {% endfor %}
+        </tr>
+        <tr>
+            {% for product in products %}
+                <td class="{% cycle 'odd' 'even' %}">
+                    <div class="apply btn btn-success">
+                        <a class="apply-link{% if user.is_authenticated %} authenticated{% endif %}"
+                           href="{% url 'outbound_clickthrough' product.master_product_id %}"
+                           product="{{ product.title }}"
+                           provider="{{ product.provider }}" target="_blank">Apply
+                            Now</a>
+                    </div>
+                </td>
+            {% endfor %}
+        </tr>
+        <tr class="how-we-make-money">
+            <td class="td-heading" colspan="5"><h3>* <a
+                    href="{% url 'child_controller' 'about-us' 'how-do-we-make-our-money' %}">Click
+                here
+                to find
+                out what the * means</a></h3></td>
+        </tr>
+        </tbody>
+    </table>
+{% endif %}

@@ -1,0 +1,14 @@
+<div id="news-sidebar" class="col-sm-3">
+    <div class="left-nav">
+         <div class="news-links panel panel-default">
+            <div class="panel-body">
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="{% if not activeslug %}active {% endif %}"><a href="{% url 'advice_guides' %}">Guides</a></li>
+                    <li class="{% if activeslug == 'advice' %}active{% endif %}"><a href="{% url 'advice_page' 'advice' %}">Advice</a></li>
+                    <li class="bottom"><a href="{% url 'blog_index' %}">Ask Anna</a></li>
+                </ul>
+            </div>
+        </div>
+        {% include "general/sidebar-signup.html" %}
+    </div>
+</div>

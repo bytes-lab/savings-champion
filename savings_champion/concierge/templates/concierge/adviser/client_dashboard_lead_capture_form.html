@@ -1,0 +1,9 @@
+{% load crispy_forms_tags %}
+<div class="col-md-6">
+    {{ lead_capture_first.errors }}
+    {% crispy lead_capture_first %}
+</div>
+<div class="col-md-6">
+    {{ lead_capture_second.errors }}
+    {% crispy lead_capture_second %}
+</div>

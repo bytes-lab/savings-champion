@@ -1,0 +1,77 @@
+{% load block_tags %}
+<div id="topaccounts-sidebar" class="col-sm-2 col-sm-offset-1">
+    <div class="row">
+        <div class="signup-box">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="bold signup-message">Request call back</p>
+                    <p>For no-obligation advice on your savings you can speak to one of our expert advisers based in our
+                        Bath office.</p>
+                    <p class="callback-form-number">0800 321 3581</p>
+                </div>
+            </div>
+            <div class="row js-callback-form">
+                {% include 'products/topaccounts/callback/form.html' %}
+            </div>
+            <div class="row js-callback-form-failure js-callback-form-hidden">
+                <div class="col-md-12">
+                    <div class="alert alert-danger">
+                        <p>Your request for a callback was not able to be taken at this time. Please try again later or
+                            contact us
+                            on the number above.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>Personal accounts</h3>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    {% if not bestbuyselected %}
+                        <li class="active"><a href="{% url 'top_accounts' %}#overview">Overview</a></li>
+                    {% else %}
+                        <li><a href="{% url 'top_accounts' %}#overview">Overview</a></li>
+                    {% endif %}
+                    {% for buy in bestbuys %}
+                        {% if bestbuyselected and bestbuy.slug == buy.slug %}
+                            <li class="active"><a href="{% url 'personal_table' buy.slug %}#table">{{ buy.get_title_display }}</a></li>
+                        {% else %}
+                            <li><a href="{% url 'personal_table' buy.slug %}#table">{{ buy.get_title_display }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="message-box">
+            <p class="bold message">Do you have over &pound;100,000 on deposit?</p>
+            {% get_static_block general bestbuy.sidebar.fifty_challenge as block %}
+            {{ block|safe }}
+            <a href="{% url 'fifty_pound_challenge' %}">
+                <input class="btn btn-primary btn-block"
+                       type="button" value="Learn More">
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="message-box">
+            <p class="bold message">Do you have a large savings portfolio?</p>
+            {% get_static_block general bestbuy.sidebar.message as block %}
+            {{ block|safe }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="message-box ifa-box">
+            <p class="bold message">Are you considering other investments?</p>
+            {% get_static_block general bestbuy.sidebar.ifa as block %}
+            {{ block|safe }}
+            <a href="{% url 'ifa_landing' %}"><input class="btn btn-primary btn-block"
+                                              type="button" value="How to get the Best Advice"></a>
+        </div>
+    </div>
+</div>

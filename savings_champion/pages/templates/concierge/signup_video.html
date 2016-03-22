@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load block_tags cache static %}
+
+{% block title %}
+    Concierge Managed Savings Service
+{% endblock %}
+
+{% block meta_description %}
+    Savings Champion Concierge Managed Savings Service. Get a fully protected, personalised savings portfolio and on-going monitoring, advice and assistance to ensure you can get the best rates and keep the best rates...forever.
+{% endblock %}
+
+{% cache 43200 concierge_signup %}
+{% block banner %}
+{% endblock banner %}
+
+{% block contenthtml %}
+<div id="concierge">
+    <div class="container-fluid">
+        <div class="left-section col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="video">
+                        {% get_static_block concierge-landing video.heading as block %}
+                        {{ block|safe }}
+                        <div class="video-container">
+                            <iframe width="560" height="315"
+                                    src="//www.youtube.com/embed/FRqdHrnbHfg?autoplay={{ autoplay }}&rel=0"
+                                    frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="summary">
+                        {% get_static_block concierge-landing video-summary.heading as block %}
+                        <h1><span>{{ block|safe|striptags }}</span></h1>
+                        {% get_static_block concierge-landing video-summary.text as block %}
+                        {{ block|safe }}
+                    </div>
+                    <div class="testimonials">
+                        <h1><span>What our clients say</span></h1>
+
+                        <div style="width:90%;margin:0 auto;">
+                            {% get_static_block concierge-landing testimonial.section as block %}
+                            {{ block|safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="right-section col-md-3">
+            <div class="enquire">
+                <p>Enquire Now - 0800 321 3582</p>
+                <form action="{% url 'concierge_thankyou' %}" method="post" class="form concierge-form">
+                    {% csrf_token %}
+                    {{form.name.label_tag}}{{form.name}}
+                    {{form.email.label_tag}}{{form.email}}
+                    {{form.telephone.label_tag}}{{form.telephone}}
+                    {{form.timetocall.label_tag}}{{form.timetocall}}
+                    {{form.source}}
+                    <input type="submit" value="Enquire Now" class="bluesubmit form-control">
+                    {% get_static_block concierge-landing enquiry.tagline as block %}
+                    {{block|safe}}
+                </form>
+            </div>
+            <div class="faq-block">
+                <div class="faq-header">
+                    <h3>Frequently asked questions</h3>
+                </div>
+                <div class="faq-questions">
+                    <ul>
+                        {% load faq_tags %}
+                        
+                        {% get_concierge_faqs as faqs %}
+                        {% for faq in faqs %}
+                            <li><a href="{% url 'concierge_faq' %}#{{ faq.question|slugify }}">> {{faq.question}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="faq-link">
+                    <p><a href="{% url 'concierge_faq' %}">View all ></a></p>
+                </div>
+            </div>
+            <div class="fscs-block">
+                <img src="{% static 'img/concierge/FSCS.jpg' %}">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock contenthtml %}
+
+{% block footer_scripts %}
+    <script type="text/javascript" src="{% static 'js/libs/additional-methods.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/validation/concierge-val.js' %}"></script>
+{% endblock footer_scripts %}
+{% endcache %}

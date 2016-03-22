@@ -1,0 +1,16 @@
+<div class="col-md-6">
+    <h3>Based upon what you have supplied so far</h3>
+
+    <p class="inline-text">We could be getting you{% ifnotequal minimum_rate|floatformat:2 maximum_rate|floatformat:2 %}
+        between{% endifnotequal %}</p>
+
+    <h3 class="inline-text">{{ minimum_rate|floatformat:2 }}%</h3>
+    {% ifnotequal minimum_rate|floatformat:2 maximum_rate|floatformat:2 %}
+        <p class="inline-text">and</p>
+        <h3 class="inline-text">{{ maximum_rate|floatformat:2 }}%</h3>
+        <p>However, we need more information from you to refine this range of rates.</p>
+    {% endifnotequal %}
+</div>
+<div class="col-md-6">
+    <img class="img-responsive numberline" src="{% url 'concierge_landing_numberline' minimum_rate maximum_rate %}">
+</div>

@@ -1,0 +1,7 @@
+[program:consul]
+command=consul agent -server -bootstrap-expect 5 -data-dir /tmp/consul -client=127.0.0.1 -advertise={{ ansible_eth0.ipv4.address }} -encrypt=x8t0Hk3mWHh7yZIo32f+rA== > /tmp/consul.log
+autostart=true
+autorestart=true
+user=savingschampion
+redirect_stderr=true
+stdout_logfile=/tmp/consul.log

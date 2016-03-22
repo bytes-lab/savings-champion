@@ -1,0 +1,91 @@
+{% load crispy_forms_tags product_filters %}
+<div class="panel-heading">
+    <button type="button" class="btn btn-success js-add-existing-product-popup">
+        <span class="glyphicon glyphicon-plus-sign"></span> Add Current Products
+    </button>
+</div>
+<table class="table table-bordered table-condensed">
+    <tr>
+        <td colspan="7">Non-Fixed Term Accounts</td>
+    </tr>
+    <tr>
+        <td colspan="2">Provider Name</td>
+        <td colspan="2">Account Name</td>
+        <td>Balance</td>
+        <td>Rate</td>
+        <td></td>
+    </tr>
+    {% for account in current_accounts %}
+        <tr>
+            <td colspan="2">
+                {{ account.provider.title }}
+            </td>
+            <td colspan="2">
+                {{ account.master_product.title }}
+            </td>
+            <td>
+                {{ account.balance }}
+            </td>
+            <td>
+                {{ account.get_latest_rate|floatformat:2 }}%
+            </td>
+            <td>
+                <input type="button" class="btn btn-danger js-delete-existing-product"
+                       data-url="{% url 'engine_delete_existing_products' account.pk %}" value="Delete">
+            </td>
+        </tr>
+    {% endfor %}
+    <tr>
+        <td colspan="7">Active Fixed Term Accounts</td>
+    </tr>
+    <tr>
+        <td>Provider Name</td>
+        <td>Maturity Date</td>
+        <td>Balance</td>
+        <td>Term</td>
+        <td>Rate</td>
+        <td>Altered Pool?</td>
+        <td></td>
+    </tr>
+    {% for fixed_term_account in current_fixed_term_accounts %}
+        <tr>
+            <td>
+                {{ fixed_term_account.provider.title }}
+            </td>
+            <td>
+                {{ fixed_term_account.maturity_date }}
+            </td>
+            <td>
+                {{ fixed_term_account.balance }}
+            </td>
+            <td>
+                {{ fixed_term_account.term }}
+            </td>
+            <td>
+                {{ fixed_term_account.rate|floatformat:2 }}%
+            </td>
+            <td>
+                {{ fixed_term_account.pool_altered }}
+            </td>
+            <td colspan="2">
+                <input type="button" class="btn btn-danger js-delete-existing-product"
+                       data-url="{% url 'engine_delete_existing_fixed_term_products' fixed_term_account.pk %}" value="Delete">
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+<div class="modal fade js-existing-product-popup-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Add Existing Product</h4>
+            </div>
+            <div class="modal-body">
+                {% crispy add_existing_product_form %}
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div><!-- /.modal -->

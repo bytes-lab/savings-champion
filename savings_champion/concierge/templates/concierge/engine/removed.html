@@ -1,0 +1,30 @@
+<div class="panel-heading">
+    <h3>Removed Accounts</h3>
+</div>
+<div class="panel-body">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Provider</th>
+                <th>Product</th>
+                <th>Allow</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in removed_products %}
+            <tr>
+                <td>{{ product.master_product.provider }}</td>
+                <td>{{ product.master_product.title }}</td>
+                <td>
+                    <input type="button"
+                           class="btn btn-success js-allow-removed-product"
+                           value="Restore Product"
+                           data-removed-product="{{ product.pk }}"
+                           data-concierge-user="{{ concierge_user_id }}"
+                           data-url="{% url 'engine_restore_product' %}">
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

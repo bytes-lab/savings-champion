@@ -1,0 +1,125 @@
+{% load product_filters common_tags humanize cache %}
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        <h4>Your product has been added successfully, here it is:</h4>
+    </div>
+    <div class="modal-body">
+
+
+        <div class="product-box {{ p.get_personal_rating_readable|lower }}">
+            <div class="">
+                <div class="top-bar">
+                    <p class="rating">{{ p.get_personal_rating_readable }}</p>
+
+                    <p class="provider">{{ p.provider }}</p>
+
+                    {% if not p.maturity_date %}
+                        <p class="product">{{ p.master_product.title }}</p>
+                    {% else %}
+                        <p class="product">{{ p.account_type }}</p>
+                    {% endif %}
+                    <span class="bold closed-balance" style="display: none;">Balance: £{{ p.balance }}</span>
+                    <span class="id-info" style="display: none;">{{ p.id }}</span>
+                </div>
+                <div class="lower-box">
+                    <div class="info-box">
+                        {% if not p.maturity_date %}
+                            <p><span class="bold">Account Name: </span><span
+                                    class="account-type">{{ p.master_product.title }}</span></p>
+                        {% endif %}
+                        <p><span class="bold">Account Type: </span><span
+                                class="account-type">{{ p.account_type }}</span>
+                        </p>
+
+                        <p><span class="bold">Last Reported Balance: </span>&pound;<span
+                                class="balance">{{ p.balance|intcomma }}</span></p>
+                        {% if not p.maturity_date %}
+                            <p><span class="bold">Interest Rate: </span>{{ p.get_latest_rate|floatformat:2}}%</p>
+                        {% endif %}
+                        {% if p.maturity_date %}
+                            <p><span class="bold maturitydate">Maturity Date: </span>{{ p.maturity_date|date:"F Y"}}</p>
+                        {% endif %}
+                        {% if p.product.show_opening_date %}
+                            <p><span class="bold">Bonus Expiry Date: </span>{{ p.get_bonus_expiry|date:"F Y"}}</p>
+                            {% if p.get_bonus_expiry == false %}
+                                <p class="red bold">Missing? <a class="bluelink opening-date-click" href="#">Enter an
+                                    opening date</a></p>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+
+                    <div class="middle-box">
+                        {% if p.outside_balance %}
+                            <p class="bold">The balance you have entered is outside of the minimum or maximum deposit we
+                                believe this account offers, because of this the interest rate displayed may be
+                                inaccurate.</p>
+                        {% endif %}
+                        {% if p.expiring_next_month %}
+                            <p class="expiring">
+                                {% if p.maturity_date %}
+                                    This {{ p.account_type }} is maturing in the next month
+                                {% else %}
+                                    The bonus on this account is expiring in the next month
+                                {% endif %}
+                            </p>
+                        {% endif %}
+                        {% if p.maturity_date and p.get_personal_rating > 2 %}
+                            {% if p.is_index_linked_certificate %}
+                                <p class="rate-explanation">The rate on this account is index linked</p>
+                                <p>
+                                    This account is currently within term.
+                                </p>
+                            {% else %}
+                                <p class="rate-explanation">Your account is fixed and currently within the fixed
+                                    term</p>
+                                <p>
+                                    The rate you are earning is fixed and is not due to mature until
+                                    {{ p.maturity_date|date:"F o"}}.
+                                    As this account has a fixed rate and a fixed term, if we’re tracking this account we
+                                    will be contacting you when it is due to mature.
+                                </p>
+                            {% endif %}
+                        {% else %}
+                            {{ p.get_rate_text|safe }}
+                        {% endif %}
+                        {% if p.show_comparison %}
+                            <p class="compare">
+                                <a href="{{ p.build_compare_url }}">Compare with the Top 5 {{ p.account_type }} Accounts
+                                    ></a>
+                            </p>
+                        {% endif %}
+                    </div>
+                    {% if p.get_personal_rating < 6 and p.account_type.has_table and p.get_extra_personal_earnings > 0 and p.get_extra_personal_earnings != '' %}
+
+                        <div class="earn-box" {% if forloop.counter == 1 %}data-step="4"
+                             data-intro="This is the current top product for the account type of your product"{% endif %}>
+                            {% if p.account_type.title == 'Regular Savings' %}
+                                <p class="earn-p">You could get</p>
+                                <p class="extra">
+                                    {{ p.get_top_personal_bestbuy_rate|floatformat:2}}%
+                                </p>
+                            {% else %}
+                                <p class="earn-p">You could earn</p>
+                                <p class="extra">
+                                    {% if not p.maturity_date %}
+                                        +
+                                    {% endif %}
+                                    &pound;{{ p.get_extra_personal_earnings|floatformat:2|intcomma }}
+                                </p>
+
+                            {% endif %}
+                            <p>
+                                by switching to <span class="bold">{{ p.get_top_personal_bestbuy }}</span>
+                            </p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+</div>

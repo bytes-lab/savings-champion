@@ -1,0 +1,73 @@
+
+#noscriptbar a {
+  color: white;
+}
+
+.left {
+  float: none;
+  text-align: left;
+}
+
+.right {
+  float: none;
+  text-align: right;
+}
+
+
+.savings-healthcheck-container .step {
+  margin: 0;
+  width: 250px;
+  float: left;
+}
+
+#savings-advice-section .choice-box {
+  width: 250px;
+  text-align: center;
+  padding: 0px 10px 30px 10px;
+  float: left;
+}
+
+#topaccounts-sidebar, #topaccounts .info-section .account-box .pros-cons {
+  float: left;
+}
+
+.account-table {
+  width:auto;
+  .apply {
+    height: 40px;
+    color: white;
+    width: 120px;
+    margin-left: 0;
+    float: left;
+  }
+  td {
+    width: 150px;
+    margin: 10px 0px;
+  }
+  img.img-responsive {
+    max-width: 134px;
+    width: 134px;
+  }
+}
+
+
+#concierge-subbanner .conc-message {
+  float: left;
+  width: 250px;
+}
+
+#healthcheck-subbanner .healthcheck-message, #how-it-works-section {
+  float: left;
+}
+
+#portfolio .product-box {
+  .middle-box, .lower-box .info-box {
+    float: left;
+  }
+}
+
+input {
+  &[type="password"] {
+    font-family: Arial, Helvetica , sans-serif ! important;
+  }
+}

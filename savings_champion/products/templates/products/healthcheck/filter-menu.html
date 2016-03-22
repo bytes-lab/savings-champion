@@ -1,0 +1,100 @@
+<div class="sort-menu" data-step="5"
+     data-intro="Over here you can decide which accounts to show based on their rating or minimise/expand all your accounts">
+    <p>Filter:</p>
+    <ul class="filters">
+        <li class="active left" data-filter="*">
+            <a href="#">
+                <input type="button" class="btn" value="Show All >">
+            </a>
+        </li>
+        {% if Critical %}
+            <li data-filter=".critical">
+                <a href="#">
+                    <input type="button" class="btn" value="Critical >">
+                </a>
+            </li>
+        {% endif %}
+        {% if Expired %}
+            <li data-filter=".expired">
+                <a href="#">
+                    <input type="button" class="btn" value="Expired >">
+                </a>
+            </li>
+        {% endif %}
+        {% if Attention %}
+            <li data-filter=".attention">
+                <a href="#">
+                    <input type="button" class="btn" value="Attention Needed >">
+                </a>
+            </li>
+        {% endif %}
+        {% if Changing %}
+            <li data-filter=".changing">
+                <a href="#">
+                    <input type="button" class="btn" value="Changing >">
+                </a>
+            </li>
+        {% endif %}
+        {% if Good %}
+            <li data-filter=".good">
+                <a href="#">
+                    <input type="button" class="btn" value="Good >">
+                </a>
+            </li>
+        {% endif %}
+        {% if Excellent %}
+            <li data-filter=".excellent">
+                <a href="#">
+                    <input type="button" class="btn" value="Excellent >">
+                </a>
+            </li>
+        {% endif %}
+        {% if Matured %}
+            <li data-filter=".matured">
+                <a href="#">
+                    <input type="button" class="btn" value="Matured >">
+                </a>
+            </li>
+        {% endif %}
+        {% if Within %}
+            <li data-filter=".within">
+                <a href="#">
+                    <input type="button" class="btn" value="Within Term >">
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</div>
+
+<p class="bold">Options:</p>
+<ul>
+    <li class="close-all">
+        <a href="#">
+            <input type="button" class="btn" value="Minimise All >">
+        </a>
+    </li>
+    <li class="expand-all">
+        <a href="#">
+            <input type="button" class="btn" value="Expand All >">
+        </a>
+    </li>
+</ul>
+
+<p class="bold">Sort:</p>
+<ul>
+    <li class="balance-sort">
+        <a href="#">
+            <input type="button" class="btn" value="By Balance >">
+        </a>
+    </li>
+    <li class="provider-sort">
+        <a href="#">
+            <input type="button" class="btn" value="By Provider >">
+        </a>
+    </li>
+    <li class="reset-sort">
+        <a href="#">
+            <input type="button" class="btn" value="By Rating >">
+        </a>
+    </li>
+</ul>

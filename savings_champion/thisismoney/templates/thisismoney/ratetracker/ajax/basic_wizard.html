@@ -1,0 +1,118 @@
+{% load staticfiles %}
+<div id="RTLogo">
+    <span><img src="{% static 'img/tri-lrg.png' %}" alt="Rate Tracker Logo" />    Rate Tracker</span>
+</div>
+<div id="RTmsg">Has your bank lost interest in you?
+    <br />
+    <br />Rate Tracker checks your savings rates, constantly, for free. We work, you relax
+</div>
+<div class="error" style="display:none;">
+      <span></span>.<br clear="all" />
+</div>
+<form id="ac-account-form" action="{% block form_endpoint %}{% url 'timrate_check' %}{% endblock form_endpoint %}#main" method="post" autocomplete="off" target="_blank">
+    <input type="hidden" name="search" value="true" />
+    {% csrf_token %}
+    {% for hidden_field in ratetracker_form.hidden_fields %}
+        {{hidden_field}}
+    {% endfor  %}
+    <ol class="ac-account group">
+        <li class="active group{% if ratetracker_form.provider.errors %} errors{% endif %}" data-step="1" id="provider">
+
+            <label for="id_provider">
+                <span class="no one"></span>Your Provider
+            </label>
+            <div class="input-wrap">{{ratetracker_form.provider}}</div>
+            
+            <div class="info">
+                <a class="ico-omrc" href="#"></a>
+                <div class="text">
+                    <p>Select your bank or building society from the names listed in the drop down menu.</p>
+                </div>
+            </div>
+            
+            <span class="loa"></span>
+        </li>
+        <li class="group active{% if ratetracker_form.account_type.errors %} errors{% endif %}{% if ratetracker_form.is_bound %} active{% endif %}" data-step="2" name="account-type" id="type">
+            <label for="id_account_type">
+                <span class="no two"></span>Savings Type
+            </label>
+            <div class="input-wrap">{{ratetracker_form.account_type}}</div>
+            
+            <div class="info">
+                <a class="ico-omrc active" href="#"></a>
+                <div class="text">
+                    <p>The type of account you have, for example, Easy Access, ISA etc.</p>
+                </div>
+            </div>
+            
+        </li>
+        <li class="group active{% if ratetracker_form.balance.errors %} errors{% endif %}{% if ratetracker_form.is_bound %} active{% endif %}" data-step="3" name="balance" id="balance">
+            
+            <label for="balance" for="id_balance">
+                <span class="no three"></span>Balance (&pound;)
+            </label>
+            <div class="input-wrap">{{ratetracker_form.balance}}</div>
+            <div class="info">
+                <a class="ico-omrc active" href="#"></a>
+                <div class="text">
+                    <p>The accounts available automatically update when a balance is entered. Please note some accounts have a minimum balance.</p>
+                </div>
+            </div>
+        </li>
+        <li class="group active {% if ratetracker_form.product.errors %} errors{% endif %}{% if ratetracker_form.is_bound %} active{% endif %}" id="account_name_group" data-step="4" name="account-name" {% if ratetracker_form.set_reminder %} style="display:none;"{% endif %}>
+            <label for="id_product">
+                <span class="no four"></span>Account Name
+            </label>
+            <div class="input-wrap">{{ratetracker_form.product}}</div>
+            
+            <div class="info">
+                <a class="ico-omrc" href="#"></a>
+                <div class="text">
+                    <p>If you’re unsure of your account name call your provider to check. Alternatively call us on 0800 321 3582.</p>
+                </div>
+            </div>
+            
+        </li>
+
+        <li class="group maturity active {% if ratetracker_form.maturity_date.errors %} errors{% endif %}{% if ratetracker_form.is_bound %} active {% endif %}" id="maturity_date_group" data-step="4" name="maturity-date" {% if not ratetracker_form.set_reminder %} style="display:none;"{% endif %}>
+            <label for="id_maturity_date_day">Maturity date
+                <span class="no four"></span>
+            </label>
+            <div class="input-wrap">
+                {{ratetracker_form.maturity_date}}
+            </div>
+            
+            <div class="info">
+                <div class="text">
+                    <h2>If you don't know your Providers name</h2>
+                    <p>If you are unsure of the type of savings account you have, take a look under the different options available to see if you can find it, or ask your provider. We'll need to know the account name too, so check this with them at the same time. You are welcome to email us at <a href="mailto:info@savingschampion.co.uk">info@savingschampion.co.uk</a> with the account name if you know it, and we'll look into it for you.</p>
+                </div>
+            </div>
+            
+        </li>
+        
+        <li class="group active{% if ratetracker_form.email.errors %} errors{% endif %} active" data-step="5" name="email" id="email">
+            
+            <label for="email" for="id_email" class="emailLabel">
+                <span class="no five"></span>Email
+            </label>
+            <div class="input-wrap email">{{ratetracker_form.email}}</div>  
+            <div class="info">
+                <a class="ico-omrc" href="#"></a>
+                <div class="text">
+                    <p> {% if ratetracker_form.email.errors  %}
+                            {% for error in ratetracker_form.email.errors  %}
+                                {{error}}
+                            {% endfor%}
+                        {% else %}
+                            Needed to get your results, and to register with Rate Tracker, so you'll know if your savings rate changes and where to get the best rate. You can unsubscribe at any point.
+                        {% endif %}
+                    </p>
+                </div>
+            </div>  
+        </li>
+    </ol>
+    <div id="buttonWrap">
+        <input id="result-button" class="result-button" type="image" src="{% static 'img/rateresults.png' %}" value="view results"/>
+    </div>
+    </form>

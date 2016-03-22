@@ -1,0 +1,163 @@
+import os
+
+from settings_base import *
+
+
+PROJECT_DIR = os.path.dirname(os.path.realpath(__file__))
+
+ALLOWED_HOSTS = ['.advicechampion.co.uk',
+                 '.advicechampion.com',
+                 '.annaandsue.co.uk',
+                 '.annaandsue.com',
+                 '.businessratetracker.co.uk',
+                 '.businessratetracker.com',
+                 '.cashgurus.co.uk',
+                 '.charityratetracker.com',
+                 '.depositcheck.co.uk',
+                 '.deposittracker.com',
+                 '.expatratetracker.co.uk',
+                 '.expatratetracker.com',
+                 '.investmentchampion.co.uk',
+                 '.isaadvice.com',
+                 '.isachampion.co.uk',
+                 '.isachampion.com',
+                 '.isatracker.com',
+                 '.isatracker.co.uk',
+                 '.investmenttracker.co',
+                 '.nobiasadvice.co',
+                 '.minutesaving.co.uk',
+                 '.minutesaving.com',
+                 '.minutesavings.co.uk',
+                 '.pensionschampion.co.uk',
+                 '.pensionschampion.com',
+                 '.pensionsratetracker.co.uk',
+                 '.pensionsratetracker.com',
+                 '.rateguru.co.uk',
+                 '.rate-tracker.co.uk',
+                 '.savingscheck.co.uk',
+                 '.savingschannel.co.uk',
+                 '.savingschampion.co.uk',
+                 '.savingschampions.co.uk',
+                 '.savingschampions.com',
+                 '.savingsgurus.co.uk',
+                 '.savingsgurus.com',
+                 '.savingssolutions.co.uk',
+                 '.savingsportal.co.uk',
+                 '.sixtysecondsaving.co.uk',
+                 '.sixtysecondsaving.com',
+                 '.sixtysecondsavings.co.uk',
+                 '.wealthtracker.co',
+                 '.savingschampiontv.co.uk',
+                 '.pensionfundtracker.co',
+                 '.ratechampion.co.uk',
+                 '.pensionfundtracker.co.uk',
+                 '.nobiasadvice.co',
+                 {% for server in groups['load_balancers'] %}
+                 '{{ server }}',
+                 {% endfor %}
+                 ]
+
+DEBUG = False
+
+STATIC_ROOT = os.path.join(PROJECT_DIR, '..' ,'static')
+
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_DIR, 'resources'),
+)
+
+# define these in the appropriate level of settings
+USER_EXPORT_PATH = os.path.join(PROJECT_DIR, 'userdetails_%s.csv')
+SALESFORCE_CREATE_USERS_PATH = os.path.join(PROJECT_DIR, 'sfusers_%s.txt')
+SALESFORCE_SYNC_ALERTS_PATH = os.path.join(PROJECT_DIR, 'sfalerts_%s.txt')
+SALESFORCE_RATETRACKER_ACCOUNTS_PATH = os.path.join(PROJECT_DIR, 'sfaccounts_%s.txt')
+DUPLICATE_EMAILS_PATH = os.path.join(PROJECT_DIR, 'duplicate_%s.csv')
+REMINDERS_CSV_PATH = os.path.join(PROJECT_DIR, 'reminders_%s.csv')
+PORTFOLIOS_CSV_PATH = os.path.join(PROJECT_DIR, 'portfolios_%s.csv')
+ALERTS_CSV_PATH = os.path.join(PROJECT_DIR, 'alerts_%s.csv')
+CAMPAIGNS_CSV_PATH = os.path.join(PROJECT_DIR, 'rate_concierge_%s.csv')
+ACTIVE_USERS_NO_RATES_OR_REMINDERS_CSV_PATH = os.path.join(PROJECT_DIR, 'not_tracking_%s.csv')
+NON_ACTIVE_USERS_CSV_PATH = os.path.join(PROJECT_DIR, 'inactive_%s.csv')
+
+DATABASES = {
+    {% for master in groups['master_database'] %}
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'savings_champion', # Or path to database file if using sqlite3.
+        'USER': 'savings_champion', # Not used with sqlite3.
+        'PASSWORD': 'r8Y@Mge#aTtW', # Not used with sqlite3.
+        'HOST': '{{ master }}', # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '', # Set to empty string for default. Not used with sqlite3.
+    },
+    {% endfor %}
+    {% for slave in groups['slave_databases'] %}
+    'read-{{ slave|replace(".", "-") }}': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'savings_champion', # Or path to database file if using sqlite3.
+        'USER': 'savings_champion', # Not used with sqlite3.
+        'PASSWORD': 'r8Y@Mge#aTtW', # Not used with sqlite3.
+        'HOST': '{{ slave }}', # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '', # Set to empty string for default. Not used with sqlite3.
+    },
+    {% endfor %}
+}
+
+DATABASE_ROUTERS = ['db_router.MasterSlaveRouter']
+
+# Absolute filesystem path to the directory that will hold user-uploaded files.
+# Example: "/home/media/media.lawrence.com/media/"
+MEDIA_ROOT = os.path.join(PROJECT_DIR, 'assets')
+
+HAYSTACK_SEARCH_ENGINE = 'simple'
+
+# URL that handles the media served from MEDIA_ROOT. Make sure to use a
+# trailing slash.
+# Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
+MEDIA_URL = '/assets/'
+
+GA_ACCOUNT = 'UA-27017192-1'
+
+CKEDITOR_UPLOAD_PATH = os.path.join(MEDIA_ROOT ,'images')
+CKEDITOR_MEDIA_PREFIX = "/assets/ckeditor/ckeditor/"
+HTTPS_SUPPORT = True
+
+SECURE_REQUIRED_PATHS = (
+    '/',
+    '/admin/',
+    '/accounts/',
+)
+
+# Between Live and Preview, we have different urls the url defined here is for live,
+SALESFORCE_USER = 'savingschampion.co.uk.sfdc@silverlinedsolutions.com.djangoapi'
+SALESFORCE_PASS = 'DjANGO123456'
+SALESFORCE_TOKEN = 'MNEeYIkCiryhiy1z2rTshDKR8'
+SALESFORCE_ENDPOINT = 'https://eu1-api.salesforce.com/services/Soap/class/dJangoAdapter'
+SALESFORCE_ENTERPRISE_WSDL = 'file://%s/common/enterprise_live.wsdl' % PROJECT_DIR
+SALESFORCE_DJANGO_WSDL = 'file://%s/common/djangoAdapter.wsdl' % PROJECT_DIR
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+        'TIMEOUT': 86400,
+    }
+}
+
+DATABASES['default']['CONN_MAX_AGE'] = 600
+
+RAVEN_CONFIG = {
+    'dsn': 'http://363394c57f7548399009506366efb433:61f0c733530d433bbac404e41c0f8790@sentry.savingschampion.co.uk/2',
+}
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+
+BROKER_URL = 'amqp://savingschampion:savingschampion@localhost:5672/savingschampion'
+
+{% if s3 %}
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+AWS_STORAGE_BUCKET_NAME = 'savingschampionmediafiles'
+STATICFILES_STORAGE = 'common.storage.S3PipelineStorage'
+S3_URL = 'https://s3-eu-west-1.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
+STATIC_URL = S3_URL
+AWS_ACCESS_KEY_ID = 'AKIAJEJSS3PA7VFUXQQQ'
+AWS_SECRET_ACCESS_KEY = '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'
+{% endif %}

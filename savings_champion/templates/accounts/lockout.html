@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block bannertext %}
+<div id="left-banner">
+    <h1>Account Locked</h1>
+</div>
+{% endblock bannertext %}
+
+{% block contenthtml %}
+<div id="login">
+    <div class="content-width">
+        <p>For your account security as you have made {{failure_limit}} attempts to login unsuccessfully we have prevented any more attempts to login for the next hour</p>
+        <p>Please email us at info@savingschampion.co.uk or call us and we can reset this limit if required</p>
+    </div>
+</div>
+{% endblock contenthtml %}

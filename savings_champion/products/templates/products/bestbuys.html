@@ -1,0 +1,125 @@
+{% extends "base.html" %}{% load product_filters humanize %}
+
+{% block meta_description %}
+    {% if current_bestbuy and current_bestbuy.meta_description %}
+        <meta name="description" content="{{ current_bestbuy.meta_description }}">
+    {% endif %}
+{% endblock meta_description %}
+
+{% block navigation %}
+    {% include "main_navigation.html" with section="bestbuys" %}
+{% endblock navigation %}
+
+{% block main_class %}bb-landing{% endblock main_class %}
+
+{% block sidebar_top %}
+    <div class="banner-nav-wrap">
+        <h2>
+            <span class="ico sq-ico"></span>
+            Best Buys
+        </h2>
+        <ul class="banner-nav">
+            {% for bestbuy in bestbuys %}
+                <li class="{% ifequal bestbuy.pk current_bestbuy.pk %}active{% endifequal %}">
+                    <a href="{% url view_bestbuy_table bestbuy.slug %}#top">
+                        <span class="banner"></span>
+                        {{ bestbuy }}
+                        <span class="arr"></span>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock sidebar_top %}
+
+{% block sidebar_bottom %}
+    {% include "ico_nav.html" with hide="bestbuys" %}
+{% endblock sidebar_bottom %}
+
+
+{% block pre_content %}
+    <div id="pre-content" class="group">
+        <h1 id="top">{% block title %}Our recommended Best Buy tables -
+            {{ current_bestbuy.title }}{% endblock title %}</h1>
+        {% if current_bestbuy and current_bestbuy.landing_page_description %}
+            <blockquote>
+                {{ current_bestbuy.landing_page_description|safe }}
+                {% if current_bestbuy.author %}
+                    <cite>{{ current_bestbuy.author.first_name }} {{ current_bestbuy.author.last_name }} </cite>
+                {% endif %}
+            </blockquote>
+        {% endif %}
+
+        <div class="bb-tool"
+             id="{% if bestbuy_form.is_bound and not bestbuy_form.is_valid %}your-income{% else %}bestbuy-form{% endif %}">
+            <h2 {% if bestbuy_form.is_bound and not bestbuy_form.is_valid %}class="open"{% endif %}>What interest could
+                I earn?
+                <span></span>
+            </h2>
+
+            <form class="group" method="post" action="{{ request.path }}#your-income">
+                {% csrf_token %}
+                {% if bestbuy_form %}
+                    {% include FORM_TEMPLATE_FILE %}
+                {% endif %}
+
+                <input class="button" type="submit" value="Update">
+
+            </form>
+        </div>
+    </div>
+{% endblock pre_content %}
+
+{% block content %}
+
+
+    {% include TABLE_TEMPLATE_FILE %}
+
+
+    {% if calculations %}
+        {% include CALCULATIONS_TABLE_FILE %}
+    {% endif %}
+
+{% endblock content %}
+
+{% block extra_scripts %}
+    <script type="text/javascript">
+        $(function () {
+
+            $('tr.info').each(function () {
+                var $img = $('<span class="bb-info"></span>');
+
+                var $hidden_row = $(this).next();
+
+                $img.click(function (event) {
+                    event.preventDefault();
+                    $hidden_row.toggle();
+                });
+                $(this).find('div.hider').prepend($img);
+                $hidden_row.hide();
+            });
+
+            var $links = $('a.proceed');
+
+            $($links).each(function (index, item) {
+                var provider = $(this).attr('data-provider');
+                var accountName = $(this).attr('data-title');
+                if (ga) {
+                    ga('send', 'event', 'Best Buys Table', 'Clicked', provider);
+                    ga('send', 'event', 'Account only', 'Clicked', accountName);
+                    ga('send', 'event', 'Provider + Account Best Buys Table', 'Clicked', provider, accountName);
+                }
+                if (_gaq) {
+                    $(this).click(function () {
+                        // using asynchronous google analytics, push to global _gaq
+                        _gaq.push(['_trackEvent', 'Best Buys Table', 'Clicked', provider]);
+                        _gaq.push(['_trackEvent', 'Provider + Account Best Buys Table', 'Clicked', provider, accountName]);
+                        _gaq.push(['_trackEvent', 'Account only', 'Clicked', accountName]);
+                        return true;
+                    });
+                }
+            });
+        });
+
+    </script>
+{% endblock extra_scripts %}

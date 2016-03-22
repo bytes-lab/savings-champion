@@ -1,0 +1,16 @@
+<div id="page-sidebar" class="col-md-3 panel panel-default">
+    <div class="left-nav panel-body">
+        <div class="page-links">            
+            <ul class="nav nav-pills nav-stacked">
+                {% if childpages %}
+                    {% for page in childpages %}
+                        <li class="{% if activeslug == page.slug %}active{% endif %} {% if forloop.last %}bottom{% endif %}">
+                            <a href="{{page.get_absolute_url}}">{{page.title}}</a>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+        {% include "general/sidebar-signup.html" %}    
+    </div>
+</div>

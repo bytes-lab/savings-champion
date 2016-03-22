@@ -1,0 +1,12 @@
+Welcome and thank you for registering with SavingsChampion.co.uk.
+
+Your account has now been created; please complete the log in process by following the link below:
+
+https://{{site.domain}}/accounts/activate/{{activation_key}}/
+
+Upon logging in you will be able to access all of our facilities including our unique Rate Tracker service and you can set reminders for all your fixed rate products or simply just check out our best buy tables or our articles and advice pages.
+
+If you have savings of £100,000+ please check out our Rate Tracker Concierge service and feel free to call us directly on 0800 321 3581.
+
+Many thanks,
+Savings Champion

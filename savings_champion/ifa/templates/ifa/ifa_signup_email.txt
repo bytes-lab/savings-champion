@@ -1,0 +1,7 @@
+The following user has just enquired about IFAs:
+
+Name: {{ name }} {{ last_name }}
+Email: {{ email }}
+Selected Portfolio Value: {{ signup_amount }}
+Telephone Number: {{ telephone }}
+Postcode: {{ postcode }}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load block_tags crispy_forms_tags %}
+
+{% block title %}
+    We'll remind you later
+{% endblock title %}
+{% block bannertext %}
+<div id="left-banner">
+    <h2>Okay, we'll remind you later</h2>
+    <h5>Are you interested in receiving Rate Alert emails instead?</h5>
+</div>
+{% endblock bannertext %}
+
+{% block contenthtml %}
+<div id="healthcheck-signup">
+    <div class="content-width">
+        <div class="form-section">
+            {% get_static_block healthcheck-signup reminder.rablock as block %}
+                {{block|safe}}
+                {% crispy raform %}
+            <a href="{% url 'healthcheck_remind_finished' %}" class="bluea">I don't want to receive these emails ></a>
+        </div>
+        
+        <div class="sidebar">
+            {% get_static_block healthcheck-signup sidebar.block1 as block %}
+                {{block|safe}}
+        </div>
+        
+    </div>
+</div>
+{% endblock contenthtml %}

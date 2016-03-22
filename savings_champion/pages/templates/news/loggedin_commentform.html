@@ -1,0 +1,25 @@
+<div>
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {{ message }}
+        </div>
+    {% endfor %}
+</div>
+<p class="heading">Add a comment</p>
+{% if form.article_comment %}
+    <form action="{% url 'add_article_comment' %}" method="post" class="comment-form">
+{% else %}
+    <form action="{% url 'add_blog_comment' %}" method="post" class="comment-form">
+{% endif %}
+    {% csrf_token %}
+    {{form.user.as_hidden}}
+    {% if form.article_comment %}
+        {{form.article_comment.as_hidden}}
+    {% else %}
+        {{form.blog_comment.as_hidden}}
+    {% endif %}
+
+    {{form.comment}}
+    <input class="bluesubmit form-control" type="submit" value="Add comment" />
+</form>

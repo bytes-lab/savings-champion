@@ -1,0 +1,79 @@
+{% extends "base.html" %}{% load common_tags product_tags page_tags product_filters humanize %}
+{% block body_class %}tracker-page {{ RATETRACKER_TYPE|lower }}{% endblock body_class %}
+{% block main_class %}ratetracker{% endblock main_class %}
+
+{% block meta_description %}
+    <meta name="description"
+          content="Register for Savings Champion’s unique and free Rate Tracker service and we’ll tell you when you need to move your savings account to get the best rate.">
+{% endblock %}
+
+{% block navigation %}
+    {% include "main_navigation.html" with section=section %}
+{% endblock navigation %}
+
+{% block pre_content %}
+
+    <div id="tracker-pre-content" class="group">
+        {% ifequal RATETRACKER_TYPE|lower "isa" %}
+            <h1>ISA Tracker &trade;</h1>
+        {% else %}
+            <h1>Rate Tracker <sup>&reg;</sup></h1>
+        {% endifequal %}
+        {% block tracker_intro %}
+
+        {% endblock tracker_intro %}
+
+        <div class="share">
+            <h2>Share {{ RATETRACKER_TYPE }} Tracker <sup>&reg;</sup> with a friend</h2>
+            <!-- AddThis Button BEGIN -->
+            <div class="addthis_toolbox addthis_pill_combo">
+                <a class="addthis_counter addthis_pill_style"></a>
+                <a class="addthis_counter addthis_button_email"></a>
+            </div>
+            <!-- AddThis Button END -->
+        </div>
+    </div><!-- end tracker-pre-content -->
+
+    {% block tracker_tabs %}
+        <ul class="tracker-tabs">
+            <li><a href="{% url rate_check %}">One Minute Rate Check</a></li>
+            <li><a href="{% url rate_tracker %}">My Rate Tracker <sup>&reg;</sup> Portfolio</a></li>
+        </ul>
+    {% endblock tracker_tabs %}
+
+{% endblock pre_content %}
+
+{% block sidebar %}{% endblock sidebar %}
+{% block content %}
+    <div id="tracker-content" class="group">
+        {% block tracker_content %}
+
+        {% endblock tracker_content %}
+    </div>
+
+    {% block tracker_post_content %}
+        {% block tracker_disclaimer %}{% endblock tracker_disclaimer %}
+        <div id="tracker-post-content" class="group">
+
+            {% include "newsletter_signup.html" %}
+            {% include "ratealerts_signup.html" %}
+        </div>
+    {% endblock tracker_post_content %}
+
+
+    {% if request.session|get_page_view %}
+        <script type="text/javascript">
+            (function () {
+                if (window._gaq != undefined) {
+                    _gaq.push(['_trackPageview', '{{request.path}}{{request.session|get_page_view}}']);
+                }
+                if (window.ga != undefined) {
+                    ga('send', 'pageview', '{{request.path}}{{request.session|get_page_view}}');
+                }
+            })();
+        </script>
+        {{ request.session|clear_page_view }}
+    {% endif %}
+{% endblock content %}
+
+

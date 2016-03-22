@@ -1,0 +1,122 @@
+- hosts: all
+  roles:
+    - users
+    - time
+    - swap
+    - updates
+    - consul
+
+- hosts: backups
+  roles:
+    - barman
+
+- hosts: databases
+  roles:
+    - postgres-common
+
+- hosts: master_database
+  roles:
+    - postgres-master
+
+- hosts: slave_databases
+  roles:
+    - postgres-slaves
+  serial: 1
+
+- hosts: databases
+  roles:
+     - repmgr
+
+- hosts: app_servers
+  roles:
+    - savings_champion
+    - uwsgi
+    - celery
+    - rabbitmq
+    - memcache
+
+- hosts: load_balancers
+  roles:
+    - nginx
+    - memcache
+
+- hosts: monitoring
+  vars:
+    - rabbitmq_plugins:
+      - rabbitmq_management
+    - rabbitmq_vhost_definitions:
+      - sensu
+    - rabbitmq_users_definitions:
+      - vhost: sensu
+        user: sensu
+        password: aGJrwg3$^%345y
+        tags:
+          - management
+    - redis_bind: 127.0.0.1
+  roles:
+    - DavidWittman.redis
+    - Mayeu.RabbitMQ
+
+- hosts: databases
+  vars:
+    - sensu_install_server: false
+    - sensu_server_rabbitmq_password: aGJrwg3$^%345y
+    - sensu_server_rabbitmq_hostname: "{{ groups['monitoring'][0] }}"
+    - sensu_server_embedded_ruby: false
+    - sensu_client_subscription_names: 
+      - all
+      - test
+      - database
+  roles:
+    - Mayeu.sensu
+
+- hosts: load_balancers
+  vars:
+    - sensu_install_server: false
+    - sensu_server_rabbitmq_password: aGJrwg3$^%345y
+    - sensu_server_rabbitmq_hostname: "{{ groups['monitoring'][0] }}"
+    - sensu_server_embedded_ruby: false
+    - sensu_client_subscription_names: 
+      - all
+      - test
+      - load_balancers
+  roles:
+    - Mayeu.sensu
+
+- hosts: app_servers
+  vars:
+    - sensu_install_server: false
+    - sensu_server_rabbitmq_password: aGJrwg3$^%345y
+    - sensu_server_rabbitmq_hostname: "{{ groups['monitoring'][0] }}"
+    - sensu_server_embedded_ruby: false
+    - sensu_client_subscription_names: 
+      - all
+      - test
+      - app_servers
+  roles:
+    - Mayeu.sensu
+
+- hosts: backups
+  vars:
+    - sensu_install_server: false
+    - sensu_server_rabbitmq_password: aGJrwg3$^%345y
+    - sensu_server_rabbitmq_hostname: "{{ groups['monitoring'][0] }}"
+    - sensu_server_embedded_ruby: false
+    - sensu_client_subscription_names: 
+      - all
+      - test
+      - backups
+  roles:
+    - Mayeu.sensu
+
+- hosts: monitoring
+  vars:
+    - sensu_server_rabbitmq_password: aGJrwg3$^%345y
+    - sensu_server_dashboard_password: "33512121"
+    - sensu_server_rabbitmq_hostname: "{{ groups['monitoring'][0] }}"
+    - sensu_install_client: false
+    - sensu_server_embedded_ruby: false
+  vars_files:
+    - vars/ansible_server_checks.yml
+  roles:
+    - Mayeu.sensu

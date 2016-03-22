@@ -1,0 +1,61 @@
+<div id="navigation">
+    <ul id="main-nav" class="group">
+      {% block locked_navigation %}
+      <li {% if not current_page and not section %} class="active"{% endif %}>
+        <a href="/" title="Savings Champion Home">Home</a>
+      </li>
+      <li {% if section  == 'bestbuys' %}class="bbactive"{% endif %}>
+        <a href="{% url view_bestbuys %}" title="Best Buys">Best Buys</a>
+      </li>
+      <li {% if section  == 'ratetracker' %}class="rtactive"{% endif %}>
+        <a href="{% url rate_check %}" title="Rate Tracker">Rate Tracker <sup>&reg;</sup></a>
+      </li>
+      <li {% if section  == 'concierge' %}class="isaactive"{% endif %}>
+        <a href="{% url concierge_signup %}" title="Concierge Service">Concierge Service</a>
+      </li>
+      {% endblock locked_navigation %}
+      {% for page in sitetree.children %}
+        {% if page.is_section %}
+          <li {% ifequal current_page.slug page.slug %}class="active"{% else %}{% ifequal current_section page %}class="active"{% endifequal %}{% endifequal %}>
+		  <a href="{{page.get_absolute_url}}" title="{{page}}">{{page}}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+    {% if current_section and current_section.children %}
+      <ul id="sub-nav" class="group">
+       {% for child_page in current_section.children %}
+       		<!-- This is slightly awkward but for some reason trying the child page titles failed -->
+			{% if child_page.get_absolute_url == '/savings-news/in-the-press/' %}
+	            <li>
+	       			<a href={% url list_articles %} title ="Savings News">Savings News</a>
+	       		</li>
+   		  	{% endif %}
+          <li>
+		  <a href="{{child_page.get_absolute_url}}" title="{{child_page}}">
+              {{child_page}}
+            </a>
+          </li>
+          
+          
+       {% endfor %}
+       
+       		
+   		
+        </ul>
+    {% else %}
+        {% if section == 'bestbuys'%}
+        <ul id="sub-nav" class="group">
+          <li>{% if sub_section == 'bestbuy_compare'%}<a href="{% url view_bestbuys %}" title="Best Buy Comparison"><strong>Best Buy Comparison</strong></a>{% else %}<a href="{% url view_bestbuys %}" title="Best Buy Comparison">Best Buy Comparison</a>{% endif %}</li>
+          <li>{% if sub_section == 'bestbuy_tables'%}<a href="{% url view_bestbuy_tables %}" title="Best Buy Tables"><strong>Best Buy Tables</strong></a>{% else %}<a href="{% url view_bestbuy_tables %}" title="Best Buy Tables">Best Buy Tables</a>{% endif %}</li>
+        </ul>
+        {% endif %}
+        {% if section == 'concierge' %}
+	        <ul id="sub-nav" class="group">
+	          <li><a href="/rate-tracker-concierge-more-information/" title="More information">More information</a></li>
+	        </ul>
+        {% endif %}
+
+    {% endif %}
+
+</div>

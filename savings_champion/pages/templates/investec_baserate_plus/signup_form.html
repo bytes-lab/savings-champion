@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load block_tags static crispy_forms_tags waffle_tags %}
+
+{% block title %}
+    Investec Base Rate Plus
+{% endblock title %}
+
+{% block bannertext %}
+    <div id="left-banner">
+        {% get_static_block investec-baserate-plus incentive as block %}
+        <h2 class="js-banner-title" style="font-size: 30px">{{ block|safe }}</h2>
+    </div>
+{% endblock bannertext %}
+
+{% block logobar %}
+    {% include 'logobar_investec_base_rate_plus.html' %}
+{% endblock logobar %}
+
+{% block contenthtml %}
+    <div id="ifa-landing">
+        <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    {% get_static_block investec-baserate-plus enquire as block %}
+                                    {{ block|safe }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <img class="img-responsive" src="{% static 'img/product/investec-baserate-plus/Investect_logo_compressed.jpg' %}">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <img class="img-responsive"
+                                                 src="{% static 'img/concierge/FSCS_small.jpg' %}">
+                                            {% get_static_block investec-baserate-plus fscs-copy as block %}
+                                            {{ block|safe }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% flag 'investec_sc_recommends' %}
+                            <div class="col-sm-12">
+                                <a href="{% url 'savings_champion_verdict' 'investec-base-rate-plus' %}">
+                                    <img class="img-responsive" src="{% static 'img/product/investec-baserate-plus/savchamp-recommends.png' %}">
+                                </a>
+                            </div>
+                            {% endflag %}
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col-sm-7">
+                            {% flag 'savings_priority_list_investec' %}
+                                {% crispy form %}
+                            {% else %}
+                                <button class="btn btn-success js-to-provider pull-right">Proceed to open the account <span class="glyphicon glyphicon-arrow-right"></span></button>
+                            {% endflag %}
+                            <div class="clearfix"></div>
+                            <div class="row" style="padding-top: 10px;">
+                                <div class="col-sm-12">
+                                    {% get_static_block investec-baserate-plus need-to-know as block %}
+                                    {{ block|safe }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="well well-sm">
+                                {% get_static_block investec-baserate-plus quote as block %}
+                                {{ block|safe }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="js-provider-url" data-url="https://www.investec.co.uk/products-and-services/banking-services/personal-savings-accounts/base-rate-plus.html" data-product="Investec"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenthtml %}
+
+{% block footer_scripts %}
+    <script async src="{% static 'js/products/products.js' %}"></script>
+{% endblock %}

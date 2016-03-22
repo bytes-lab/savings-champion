@@ -1,0 +1,724 @@
+a {
+  img {
+    border: none;
+  }
+  color: white;
+  text-decoration: none;
+}
+
+/*ie fix for blue borders */
+
+body {
+  background-color: #FFF;
+  padding: 0;
+  text-align: center;
+  width: auto;
+  margin: 0;
+  font-family: arial;
+  font-size: 12px;
+}
+
+#resultsMain {
+  margin: 0px auto;
+  text-align: left;
+  width: 960px;
+  background-color: #FFF;
+}
+
+#wizardMain {
+  text-align: left;
+  background-color: #F2F2F2;
+  height: auto;
+  width: 602px;
+  height: 710px;
+}
+
+#tabContainer {
+  width: 600px;
+  height: 50px;
+  background: #451344;
+  margin-bottom: 20px;
+  color: white;
+  font-weight: bold;
+  .tabblock {
+    width: 197px;
+    display: inline-block;
+    text-align: center;
+    font-size: 22px;
+    height: 100%;
+  }
+  .active {
+    background: #762174;
+  }
+  .left {
+    border-right: 1px solid white;
+  }
+  .right {
+    border-left: 1px solid white;
+  }
+  p.text {
+    margin: 0;
+    padding-top: 12px;
+  }
+}
+
+.tracker-page {
+  background: #f7f7f7;
+  #content {
+    background: #f7f7f7;
+  }
+  #precontent-wrap {
+    background: #f2f2f2;
+    margin-bottom: 0px;
+  }
+  #precontent {
+    background: #f2f2f2;
+    position: relative;
+    padding-top: 40px;
+  }
+}
+
+#precontent .share {
+  position: absolute;
+  top: 30px;
+  right: 0;
+}
+
+.log-create h2 {
+  border-bottom: 1px solid #DEDEDE;
+  font-size: 34px;
+  line-height: 45px;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+}
+
+.teaser-text {
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 10px;
+  padding-top: 20px;
+  padding-bottom: 0px;
+  height: 50px;
+  p {
+    border-top: 1px dashed #E4E4E4;
+    border-bottom: 1px dashed #E4E4E4;
+    padding: 10px;
+    padding-left: 0px;
+  }
+}
+
+.server-message {
+  border-top: 1px dashed #E4E4E4;
+  border-bottom: 1px dashed #E4E4E4;
+  padding-top: 10px;
+  padding-left: 0px;
+}
+
+a.in-text {
+  text-decoration: underline;
+}
+
+.ratetracker {
+  #pre-content {
+    margin: -20px -20px 20px;
+    padding-bottom: 20px;
+    background: #f2f2f2;
+    border-bottom: 0px;
+  }
+  #side1 {
+    background: #eceded;
+  }
+}
+
+div.error {
+  color: red;
+}
+
+#ac-account-form {
+  width: 458px;
+  padding: 0px 10px;
+  font-size: 14px;
+  h2 {
+    font-size: 14px;
+  }
+}
+
+.ac-account {
+  margin-bottom: 0;
+  font-size: 14px;
+  list-style-type: none;
+  padding: 0;
+  li {
+    display: block;
+    position: relative;
+    list-style-position: outside;
+    border-bottom: 1px dashed #dfdfdf;
+    padding: 2px 0;
+    opacity: .50;
+    margin: 0px 0px 0px 10px;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=50)";
+    /* IE 8 */
+    filter: alpha(opacity=50);
+    /* IE 4, 5, 6 and 7 */
+    zoom: 1;
+    &.hidden {
+      display: none;
+    }
+    &.active {
+      opacity: 1;
+      -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=100)";
+      /* IE 8 */
+      filter: alpha(opacity=100);
+      /* IE 4, 5, 6 and 7 */
+    }
+    .loa {
+      height: 16px;
+      width: 16px;
+      background: url('../../img/l.gif') no-repeat 0 0 transparent;
+      position: absolute;
+      top: 8px;
+      right: 5px;
+      display: none;
+    }
+    label {
+      font-size: 16px;
+      position: relative;
+      display: block;
+      float: left;
+      width: 140px;
+      padding: 20px 0px 20px 70px;
+      &.error {
+        width: auto;
+        height: auto;
+        font-size: 10px;
+        color: red;
+      }
+    }
+    .input-wrap {
+      padding: 15px 20px 20px 0px;
+      display: block;
+      float: left;
+      border-right: 1px solid #EDEDED;
+      border-left: 1px solid #EDEDED;
+      position: relative;
+    }
+    &.maturity .input-wrap select {
+      width: 75px;
+      display: inline;
+    }
+    .balance.input-wrap {
+      input {
+        width: 60px;
+      }
+      .reset {
+        position: absolute;
+        width: auto;
+        margin-top: -27px;
+        right: 10px;
+        top: 50%;
+      }
+    }
+    .email.input-wrap input {
+      width: 150px;
+      padding: 5px 0px;
+    }
+    .confirmButton {
+      padding-top: 4px;
+      padding-left: 200px;
+    }
+    .input-wrap input {
+      padding: 5px 0px;
+      .error {
+        border: 1px red solid;
+      }
+    }
+  }
+  input.text, select {
+    width: 150px;
+    display: inline;
+    font-size: 14px;
+    margin: 0;
+    display: block;
+  }
+  input.error, select.error {
+    border: 1px red solid;
+  }
+  label.error {
+    display: none;
+  }
+  select {
+    padding: 5px;
+  }
+}
+
+.rate-check select {
+  padding: 5px;
+  margin-top: 2px;
+}
+
+.ac-account input#balance {
+  width: 128px;
+  margin-left: 5px;
+}
+
+form#track-product .errors input.text, .ac-account .errors input.text, form#track-product .errors select, .ac-account .errors select {
+  border: 2px solid red;
+}
+
+#buttonWrap {
+  margin-left: 250px;
+  padding: 0;
+  background-color: #F2F2F2;
+}
+
+.result-button {
+  width: 220px;
+}
+
+.ac-account .message {
+  select, input {
+    /*border:2px solid #2AB8E7; */
+  }
+}
+
+li {
+  .no {
+    background: url(../../img/stepslrg.png) no-repeat 0 0 transparent;
+    display: block;
+    height: 46px;
+    width: 46px;
+    float: left;
+    margin-top: -23px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+  }
+  .two {
+    background-position: 0 -46px;
+  }
+  .three {
+    background-position: 0 -92px;
+  }
+  .four {
+    background-position: 0 -138px;
+  }
+  .five {
+    background-position: 0 -184px;
+  }
+}
+
+.ac-account {
+  .info {
+    img {
+      width: 46px;
+      height: auto;
+      vertical-align: text-top;
+    }
+    a.ico-omrc {
+      display: block;
+      width: 46px;
+      height: 46px;
+      background: url(../../img/info.png) no-repeat 0 0 transparent;
+      float: left;
+      margin-top: 5px;
+      top: 50%;
+    }
+    .text {
+      display: block;
+      width: 200px;
+      padding: 0px 0px 10px 10px;
+      background: #fff;
+      border: 1px dashed #cbcbcb;
+      position: absolute;
+      z-index: 50;
+      top: -80px;
+      right: -150px;
+      font-size: 14px;
+      /*box-shadow: 0 11px 20px #CCCCCC;*/
+      a {
+        color: #4fbb30;
+      }
+      p {
+        margin-bottom: 0;
+      }
+      h2 {
+        font-size: 19px;
+        font-weight: bold;
+        line-height: 22px;
+      }
+    }
+  }
+  .message {
+    a.ico {
+      /*background-position: 0 -94px;*/
+    }
+    .info .text h2 {
+      color: #2ab8e7;
+    }
+  }
+  .errors {
+    a.ico {
+      /*background-position: 0 -45px;*/
+    }
+    .info .text h2 {
+      color: red;
+    }
+  }
+}
+
+#widgetLabel {
+  color: white;
+  background-color: #451344;
+  margin-bottom: 20px;
+  padding: 3px 0px 3px 10px;
+  font-weight: bold;
+  max-width: 608px;
+  font-size: 14px;
+}
+
+#imgNumber {
+  float: left;
+  display: inline;
+  padding-top: 5px;
+  img {
+    width: 40px;
+    height: auto;
+  }
+}
+
+#RTLogo {
+  font-size: 24px;
+  text-align: left;
+  padding: 0px 0px 0px 10px;
+  width: 458px;
+  font-family: "Times New Roman", 'Times', 'Georgia', serif;
+  text-align: center;
+}
+
+#RTmsg {
+  text-align: center;
+  width: 438px;
+  padding-left: 10px;
+  padding-right: 10px;
+  h1 {
+    font-size: 26px;
+    font-weight: bold;
+  }
+  p {
+    font-size: 16px;
+  }
+}
+
+#asterixMessage {
+  margin-top: 10px;
+  font-size: 10px;
+  display: inline;
+  float: left;
+  text-align: left;
+  background-color: #F2F2F2;
+  margin: auto;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  width: 298px;
+}
+
+/* #Icons
+================================================== */
+
+.ico {
+  background: url('../../img/sm-ico-sprite.png') no-repeat 0 0 transparent;
+  display: inline;
+  height: 40px;
+  width: 43px;
+  position: absolute;
+}
+
+.tri-ico {
+  background-position: 0 0;
+  /* Default icon */
+}
+
+.clock-ico {
+  background-position: 0 -40px;
+  height: 36px;
+}
+
+.letter-ico {
+  background-position: 0 -76px;
+  height: 38px;
+}
+
+.question-ico {
+  background-position: 0 -114px;
+  height: 39px;
+}
+
+.sq-ico {
+  background-position: 0 -153px;
+  height: 34px;
+}
+
+.scale-ico {
+  background-position: 0 -223px;
+  height: 36px;
+}
+
+.g-ico, .p-ico {
+  background-position: 0 -187px;
+  height: 36px;
+}
+
+.pound-ico {
+  background-position: 0 -259px;
+  height: 36px;
+}
+
+/* #Forms
+================================================== */
+
+button {
+  cursor: pointer;
+  -webkit-appearance: button;
+}
+
+input {
+  &[type="button"], &[type="reset"], &[type="submit"] {
+    cursor: pointer;
+    -webkit-appearance: button;
+  }
+}
+
+.errors {
+  input {
+    &[type="text"], &[type="password"], &[type="email"] {
+      border: 2px solid #ff0000;
+    }
+  }
+  textarea {
+    border: 2px solid #ff0000;
+  }
+}
+
+label {
+  cursor: pointer;
+}
+
+input {
+  &[type="text"], &[type="password"], &[type="email"] {
+    border: none;
+    outline: none;
+    font: 13px HelveticaNeue, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    width: 210px;
+    display: block;
+    background: #fff;
+  }
+}
+
+textarea, select {
+  border: none;
+  outline: none;
+  font: 13px HelveticaNeue, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  width: 210px;
+  display: block;
+  background: #fff;
+}
+
+input {
+  &[type="text"]:focus, &[type="password"]:focus, &[type="email"]:focus {
+  }
+}
+
+textarea {
+  min-height: 60px;
+}
+
+input[type="checkbox"] {
+  display: inline;
+}
+
+/* #Clearfix - class group to be more semantic.
+================================================== */
+
+.group {
+  &:before {
+    content: "";
+    display: table;
+  }
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  zoom: 1;
+}
+
+/* #ratealerts/newsletter tab
+* =============================================  */
+
+.ratealertsMessage {
+  padding: 10px;
+  font-size: 14px;
+}
+
+.newsletter, .rate-alerts {
+  width: 270px;
+  float: left;
+  background: #ededed;
+  display: block;
+  margin: 10px 0px 20px 20px;
+  font-family: 'Times New Roman', Times, Georgia, serif;
+}
+
+.newsletter a, .rate-alerts a {
+  color: white;
+  text-decoration: none;
+}
+
+.newsletter h2 {
+  color: #FFFFFF;
+  font-size: 23px;
+  font-style: italic;
+  line-height: 28px;
+  margin: 0;
+  padding: 10px 100px 10px 20px;
+}
+
+.rate-alerts h2 {
+  color: #FFFFFF;
+  font-size: 23px;
+  font-style: italic;
+  line-height: 28px;
+  margin: 0;
+  padding: 10px 100px 10px 20px;
+  background: url(../../img/alerts.png) no-repeat #384343 100% 50%;
+}
+
+.newsletter {
+  h2 {
+    background: url(../../img/newsletter.png) no-repeat #ee7500 100% 50%;
+  }
+  .input-area {
+    padding: 10px 0px 20px 10px;
+    font-size: 18px;
+  }
+}
+
+.rate-alerts .input-area {
+  padding: 10px 0px 20px 10px;
+  font-size: 18px;
+}
+
+.newsletter input, .rate-alerts input {
+  padding: 4px;
+}
+
+.newsletter .button, .rate-alerts .button {
+  float: right;
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
+
+/* concierge tab
+ * ================================ */
+
+.conciergeMessage {
+  text-align: center;
+  display: inline-block;
+  float: left;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.conciergeBodyMessage {
+  width: 250px;
+  display: block;
+  float: left;
+  margin-left: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.conciergeClickMessage {
+  width: auto;
+  display: block;
+  float: left;
+  margin-left: 20px;
+  font-size: 14px;
+  margin-bottom: 0px;
+  font-weight: bold;
+  padding: 0px;
+  p {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.concierge-form {
+  margin-right: 10px;
+  width: 300px;
+  float: right;
+  margin-top: 10px;
+  label {
+    font-family: "Times New Roman", 'Times', 'Georgia', serif;
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 10px;
+    width: 75px;
+    display: inline-block;
+  }
+  input {
+    display: inline;
+    padding: 6px 4px;
+    margin-bottom: 20px;
+    width: 200px;
+  }
+}
+
+select {
+  display: inline;
+  padding: 6px 4px;
+  margin-bottom: 20px;
+  width: 200px;
+}
+
+.concierge-form {
+  .button {
+    width: 120px;
+    float: right;
+    display: inline-block;
+    margin-right: 30px;
+    padding: 0;
+    margin-bottom: 5px;
+  }
+  .error {
+    border: 1px solid red;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.table {
+  margin: 10px 20px;
+  display: inline-block;
+  border-spacing: 0px;
+  color: white;
+  background: #451344;
+  tr {
+    width: 600px;
+  }
+  td {
+    border: 1px solid black;
+    width: 180px;
+    padding: 10px 10px 10px 10px;
+    font-size: 16px;
+    text-align: center;
+  }
+}
+
+.messageContainer {
+  width: 400px;
+  color: black;
+  background: #F2F2F2;
+}

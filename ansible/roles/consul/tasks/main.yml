@@ -1,0 +1,28 @@
+---
+
+- name: Install Unzip and Tar
+  apt: name={{ item }} state=latest
+  sudo: true
+  with_items:
+  - unzip
+  - tar
+  - supervisor
+
+- name: Download Consul
+  get_url: url=https://dl.bintray.com/mitchellh/consul/0.4.0_linux_amd64.zip dest=/tmp/consul.0.4.0.x64.zip sha256sum=4f8cd1cc5d90be9e1326fee03d3c96289a4f8b9b6ccb062d228125a1adc9ea0c
+
+- name: Unpack Consul
+  unarchive: src=/tmp/consul.0.4.0.x64.zip dest=/usr/local/bin copy=no
+  sudo: true
+
+- name: Add Consul Agent Service
+  template: src=consul.supervisor.conf.j2 dest=/etc/supervisor/conf.d/consul.conf
+  sudo: true
+
+- name: Start Consul Agent
+  supervisorctl: name=consul state=present
+  sudo: true
+
+- name: Start Consul Agent
+  supervisorctl: name=consul state=started
+  sudo: true

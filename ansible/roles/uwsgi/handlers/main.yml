@@ -1,0 +1,5 @@
+---
+
+- name: restart Uwsgi
+  supervisorctl: name=uwsgi state=restarted
+  sudo: true

@@ -1,0 +1,51 @@
+---
+
+- name: Get Latest Backup of Production
+  command: rsync --update -raz savingschampion@backup.savingschampion.co.uk:all.sql /var/lib/postgresql/
+  sudo: true
+  sudo_user: postgres
+  tags:
+  - init
+  when: "'master_database' in group_names"
+
+- name: Restore Latest Backup
+  command: psql -f all.sql
+  sudo: true
+  sudo_user: postgres
+  tags:
+  - init
+  when: "'master_database' in group_names"
+
+- name: Create RepMgr directory
+  file: path=/var/lib/postgresql/repmgr/ state=directory
+  sudo: true
+  sudo_user: postgres
+
+- name: Create RepMgr configs
+  template: src=repmgr.conf.j2 dest=/var/lib/postgresql/repmgr/repmgr.conf
+  sudo: true
+  sudo_user: postgres
+
+- name: Kill Repmgr Schema to allow repmgrd to work
+  command: psql -d savings_champion -c "drop schema repmgr_sc_cluster;"
+  sudo: true
+  sudo_user: postgres
+  ignore_errors: true
+
+- name: Register master database
+  command: repmgr -f /var/lib/postgresql/repmgr/repmgr.conf --verbose master register
+  register: command_result
+  ignore_errors: true
+  when: "'master_database' in group_names"
+
+- name: Copy repmgrd config for supervisor
+  template: src=repmgr.supervisor.conf.j2 dest=/etc/supervisor/conf.d/repmgrd.conf
+  sudo: true
+  when: "'master_database' not in group_names"
+
+- name: Register with repmgrd
+  supervisorctl: name=repmgrd state=restarted
+  sudo: true
+  tags:
+  - init
+  when: "'master_database' not in group_names"

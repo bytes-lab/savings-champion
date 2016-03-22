@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Rate Alerts
+{% endblock title %}
+
+{% block meta_description %}
+    Get the best rate and keep it forever with our unique Rate tracker tool
+{% endblock %}
+
+{% block bannertext %}
+    <div id="left-banner">
+        <h2>News &amp; Advice</h2>
+    </div>
+    
+{% endblock bannertext %}
+
+{% block contenthtml %}
+<div id="news-index">
+    <div class="container-fluid">
+        {% include "news/leftnav.html" %}
+        <div class="col-md-9">
+
+            <div class="post-list panel panel-default">
+                <div class="panel-heading">
+                    <h1>{{ heading }}
+                        <a href="{% url 'rss_feed_ratealerts' %}" alt="ratealert rss feed" target="_blank">
+                            <img class="rss" src="{% static 'img/feed-icon-28x28.png' %}" alt="RSS Feed"/>
+                        </a>
+                    </h1>
+                </div>
+                <div class="panel-body">
+                    {% for post in posts.object_list %}
+                        <div class="post">
+                            <div class="content">
+                                <div class="title"><a
+                                        href="{% url 'view_ratealert' post.slug %}">{{ post.title }}</a>
+                                </div>
+                                <div class="publish_date">{{ post.publish_date|date:"dS F Y" }}</div>
+                                <div class="category">
+                                    <p>Category: Rate Alert</p>
+                                </div>
+                                <div class="teaser">{{ post.teaser|safe }}</div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% load article_tags %}
+                    <nav>
+                        <ul class="pagination pagination-sm">
+                            {% if posts.has_previous %}
+                                <li>
+                                    <a href="?page={{ posts.previous_page_number }}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                {% if posts.number > 2 %}
+                                <li>
+                                    <a href="?page=1">1</a>
+                                </li>
+                                <li class="disabled">
+                                    <a>...</a>
+                                </li>
+                                {% endif %}
+                                <li>
+                                    <a href="?page={{ posts.previous_page_number }}">{{ posts.previous_page_number }}</a>
+                                </li>
+                            {% endif %}
+                            <li class="active">
+                                <span>{{ posts.number }}</span>
+                            </li>
+                            {% if posts.has_next %}
+                                <li>
+                                    <a href="?page={{ posts.next_page_number }}">{{ posts.next_page_number }}</a>
+                                </li>
+                                {% if posts.number < max_pages|add:"-1" %}
+                                    <li class="disabled">
+                                        <a>...</a>
+                                    </li>
+                                    <li>
+                                        <a href="?page={{ max_pages }}">{{ max_pages }}</a>
+                                    </li>
+                                {% endif %}
+                                <li>
+                                    <a href="?page={{ posts.next_page_number }}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock contenthtml %}
+
+{% block footer_scripts %}
+    <script type="text/javascript" src="{% static 'js/analytics/news_index.js' %}"></script>
+{% endblock footer_scripts %}

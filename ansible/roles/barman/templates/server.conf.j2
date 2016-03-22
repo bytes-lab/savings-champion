@@ -1,0 +1,22 @@
+; 'main' PostgreSQL Server configuration
+[{{ item }}]
+; Human readable description
+description =  ""
+
+; SSH options
+ssh_command = ssh postgres@{{ item }}
+
+; PostgreSQL connection string
+conninfo = host={{ item }} user=postgres
+
+; Minimum number of required backups (redundancy)
+; minimum_redundancy = 1
+
+; Examples of retention policies
+
+; Retention policy (disabled)
+; retention_policy = 
+; Retention policy (based on redundancy)
+; retention_policy = REDUNDANCY 2
+; Retention policy (based on recovery window)
+retention_policy = RECOVERY WINDOW OF 12 MONTHS

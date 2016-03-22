@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load block_tags %}
+
+{% block title %}
+    Thanks for signing up
+{% endblock title %}
+{% block bannertext %}
+    <div id="left-banner">
+        <h2>Great - you have now activated your subscription</h2>
+    </div>    
+{% endblock bannertext %}
+
+{% block contenthtml %}
+
+<div id="signup-thankyou">
+    <div class="content-width">
+        {% get_static_block activation subscription.message as block %}
+            {{block|safe}}  
+    </div>    
+</div>
+
+{% endblock contenthtml %}

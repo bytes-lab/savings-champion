@@ -1,0 +1,62 @@
+
+  <ul class="ico-nav">
+      
+    {% if hide != 'ratetracker' %}
+    <li class="tracker">
+      <a href="{% url rate_check %}">
+        <span class="ico tri-ico"></span>
+        Rate Tracker <sup>&reg;</sup>    
+        <span class="arr"></span>
+      </a>
+    </li>
+    {% endif %}
+    
+    <!--<li class="minute">
+      <a href="#">
+        <span class="ico clock-ico"></span>
+        One minute rate check
+        <span class="arr"></span>
+      </a>
+    </li>-->
+    <!--
+    <li class="newsletter">
+      <a href="#">
+        <span class="ico letter-ico"></span>
+        Sign up for newsletter
+        <span class="arr"></span>
+      </a>
+    </li>
+    -->
+    <li class="jargon">
+      <a href="{% url jargon_buster %}">
+        <span class="ico question-ico"></span>
+        Jargon buster
+        <span class="arr"></span>
+      </a>
+    </li>
+    {% if hide != 'bestbuys' %}
+    <li class="best-buy">
+      <a href="{% url view_bestbuy_tables %}">
+        <span class="ico sq-ico"></span>
+        Best Buys
+        <span class="arr"></span>
+      </a>
+    </li>
+    {% endif %}
+    <li class="guides">
+      <a href="/advice-guides/">
+        <span class="ico g-ico"></span>
+        Guides
+        <span class="arr"></span>
+      </a>
+    </li>
+    {% if hide != 'bestbuys' %}
+    <li class="compare">
+       <a href="{% url view_bestbuys %}">
+        <span class="ico scale-ico"></span>
+        Compare
+        <span class="arr"></span>
+      </a>
+    </li>
+    {% endif %}
+  </ul>

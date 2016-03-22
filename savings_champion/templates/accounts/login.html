@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block bannertext %}
+<div id="left-banner">
+    <h1>{% trans "Sign In" %}</h1>
+</div>
+{% endblock bannertext %}
+
+{% block contenthtml %}
+<div id="login">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h1>Login</h1>
+                    </div>
+                    <div class="panel-body">
+                        <p>If you have not created an account yet, then please <a href="{% url 'healthcheck' %}">sign
+                            up</a>
+                            first.</p>
+                        {% crispy form %}
+
+                        <a href="{% url 'sc_password_reset' %}">
+                            <button class="btn btn-primary pull-left"
+                                    type="button">{% trans "Forgot Password?" %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock contenthtml %}

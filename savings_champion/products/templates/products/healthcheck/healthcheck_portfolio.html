@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load product_filters common_tags humanize pipeline cache static crispy_forms_tags %}
+{% block title %}
+    Your Savings Healthcheck
+{% endblock %}
+
+{% block additional_head %}
+    <link type="text/css" rel="stylesheet" href="{% static '3rd_party/select2/select2.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static '3rd_party/select2/select2-bootstrap.css' %}">
+{% endblock %}
+
+{% block bannertext %}
+    <div id="portfolio-banner">
+        <h2>Your Savings Healthcheck</h2>
+    </div>
+{% endblock bannertext %}
+
+{% block contenthtml %}
+    <div id="portfolio">
+        <div class="container-fluid">
+            {% if not request.user.is_active %}
+                <div class="alert alert-success">
+                    <h3>Please activate your account</h3>
+
+                    <p>An email has been sent to {{ request.user.email }} which should arrive shortly.</p>
+
+                    <p>We need to confirm your email to ensure that savings account alerts are delivered to the correct
+                        person.</p>
+                </div>
+            {% endif %}
+            <div id="load-wrap">
+                {% include 'products/healthcheck/portfolio_display.html' %}
+            </div>
+        </div>
+        {% include 'products/healthcheck/addproductsform.html' %}
+        {% include 'products/healthcheck/editforms.html' %}
+        {% include 'products/healthcheck/deletebox.html' %}
+        {% include 'products/healthcheck/addfixedproductsform.html' %}
+        {% include 'products/healthcheck/openingdateform.html' %}
+    </div>
+
+
+    {% if not user.profile.ratetracker_threshold_set %}
+    <div class="modal modal-small fade js-threshold-form">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Remind me later</span>
+                    </button>
+                    <h4 class="modal-title">Savings Threshold</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Can't be bothered to switch your accounts for a small amount of extra interest?</p>
+                    <p>We're implementing a new feature to limit the savings alerts you receive.</p>
+                    <p>Just tell us how much you will switch for and we'll only email you when you can gain that amount.</p>
+                    {% crispy threshold_form %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Remind me later</button>
+                    <button type="button" class="btn btn-primary js-threshold-form-save" data-url="{% url 'ratetracker_threshold' %}">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endblock contenthtml %}
+
+
+{% block footer_scripts %}
+    <script src="{% static 'js/libs/chosen.jquery.min.js' %}"></script>
+    <script src="{% static '3rd_party/isotope/jquery.isotope.min.js' %}"></script>
+    <script src="{% static '3rd_party/jquery-validation/dist/jquery.validate.js' %}"></script>
+    <script src="{% static '3rd_party/colorbox/jquery.colorbox.js' %}"></script>
+    <script src="{% static 'js/healthcheck/load_portfolio.js' %}"></script>
+    <script src="{% static 'js/healthcheck/portfolio.js' %}"></script>
+{% endblock footer_scripts %}

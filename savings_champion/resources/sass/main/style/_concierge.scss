@@ -1,0 +1,351 @@
+#concierge {
+  padding: 30px 0;
+  text-align: left;
+  overflow: auto;
+  .left-section {
+    .video {
+      margin: 10px auto;
+      text-align: center;
+    }
+    h1 {
+      font-size: 28px;
+      color: #CC5400;
+      padding: 10px 0;
+      span {
+        padding: 0 0 0 10px;
+      }
+    }
+    p {
+      margin-left: 20px;
+      margin-bottom: 10px;
+    }
+    ul {
+      margin: 10px 0 10px 60px;
+      list-style-image: url('../../img/concierge/green-check.png');
+      &.reduced {
+        margin: 10px 0 10px 15px;
+      }
+    }
+    .enquiry {
+      h1 {
+        font-size: 28px;
+        color: #CC5400;
+        border-top: #CCCCCC 1px solid;
+        span {
+          background-color: #F3F3F3;
+          padding: 0 15px;
+          position: relative;
+          top: -20px;
+        }
+      }
+      label {
+        display: block;
+        padding: 20px 0 10px 20px;
+        font-size: 18px;
+        font-weight: bold;
+      }
+      input {
+        margin-left: 20px;
+        width: 70%;
+        padding: 10px;
+        font-size: 18px;
+      }
+      select {
+        margin-left: 20px;
+        width: 73%;
+        padding: 10px;
+        font-size: 18px;
+        background-color: white;
+      }
+      .submit-container {
+        margin-top: 20px;
+      }
+      .bluesubmit {
+        width: auto;
+      }
+      a {
+        color: #0085B2;
+        font-weight: bold;
+      }
+    }
+  }
+  .right-section {
+    .testimonial {
+      margin: 20px 0;
+      .message {
+        background-color: #CFEBF2;
+        padding: 15px 10px;
+      }
+      .testimonial-source {
+        font-size: 12px;
+        padding: 5px;
+      }
+    }
+    .enquire {
+      padding: 10px;
+      border: 3px solid #E7E7E7;
+      background-color: white;
+      margin-bottom: 20px;
+    }
+  }
+  .enquire p {
+    padding: 10px 0;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .form {
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: bold;
+      margin: 10px 0 10px 10px;
+    }
+    input {
+      margin: 10px;
+      width: 90%;
+      padding: 5px;
+    }
+    select {
+      margin-left: 10px;
+      background-color: white;
+      padding: 5px;
+      width: 90%;
+    }
+    .submit {
+      width: 150px;
+      margin-top: 20px;
+    }
+  }
+  .faq-block {
+    text-align: left;
+    background-color: white;
+    border: #E7E7E7 5px solid;
+    overflow: auto;
+    margin-bottom: 30px;
+    ul {
+      list-style-type: none;
+    }
+    .faq-header {
+      padding: 10px 0 0 20px;
+      color: #444444;
+    }
+    .faq-questions {
+      padding: 10px;
+      border-bottom: #E7E7E7 1px solid;
+      color: #0085B2;
+      font-weight: bold;
+      font-size: 14px;
+      li {
+        padding: 5px;
+      }
+    }
+    .faq-link {
+      float: right;
+      p {
+        padding: 10px 10px 10px 0;
+        color: #0085B2;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+    }
+  }
+  .fscs-block {
+    border: #E7E7E7 5px solid;
+    background-color: white;
+    img {
+      width: 100%;
+    }
+    p {
+      text-align: justify;
+      padding: 20px;
+
+    }
+  }
+}
+
+/*
+ *
+ * #concierge-subbanner
+ * ===================================================
+ */
+
+#concierge-subbanner {
+  background-color: #E77207;
+  width: 100%;
+  text-align: left;
+  padding-bottom: 20px;
+  overflow: auto;
+  .messages {
+    text-align: center;
+    margin: auto;
+    .left {
+      float: left;
+    }
+    .right {
+      float: right;
+    }
+    .image {
+      width: 70px;
+    }
+    .graph-image {
+      width: 100px;
+    }
+  }
+  .conc-message {
+    text-align: left;
+    display: inline-block;
+    width: 30%;
+    color: white;
+    p {
+      display: inline-block;
+      width: 60%;
+      vertical-align: top;
+      font-size: 14px;
+    }
+  }
+}
+
+/*
+ *
+ * #concierge-faq
+ * ================================================================
+ */
+
+#concierge-faq {
+  text-align: left;
+  padding: 30px;
+  overflow: auto;
+  .question-section {
+    width: 65%;
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+    float: left;
+    h1 {
+      font-size: 28px;
+      color: #CC5400;
+      border-top: #CCCCCC 1px solid;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      span {
+        background-color: #F3F3F3;
+        padding: 0 15px;
+        position: relative;
+        top: -20px;
+      }
+    }
+    .question-block {
+      /* background-color: #E7E7E7; */
+      background-color: white;
+      border: 3px solid #E7E7E7;
+      /* padding: 20px; */
+      margin-bottom: 20px;
+    }
+    .question {
+      font-size: 20px;
+      font-weight: bold;
+      color: #0085B2;
+      padding: 0 0 10px 0;
+      border-bottom: 2px solid #E7E7E7;
+      padding: 10px 20px 10px 20px;
+      p {
+        width: 80%;
+        display: inline-block;
+      }
+      .arrow {
+        float: right;
+        display: inline-block;
+      }
+    }
+    .answer {
+      padding: 10px 20px 10px 20px;
+      font-size: 16px;
+    }
+  }
+  .enquiry-section {
+    width: 30%;
+    float: right;
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+    .form {
+      label {
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+        margin: 10px 0 10px 10px;
+      }
+      input {
+        margin-left: 10px;
+        width: 90%;
+        padding: 5px;
+      }
+      select {
+        margin-left: 10px;
+        background-color: white;
+        padding: 5px;
+        width: 90%;
+      }
+      .submit {
+        width: 150px;
+        margin-top: 20px;
+      }
+    }
+  }
+  .enquire {
+    padding: 10px;
+    border: 3px solid #E7E7E7;
+    background-color: white;
+    p {
+      padding: 10px 0;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+  a {
+    color: #0085B2;
+  }
+}
+
+/*
+ * #concierge-thankyou
+ * ====================================================================
+ */
+
+#concierge-thankyou {
+  text-align: left;
+  padding: 30px 0;
+  p {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 15px 0;
+  }
+}
+
+.video-container {
+  padding-top: 30px;
+  width:100%;
+  overflow: hidden;
+  iframe, object, embed {
+    margin: 5px auto;
+    width: 90%;
+  }
+}
+
+.icon-refresh-animate {
+  animation-name: rotateThis;
+  animation-duration: .5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes rotateThis {
+  from {
+    transform: scale(1) rotate(0deg);
+}
+to {
+    transform: scale(1) rotate(360deg);
+}
+}

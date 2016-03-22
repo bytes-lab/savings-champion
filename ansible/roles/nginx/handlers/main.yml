@@ -1,0 +1,11 @@
+---
+
+- name: restart nginx
+  command: killall nginx
+  sudo: true
+  notify:
+  - start nginx
+
+- name: start nginx
+  service: name=nginx state=started
+  sudo: true

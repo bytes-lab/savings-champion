@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load block_tags cache static %}
+
+{% block title %}
+    Concierge Managed Savings Service
+{% endblock %}
+
+{% block meta_description %}
+    Savings Champion Concierge Managed Savings Service. Get a fully protected, personalised savings portfolio and on-going monitoring, advice and assistance to ensure you can get the best rates and keep the best rates...forever.
+{% endblock %}
+
+{% cache 43200 concierge_signup %}
+{% block banner %}
+{% endblock banner %}
+
+{% block contenthtml %}
+<div id="concierge">
+    <div class="container-fluid">
+        <div class="left-section col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="video">
+                        {% get_static_block concierge-landing business.heading as block %}
+                        {{ block|safe }}
+                    </div>
+                    <div class="summary">
+                        {% get_static_block concierge-landing business-summary.text as block %}
+                        {{ block|safe }}
+                    </div>
+                    <div class="testimonials">
+                        <div style="width:90%;margin:0 auto;">
+                            {% get_static_block concierge-landing business-testimonial.section as block %}
+                            {{ block|safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="right-section col-md-3">
+            <div class="enquire">
+                <p>Enquire Now - 0800 321 3582</p>
+                <form action="{% url 'concierge_thankyou' %}" method="post" class="form concierge-form">
+                    {% csrf_token %}
+                    {{form.name.label_tag}}{{form.name}}
+                    {{form.email.label_tag}}{{form.email}}
+                    {{form.telephone.label_tag}}{{form.telephone}}
+                    {{form.timetocall.label_tag}}{{form.timetocall}}
+                    {{form.source}}
+                    <input type="submit" value="Enquire Now" class="btn btn-info">
+                    {% get_static_block concierge-landing enquiry.tagline as block %}
+                    {{block|safe}}
+                </form>
+            </div>
+            <div class="faq-block">
+                <div class="container-fluid">
+                    <blockquote>
+                        <i>“Savings Champion is the best innovation in savings I have seen in recent years – comprehensive
+                        rate
+                        tracking, coupled with unbiased help in finding better deals is exactly what savers crave”</i>
+                        <footer>Dan Hyde, Deputy Personal Finance Editor, Telegraph Media Group</footer>
+                    </blockquote>
+                </div>
+            </div>
+            <div class="fscs-block">
+                <img class="img-responsive" src="{% static 'img/concierge/FSCS.jpg' %}">
+                <p>All the providers we use are members of financial protection schemes such as the Financial Services Compensation Scheme.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock contenthtml %}
+
+{% block footer_scripts %}
+    <script type="text/javascript" src="{% static 'js/libs/additional-methods.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/validation/concierge-val.js' %}"></script>
+{% endblock footer_scripts %}
+{% endcache %}

@@ -1,0 +1,42 @@
+{% load crispy_forms_tags %}
+{% if not error %}
+    <div class="js-variable-product-form modal fade">
+{% endif %}
+<div class="modal-dialog">
+    <form class="variable-product-form product-form" action="{% url 'portfolio_add' %}" method="post">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Add a Variable Rate Product</h4>
+            </div>
+
+            <div class="modal-body">
+                {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert"
+                                aria-hidden="true">&times;</button>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
+                {% csrf_token %}
+                <div class="alert alert-info">
+                    <p id="variable-rate-message">You are adding a Variable Rate product. If you can't find your
+                        account provider or account, it may be because it is a Fixed Rate product.</p>
+                </div>
+                {% crispy form %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <input class="btn btn-primary js-save-variable-product" type="submit" value="Add Product"/>
+            </div>
+
+        </div>
+    </form>
+    <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+{% if not error %}
+    </div><!-- /.modal -->
+{% endif %}

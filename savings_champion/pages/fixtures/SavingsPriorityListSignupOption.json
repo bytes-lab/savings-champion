@@ -1,0 +1,44 @@
+[
+    {
+        "model": "pages.savingsprioritylistsignupoption",
+        "pk": "aadcc58f-c334-4460-b33f-0395dd474a9a",
+        "fields": {
+            "title": "Easy Access"
+        }
+    },
+    {
+        "model": "pages.savingsprioritylistsignupoption",
+        "pk": "a4d9b769-d596-4362-bbc5-3401d36e04e6",
+        "fields": {
+            "title": "Notice"
+        }
+    },
+    {
+        "model": "pages.savingsprioritylistsignupoption",
+        "pk": "295c7926-c41d-482f-8c05-6177498a3b87",
+        "fields": {
+            "title": "1 Year"
+        }
+    },
+    {
+        "model": "pages.savingsprioritylistsignupoption",
+        "pk": "9c31c14e-3e36-4c12-bf84-78a02a785213",
+        "fields": {
+            "title": "2-3 Years"
+        }
+    },
+    {
+        "model": "pages.savingsprioritylistsignupoption",
+        "pk": "065cf042-c329-4295-9161-82850cbcf1d4",
+        "fields": {
+            "title": "4-5 Years"
+        }
+    },
+    {
+        "model": "pages.savingsprioritylistsignupoption",
+        "pk": "004c5512-e6ab-49da-b201-d699f279079d",
+        "fields": {
+            "title": "Over 5 Years"
+        }
+    }
+]

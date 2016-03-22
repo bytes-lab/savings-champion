@@ -1,0 +1,32 @@
+image: python:2
+
+services:
+  - postgres
+  - redis
+
+variables:
+  DB_HOST: "postgres"
+  DB_USER: "postgres"
+  DB_NAME: "postgres"
+  DB_PASSWORD: ""
+  REDIS_URL: "redis://redis"
+  DJANGO_SETTINGS_MODULE: "savings_champion.settings_testing"
+
+before_script:
+  - install_python_dependencies
+
+stages:
+  - build
+  - test
+  - deploy
+
+job1:
+  stage: build
+  script:
+    - python manage.py migrate
+    - python manage.py collectstatic --noinput
+
+job2:
+  stage: test
+  script:
+    - python manage.py test

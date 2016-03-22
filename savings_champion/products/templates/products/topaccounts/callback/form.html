@@ -1,0 +1,40 @@
+<div class="col-md-12">
+    <p>Or request a call back:</p>
+
+    <form action="{% url 'best_buy_table_callback' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {% if form.name.errors %}
+                <ol>
+                    {% for error in form.name.errors %}
+                        <li><strong>{{ error|escape }}</strong></li>
+                    {% endfor %}
+                </ol>
+            {% endif %}
+            <input name="name" maxlength="75" type="text" required=""
+                   placeholder="Enter your name"
+                   class="name form-control" id="id_name" value="{{ form.name.value }}"/>
+            {% if form.phone.errors %}
+                <ol>
+                    {% for error in form.phone.errors %}
+                        <li><strong>{{ error|escape }}</strong></li>
+                    {% endfor %}
+                </ol>
+            {% endif %}
+            <input name="phone" maxlength="75" type="tel" required=""
+                   placeholder="Enter your phone number"
+                   class="phone form-control" id="id_phone" value="{{ form.phone.value }}"/>
+            {% if form.email.errors %}
+                <ol>
+                    {% for error in form.email.errors %}
+                        <li><strong>{{ error|escape }}</strong></li>
+                    {% endfor %}
+                </ol>
+            {% endif %}
+            <input name="email" maxlength="75" type="email" required=""
+                   placeholder="Enter your email address"
+                   class="email form-control" id="id_email" value="{{ form.email.value }}"/>
+        </div>
+        <input type="submit" alt="Submit" value="Request callback" class="btn btn-primary btn-block">
+    </form>
+</div>

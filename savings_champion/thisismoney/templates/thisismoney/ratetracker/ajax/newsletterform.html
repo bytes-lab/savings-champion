@@ -1,0 +1,13 @@
+
+<div class="newsletter" id="newsletter">
+        <h2>Sign up to our Newsletter</h2>
+
+        <form action="{% url 'timsubssignup' %}" method="post" id="subForm" target="_blank">
+            {% csrf_token %}
+            <div class="input-area">
+                {{newsletterform.source}}
+                {{newsletterform.email.label_tag}}{{newsletterform.email}}
+                <input class="button" type="image" value="Submit" alt="Sign up to Newsletter submit button" src="{{STATIC_URL}}img/submit.png"/>
+            </div>
+        </form>
+</div><!-- end newsletter -->

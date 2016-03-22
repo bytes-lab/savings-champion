@@ -1,0 +1,41 @@
+---
+
+- name: Add RabbitMQ server repo key
+  apt_key: url='http://www.rabbitmq.com/rabbitmq-signing-key-public.asc' state=present
+  sudo: true
+
+- name: Add Erlang repo key
+  apt_key: url='http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc' state=present
+  sudo: true
+
+- name: Add RabbitMQ server repo
+  apt_repository: repo='deb http://www.rabbitmq.com/debian/ testing main' update_cache=yes state=present
+  sudo: true
+
+- name: Add Erlang repo
+  apt_repository: repo='deb http://packages.erlang-solutions.com/ubuntu trusty contrib' update_cache=yes state=present
+  sudo: true
+
+- name: Fix hosts file
+  replace: dest=/etc/hosts regexp='127.0.1.1' replace='127.0.0.1'
+
+- name: Install RabbitMQ server
+  apt: name=rabbitmq-server state=latest update_cache=true
+  sudo: true
+
+- name: Enable RabbitMQ Management UI
+  rabbitmq_plugin: names=rabbitmq_management state=enabled
+  sudo: true
+  notify:
+    - restart rabbitmq
+
+- name: Ensure savingshcampion Vhost exists
+  rabbitmq_vhost: name=savingschampion state=present
+  notify:
+    - restart rabbitmq
+
+- name: Create Savingschampion User for RabbitMQ
+  rabbitmq_user: user=savingschampion password=savingschampion vhost=savingschampion tags=management configure_priv=.* read_priv=.* write_priv=.*
+  sudo: true
+  notify:
+    - restart rabbitmq

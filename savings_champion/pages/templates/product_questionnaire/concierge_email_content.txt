@@ -1,0 +1,12 @@
+Name: {{ name }}
+Email: {{ email }}
+Phone: {{ phone }}
+
+Options:
+ - Easy Access: {{ easy_access }}
+ - 1 to 3 Month Notice: {{ notice_1_3 }}
+ - 3 to 6 Month Notice: {{ notice_3_6 }}
+ - 1 to 3 Year Fixed Rate: {{ fixed_rate_1 }}
+ - Over 3 Year Fixed Rate: {{ fixed_rate_2 }}
+
+Funds on Deposit: {{ funds }}

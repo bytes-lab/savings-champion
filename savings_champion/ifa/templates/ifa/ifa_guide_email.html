@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .border {
+            width: 80%;
+            margin: 0 auto;
+            border: 1px solid gray;
+            background-color: white;
+        }
+        .title {
+            background-color: #E77207;
+            color: white;
+        }
+        h2 {
+            margin: 0;
+            text-align: center;
+        }
+        .content {
+            padding: 5px;
+            width: 80%;
+        }
+        .footer {
+            background-color: black;
+            color: white;
+        }
+        .footer > p {
+            margin-bottom: 0;
+            padding: 5px;
+        }
+    </style>
+<title>9 Steps to choosing an independent financial adviser</title>
+</head>
+<body>
+    <div class="border">
+        <img class="title-image" src="https://savingschampion.co.uk/static/img/logo.png" />
+        <div style="clear:both;"></div>
+        <div class="title">
+             <h2>9 Steps to choosing an independent financial adviser</h2>
+        </div>
+        <div class="content">
+            <p>Dear {{ name }},</p>
+            <p>Thank you for your enquiry. Please find attached a copy of your guide, 9 Steps to Choosing an Independent
+                Financial Adviser.</p>
+            <h5>If your email host filters out attachments then please follow the link below to obtain another copy.</h5>
+            <img style="width:30px;padding-right:5px;" src="https://savingschampion.co.uk/static/img/ifa/pdf-30px.png" />
+            <a href="https://savingschampion.co.uk/static/doc/ifa/9_steps_to_choosing_an_independent_financial_adviser.pdf">9 Steps to Choosing an Independent Financial Adviser</a>
+
+        </div>
+        <div class="footer">
+            <p>You have received this email because you asked to receive information by email from Savings Champion.</p>
+        </div>
+    </div>
+</body>
+</html>

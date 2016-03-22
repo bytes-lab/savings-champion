@@ -1,0 +1,263 @@
+{% extends 'base.html' %}
+{% load static crispy_forms_tags %}
+
+{% block additional_head %}
+    <link rel="stylesheet" type="text/css" href="{% static '3rd_party/pace/themes/pace-theme-flat-top.css' %}">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
+{% endblock %}
+
+{% block bannertext %}
+    <h1>Adviser Dashboard</h1>
+    <h3>{{ user.first_name }} Personal Statistics</h3>
+{% endblock %}
+
+{% block contenthtml %}
+<div class="container-fluid">
+    <div id="statistics" class="row" data-url="{% url 'adviser_statistics' %}">
+    </div>
+    <div class="row">
+        <h3 style="font-size: 26px;padding-bottom: 10px;">Client Management</h3>
+    </div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>Your Claimed Leads <span class="js-add-personal pull-right glyphicon glyphicon-plus" style="margin-left: 10px;"></span><span class="js-refresh-personal pull-right glyphicon glyphicon-refresh"
+                                                                                                                                                style="margin-left: 10px;"></span></h3>
+            </div>
+            <table class="table table-condensed table-bordered table-responsive table-striped"
+                   style="max-height:300px;overflow-y: auto">
+                <thead>
+                <tr>
+                    <th>Lead Name</th>
+                    <th>Lead Email</th>
+                    <th>Lead Phone</th>
+                    <th>Source</th>
+                    <th>
+                        Status
+                    </th>
+                    <th>Date Enquired</th>
+                    <th>Date of Last Action</th>
+                    <th>Contact Time</th>
+                    <th>Set Status</th>
+                </tr>
+                </thead>
+                <tbody id="personal_leads" data-url="{% url 'adviser_personal_leads' %}">
+                </tbody>
+            </table>
+        </div>
+    </div>
+{#    <div class="row">#}
+{#        <div class="panel panel-default">#}
+{#            <div class="panel-heading">#}
+{#                <h3>Unclaimed Leads <span class="js-refresh-unclaimed pull-right glyphicon glyphicon-refresh"></span></h3>#}
+{#            </div>#}
+{#            <table class="table table-condensed table-bordered table-responsive table-striped" style="max-height:300px;overflow-y: auto">#}
+{#                    <thead>#}
+{#                    <tr>#}
+{#                        <th>#}
+{#                            Client Name#}
+{#                        </th>#}
+{#                        <th>#}
+{#                            Client Email#}
+{#                        </th>#}
+{#                        <th>#}
+{#                            Enquiry Date#}
+{#                        </th>#}
+{#                        <th>#}
+{#                            Claim#}
+{#                        </th>#}
+{#                        <th>#}
+{#                            Mark Fake#}
+{#                        </th>#}
+{#                    </tr>#}
+{#                    </thead>#}
+{#                    <tbody id="unclaimed_leads" data-url="{% url 'adviser_unclaimed_leads' %}">#}
+{##}
+{#                    </tbody>#}
+{#                </table>#}
+{#        </div>#}
+{#    </div>#}
+
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 style="position:relative;">Recent <input type="text" class="js-recent-search pull-right"
+                                  style="display:inline;position:absolute;right:30px;top:-5px;" data-base-url="{% url 'adviser_recent_leads' %}"><span class="js-refresh-recent pull-right glyphicon glyphicon-refresh"></span></h3>
+            </div>
+            <table class="table table-condensed table-bordered table-responsive table-striped">
+                <thead>
+                <tr>
+                    <th>
+                        Client Name
+                    </th>
+                    <th>
+                        Client Email
+                    </th>
+                    <th>
+                        Client Phone
+                    </th>
+                    <th>
+                        Source
+                    </th>
+                    <th>
+                        Date Enquired
+                    </th>
+                    <th>
+                        Last Interaction
+                    </th>
+                    <th>
+                        Set Status
+                    </th>
+                </tr>
+                </thead>
+                <tbody id="recent_leads" data-url="{% url 'adviser_recent_leads' %}">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal signed fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Signed up details</h4>
+            </div>
+            <div class="modal-body">
+                {% crispy signed_form %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="js-signed-form btn btn-primary">Sign Client</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal add-client fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Signed up details</h4>
+            </div>
+            <div class="modal-body">
+                <div class="js-add-client-alert"></div>
+                {% crispy add_client_form %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="js-add-client-form btn btn-primary" data-add-client="{% url 'adviser_add_client' %}">Add Client</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal js-illustrate-client fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Illustration Details</h4>
+            </div>
+            <div class="modal-body">
+                <div class="js-illustration-alert"></div>
+                {% crispy illustration_form %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="js-illustration-form btn btn-primary"
+                        data-illustration="">Add Client
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal js-recommend-client fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Signed up details</h4>
+            </div>
+            <div class="modal-body">
+                <div class="js-add-client-alert"></div>
+                {% crispy recommended_form %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="js-recommend-client btn btn-primary">Add Client
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="modal js-unsuitable-client fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Unsuitable Details</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="js-add-client-alert"></div>
+                    {% crispy unsuitable_form %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="js-confirm-unsuitable-client btn btn-primary">Confirm Unsuitable
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal js-fake-client fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Fake Details</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="js-add-client-alert"></div>
+                    {% crispy fake_form %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="js-confirm-fake-client btn btn-primary">Confirm Fake
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal js-no-contact-modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">No Contact Email</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="js-no-contact-alert"></div>
+                    {% crispy no_contact_form %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="js-no-contact-confirm btn btn-primary">Send Email
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer_scripts %}
+    <script type="application/javascript" src="{% static 'js/concierge/adviser_dashboard.js' %}"></script>
+    <script type="application/javascript" src="{% static '3rd_party/pace/pace.min.js' %}"></script>
+{% endblock %}

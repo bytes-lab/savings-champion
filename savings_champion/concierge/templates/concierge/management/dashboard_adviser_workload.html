@@ -1,0 +1,20 @@
+{% for adviser, stats in advisers.items %}
+    <tr>
+        <td>{{ adviser.first_name }} {{ adviser.last_name }}</td>
+        <td>{{ stats.pending }}</td>
+        <td>{{ stats.attempted_contact }}</td>
+        <td>{{ stats.contacted }}</td>
+        <td>{{ stats.fact_find }}</td>
+        <td>{{ stats.illustrated }}</td>
+        <td>{{ stats.recommendation }}</td>
+        <td>{{ stats.signed }}</td>
+        <td>
+            <a href="{% url 'management_adviser_reason' %}?status=8&adviser={{ adviser.pk }}&referrer={{ referrer }}&start_date={{ start_date|date:'Y-m-d' }}&end_date={{ end_date|date:'Y-m-d' }}">{{ stats.unsuitable }}</a>
+        </td>
+        <td>
+            <a href="{% url 'management_adviser_reason' %}?status=2&adviser={{ adviser.pk }}&referrer={{ referrer }}&start_date={{ start_date|date:'Y-m-d' }}&end_date={{ end_date|date:'Y-m-d' }}">{{ stats.fake }}</a>
+        </td>
+        <td>{{ stats.emailed }}</td>
+        <td>{{ stats.all }}</td>
+    </tr>
+{% endfor %}

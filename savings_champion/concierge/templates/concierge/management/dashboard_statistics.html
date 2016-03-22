@@ -1,0 +1,159 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Total Work Since Records Began on {{ records_began.interaction_started__min|date:"D d M Y" }}</h3>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-1">
+            <div class="alert alert-danger">
+                <p>{{ concierge_enquiries_no_limit.count }}</p>
+            </div>
+            <p>Unclaimed Enquiries</p>
+        </div>
+        <div class="col-md-1">
+            <div class="alert alert-info">
+                <p>{{ clients_pending_no_limit }}</p>
+            </div>
+            <p>Claimed Enquiries</p>
+        </div>
+        <div class="col-md-1">
+            <div class="alert alert-info">
+                <p>{{ clients_attempted_contacted_no_limit }}</p>
+            </div>
+            <p>Attempted Contact</p>
+        </div>
+        <div class="col-md-1">
+            <div class="alert alert-info">
+                <p>{{ clients_contacted_no_limit }}</p>
+            </div>
+            <p>Contacted</p>
+        </div>
+        <div class="col-md-1">
+            <div class="alert alert-info">
+                <p>{{ clients_fact_find_no_limit }}</p>
+            </div>
+            <p>Fact Find</p>
+        </div>
+        <div class="col-md-1">
+            <div class="alert alert-info">
+                <p>{{ clients_illustrated_no_limit }}</p>
+            </div>
+            <p>Illustrated</p>
+        </div>
+        <div class="col-md-1">
+            <div class="alert alert-info">
+                <p>{{ clients_recommendation_no_limit }}</p>
+            </div>
+            <p>Recommend</p>
+        </div>
+        <div class="col-md-1">
+            <div class="alert alert-success">
+                <p>{{ clients_signed_no_limit }}</p>
+            </div>
+            <p>Signed Up</p>
+        </div>
+        <div class="col-md-1">
+            <div class="alert alert-danger">
+                <p>{{ clients_unsuitable_no_limit }}</p>
+            </div>
+            <p>Unsuitable</p>
+        </div>
+        <div class="col-md-1">
+            <div class="alert alert-info">
+                <p>{{ clients_fake_no_limit }}</p>
+            </div>
+            <p>Fake</p>
+        </div>
+        <div class="col-md-1">
+            <div class="alert alert-info">
+                <p>{{ clients_emailed_no_limit }}</p>
+            </div>
+            <p>3 Calls + Email</p>
+        </div>
+        <div class="col-md-1">
+            <div class="alert alert-info">
+                <p>{{ clients_total_no_limit }}</p>
+            </div>
+            <p>Total Leads This Period</p>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Total Work Inside Date Range</h3>
+    </div>
+    <div class="panel-body statistics">
+        <div class="col-md-1">
+            <div class="alert alert-danger">
+                <p>{{ concierge_enquiries.count }}</p>
+            </div>
+            <p>Unclaimed Enquiries</p>
+        </div>
+        <div class="col-md-1">
+            <div class="alert alert-info">
+                <p>{{ clients_pending }}</p>
+            </div>
+            <p>Claimed Enquiries</p>
+        </div>
+        <div class="col-md-1">
+            <div class="alert alert-info">
+                <p>{{ clients_attempted_contacted }}</p>
+            </div>
+            <p>Attempted Contact</p>
+        </div>
+        <div class="col-md-1">
+            <div class="alert alert-info">
+                <p>{{ clients_contacted }}</p>
+            </div>
+            <p>Contacted</p>
+        </div>
+        <div class="col-md-1">
+            <div class="alert alert-info">
+                <p>{{ clients_fact_find }}</p>
+            </div>
+            <p>Fact Find</p>
+        </div>
+        <div class="col-md-1">
+            <div class="alert alert-info">
+                <p>{{ clients_illustrated }}</p>
+            </div>
+            <p>Illustrated</p>
+        </div>
+        <div class="col-md-1">
+            <div class="alert alert-info">
+                <p>{{ clients_recommendation }}</p>
+            </div>
+            <p>Recommend</p>
+        </div>
+        <div class="col-md-1">
+            <div class="alert alert-success">
+                <p>{{ clients_signed }}</p>
+            </div>
+            <p>Signed Up</p>
+        </div>
+        <div class="col-md-1">
+            <div class="alert alert-danger">
+                <p>{{ clients_unsuitable }}</p>
+            </div>
+            <p>Unsuitable</p>
+        </div>
+        <div class="col-md-1">
+            <div class="alert alert-info">
+                <p>{{ clients_fake }}</p>
+            </div>
+            <p>Fake</p>
+        </div>
+        <div class="col-md-1">
+            <div class="alert alert-info">
+                <p>{{ clients_emailed }}</p>
+            </div>
+            <p>3 Calls + Email</p>
+        </div>
+        <div class="col-md-1">
+            <div class="alert alert-info">
+                <p>{{ clients_total }}</p>
+            </div>
+            <p>Total Leads This Period</p>
+        </div>
+    </div>
+</div>

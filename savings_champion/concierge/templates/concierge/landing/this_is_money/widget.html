@@ -1,0 +1,75 @@
+{% load staticfiles crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Find the best rates for deposits over £100,000</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
+          crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
+            integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ=="
+            crossorigin="anonymous"></script>
+    <style>
+        label, p {
+            text-shadow: 0 1px 0 black;
+            color: white;
+            font-weight: normal;
+            margin:0;
+        }
+        .asteriskField {
+            display: none;
+        }
+        .panel {
+            margin-bottom: 0;
+        }
+        hr {
+            margin: 5px 0
+        }
+        .btn-success {
+            background-color: #e77207;
+            border-color: #b55a06;
+        }
+
+        .btn-success:hover, .btn-success:active, .btn-success:focus {
+            background-color: #b55a06;
+            border-color: #844104;
+        }
+
+        .input-group-addon, input {
+            font-size: 13px;
+        }
+
+        input[type=number]::-webkit-outer-spin-button,
+        input[type=number]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="background-color: #333;">
+                        <p><b>What could my savings earn?</b></p>
+                    </div>
+                    <div class="panel-body"
+                         style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{% static 'img/concierge/landing/this_is_money/Best_Rates_100000.jpg' %}');background-size: cover;">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                {% crispy concierge_form %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

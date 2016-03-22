@@ -1,0 +1,4 @@
+worker_processes: "{{ ansible_processor_count }}"
+pid: /tmp/nginx.pid
+worker_connections: 768
+name: savings_champion

@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% load static block_tags common_filters %}
+
+{% block title %}Awards{% endblock %}
+
+{% block bannertext %}
+    <div id="portfolio-banner">
+        <h2>SavingsChampion Awards {{ year }}</h2>
+    </div>
+{% endblock %}
+
+{% block contenthtml %}
+    <div class="container">
+    <br>
+
+    <div class="row">
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-12">
+                <label for="year_select">Awards Year</label>
+                <select id="year_select" class="form-control">
+                    {% for award_year in awarded_years %}
+                        <option {% if year == award_year.year %}selected="true"{% endif %}value="{{ award_year.year }}">{{ award_year.year }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <label for="nav-pills">Categories</label>
+                <ul id="nav-pills" class="nav nav-pills nav-stacked">
+                    {% for category in award_categories %}
+                        <li>
+                            <a href="#{{ category.title|slugify }}"
+                               style="margin:5px;color: #ffffff;background-color: #000000;border: 2px solid #111111;font-weight:bold;">{{ category.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="awards-blurb panel panel-default">
+                <div class="panel-body">
+                    <div style="text-align: justify;">
+                        {% get_static_block_by_variable awards year as block %}
+                        {{ block|safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="awards-listings col-md-12">
+        {% for category in award_categories %}
+            {% cycle 'true' 'false' as newrow silent %}
+            {% if newrow == 'true' %}
+                <div class="row">
+            {% endif %}
+        <div class="col-md-6">
+            <div id="{{ category.title|slugify }}" class="panel panel-default">
+                <div class="panel-heading" style="color:white;background: #000000; /* Old browsers */
+background: -moz-linear-gradient(left, #000000 0%, #000000 93%, #000000 93%, #e77207 93%, #e77207 93%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, right top, color-stop(0%,#000000), color-stop(93%,#000000), color-stop(93%,#000000), color-stop(93%,#e77207), color-stop(93%,#e77207)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(left, #000000 0%,#000000 93%,#000000 93%,#e77207 93%,#e77207 93%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(left, #000000 0%,#000000 93%,#000000 93%,#e77207 93%,#e77207 93%); /* Opera 11.10+ */
+background: -ms-linear-gradient(left, #000000 0%,#000000 93%,#000000 93%,#e77207 93%,#e77207 93%); /* IE10+ */
+background: linear-gradient(to right, #000000 0%,#000000 93%,#000000 93%,#e77207 93%,#e77207 93%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#e77207',GradientType=1 ); /* IE6-9 */">
+                    <h3 style="font-size: 18px;color: #ffffff;font-weight: bold;">{{ category.title }}</h3>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Ranking</th>
+                        <th>Provider</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% with award_data|lookup:category.title as data %}
+                        {% if data.0 %}
+                        <tr style="height: 150px;">
+                            <td style="width: 25%;vertical-align:middle;">
+                                <h4>{{ data.0.award.get_ranking_display }}</h4>
+                            </td>
+                            <td style="vertical-align:middle;text-align:center;">
+                                <div style="margin:2px auto;">
+                                    <img style="max-width: 130px;"
+                                         src="{% static data.0.award.provider.logo.url %}"
+                                         alt="Logo for {{ data.0.award.provider }}">
+                                </div>
+                                <div>{{ data.0.award.provider }}{% if data.0.award.product %} - {{ data.0.award.product.title }}{% endif %}</div>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% if data.99 %}
+                        <tr style="height: 150px;">
+                            <td style="width: 25%;vertical-align:middle">
+                                <h4>{{ data.99.award.get_ranking_display }}</h4>
+                            </td>
+                            <td style="vertical-align:middle;text-align:center;">
+                                <div style="margin:2px auto;">
+                                    <img style="max-width: 130px;"
+                                         src="{% static data.99.award.provider.logo.url %}"
+                                         alt="Logo for {{ data.99.award.provider }}">
+                                </div>
+                                <div>{{ data.99.award.provider }}{% if data.99.award.product %} - {{ data.99.award.product.title }}{% endif %}</div>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% if data.98 %}
+                            <tr style="height: 150px;">
+                                <td style="width: 25%;vertical-align:middle">
+                                    <h4>{{ data.98.award.get_ranking_display }}</h4>
+                                </td>
+                                <td style="vertical-align:middle;text-align:center;">
+                                    <div style="margin:2px auto;">
+                                        <img style="max-width: 130px;"
+                                             src="{% static data.98.award.provider.logo.url %}"
+                                             alt="Logo for {{ data.98.award.provider }}">
+                                    </div>
+                                    <div>{{ data.98.award.provider }}{% if data.98.award.product %} - {{ data.98.award.product.title }}{% endif %}</div>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endwith %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% if newrow == 'false' %}
+            </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    </div>
+    </div>
+    </div>
+
+    <script>
+        $('a[href*=#]:not([href=#])').click(function () {
+            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                if (target.length) {
+                    $('html,body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                }
+            }
+        });
+
+        $('#year_select').change(function () {
+            var select_value = this.value;
+            var awards_url = "{% url 'awards' %}";
+            window.location = awards_url + select_value + '/';
+        })
+    </script>
+{% endblock %}

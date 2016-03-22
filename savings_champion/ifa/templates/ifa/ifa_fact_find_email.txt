@@ -1,0 +1,23 @@
+IFA Mini Fact Find
+
+Name: {{ name|safe }}
+Address: {{ address|safe }}
+Office Number: {{ office_number|safe }}
+Home Number: {{ home_number|safe }}
+Mobile Number: {{ mobile_number|safe }}
+Email: {{ email|safe }}
+Marital Status: {{ marital_status|safe }}
+Employment Status: {{ employment_status|safe }}
+Partner Employment Status: {{ partner_employment_status|safe }}
+Occupation: {{ occupation|safe }}
+Partner Occupation: {{ partner_occupation|safe }}
+Self Total Asset Value: {{ total_asset_value|safe }}
+Partner Total Asset Value: {{ partner_total_asset_value|safe }}
+Joint Total Asset Value: {{ joint_total_asset_value|safe }}
+Self Total Income: {{ total_income|safe }}
+Partner Total Income: {{ partner_total_income|safe }}
+Joint Total Income: {{ joint_total_income|safe }}
+Protection: {{ protection|safe }}
+Retirement Planning: {{ retirement_planning|safe }}
+Estate Planning: {{ estate_planning|safe }}
+Investment Planning: {{ investment_planning|safe }}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load page_tags %}
+
+{% block bannertext %}
+    <h3>Change SC code</h3>
+{% endblock %}
+
+{% block contenthtml %}
+<br>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Enter the old sc code
+                </div>
+                <div class="panel-body">
+                    <form action="{% url 'sccodeinitial' %}" method="post" autocomplete="off">
+                        {% for f in sccodeform.hidden_fields %}{{ f }}{% endfor %}
+                        {% csrf_token %}
+
+                        {{ sccodeform.sccode }}
+                        <input class="form-control" type="submit" value="Submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

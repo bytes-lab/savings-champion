@@ -1,0 +1,88 @@
+{% for adviser_client in adviser_clients_in_progress %}
+    <tr>
+        <td><a href="{% url 'adviser_client_dashboard' adviser_client.pk %}">{{ adviser_client.name }}</a></td>
+        <td style="overflow-wrap:break-word;max-width:350px;">
+            <a href="mailto:{{ adviser_client.email }}">{{ adviser_client.email }}</a>
+        </td>
+        <td>{{ adviser_client.telephone }}</td>
+        <td>{{ adviser_client.source }}</td>
+        <td>{{ adviser_client.get_status_display }}</td>
+        <td>{{ adviser_client.interaction_started|date:'d/m/Y H:i:s' }}</td>
+        <td>{{ adviser_client.interaction_ended|date:'d/m/Y H:i:s' }}</td>
+        <td>{{ adviser_client.get_preferred_contact_time_display }}</td>
+        <td style="min-width: 250px;">
+            <div class="row">
+                <div class="col-sm-6">
+                    {% if adviser_client.status < 8 and adviser_client.status != 1 and adviser_client.status != 3 and adviser_client.status != 4 %}
+                        <input class="js-contacted btn btn-success btn-sm" type="button" value="Contacted"
+                               data-contacted="{% url 'adviser_contacted_client' adviser_client.pk %}">
+                    {% endif %}
+                </div>
+                <div class="col-sm-6">
+                    {% if adviser_client.status < 3 %}
+                        <input class="js-fact-find btn btn-success btn-sm" type="button"
+                               value="Fact Find 1"
+                               data-fact-find="{% url 'adviser_fact_find_client' adviser_client.pk %}">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    {% if adviser_client.status < 1 %}
+                        <input class="js-no-contact btn btn-info btn-sm" type="button"
+                               value="No Contact"
+                               data-no-contact="{% url 'adviser_no_contact_client' adviser_client.pk 1 %}">
+                    {% endif %}
+                    {% if adviser_client.status == 5 %}
+                        <input class="js-no-contact btn btn-info btn-sm" type="button"
+                               value="No Contact 2"
+                               data-no-contact="{% url 'adviser_no_contact_client' adviser_client.pk 2 %}">
+                    {% endif %}
+                    {% if adviser_client.status == 6 %}
+                        <input class="js-no-contact btn btn-info btn-sm" type="button"
+                               value="No Contact 3"
+                               data-no-contact="{% url 'adviser_no_contact_client' adviser_client.pk 3 %}">
+                    {% endif %}
+                    {% if adviser_client.status == 7 %}
+                        <input class="js-no-contact-email btn btn-info btn-sm" type="button"
+                               value="Email"
+                               data-no-contact="{% url 'adviser_no_contact_client' adviser_client.pk 4 %}">
+                    {% endif %}
+                </div>
+                <div class="col-sm-6">
+                    {% if adviser_client.status < 4 %}
+                        <input class="js-illustrated btn btn-success btn-sm" type="button"
+                               value="Illustration"
+                               data-illustrated="{% url 'adviser_illustrated_client' adviser_client.pk %}">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    {% if adviser_client.status < 5 %}
+                        <input class="js-recommended btn btn-success btn-sm" type="button"
+                               value="Recommendation"
+                               data-recommended="{% url 'adviser_recommendation_client' adviser_client.pk %}">
+                    {% endif %}
+                </div>
+                <div class="col-sm-6">
+                        <input class="js-signed btn btn-success btn-sm" type="button"
+                               value="Signed Up"
+                               data-signed="{% url 'adviser_signed_client' adviser_client.pk %}">
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <input class="js-unsuitable btn btn-danger btn-sm" type="button"
+                           value="Unsuitable"
+                           data-unsuitable="{% url 'adviser_unsuitable_client' adviser_client.pk %}">
+                </div>
+                <div class="col-sm-6">
+                    <input class="js-fake-enquiry btn btn-info btn-sm" type="button" value="Mark fake"
+                           data-fake-enquiry="{% url 'adviser_fake_client' adviser_client.pk %}">
+                </div>
+            </div>
+        </td>
+    </tr>
+{% endfor %}

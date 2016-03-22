@@ -1,0 +1,36 @@
+{% extends "base.html" %}{% load thumbnail %}
+
+{% block body_class %}generic{% endblock body_class %}
+
+
+{% block title %}savings news{% endblock title %}
+
+{% block content_class %}light pad{% endblock content_class %}
+
+{% block navigation %}
+  {% include "main_navigation.html"%}
+{% endblock navigation %}
+
+{% block content %}
+{% for article in paginated_list.object_list %}
+	<div class="sc-article">
+		<div class="bio-img">
+			{% if article.author.author_profile.small_image %}
+			{% thumbnail article.author.author_profile.small_image "200x100" as im %}<img src="{{ im.url }}" alt="Profile picture of {{article.author.first_name}} {{article.author.last_name}}">{% endthumbnail %}
+			{% endif %}
+<!--			<img src="{{STATIC_URL}}img/bio-img.png"/>-->
+		</div>
+		<div class="article-content">
+			<span class="date">{{article.publish_date|date:"jS F Y"}}</span>
+			<h2><a href="{% url view_article article.slug %}">{{article.title}}</a></h2>
+			{{article.teaser|safe}}
+
+			<a class="read-more" href="{% url view_article article.slug %}" title="Read more about {{article.title}}">Read more...</a>
+		</div>
+	</div>
+{% endfor %}
+	{% include "paginator.html" %}
+
+
+{% endblock content %}
+

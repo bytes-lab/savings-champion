@@ -1,0 +1,24 @@
+{% extends "thisismoney/timHeader.html" %}
+{% load page_tags crispy_forms_tags %}
+
+{% block content %}
+    <script src="{{ STATIC_URL }}js/timregister.js"></script>
+    <div id="registrationContainer">
+        {% if request.GET.tracker or request.GET.downloads %}
+            <div class="message registration-message">
+                {% if request.GET.tracker %}
+                    <p id="fixedRateMessage">So that we can remind you when your fixed rate products are due to mature,
+                        please complete the short form below to add this fixed rate account to your Rate Tracker
+                        portfolio.</p>
+                {% else %}
+                    {% if request.GET.downloads %}
+                        <p>In order to download Savings Champion guides you will first need to <a
+                                href="{% url 'auth_login' %}">login</a> or register</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% crispy form %}
+    </div>
+{% endblock content %}

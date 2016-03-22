@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block bannertext %}
+    <h3>Product couldn't be added</h3>
+{% endblock %}
+
+{% block contenthtml %}
+<p>Couldn't add product to email, No such user!</p>
+<a href="{% url 'admininstrationindex' %}"><input type="button" class="form-control bluesubmit" value="Return to administration index"/></a>
+{% endblock %}

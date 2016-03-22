@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load block_tags static %}
+
+{% block title %}
+    Seven pitfalls for larger savers
+{% endblock title %}
+
+{% block bannertext %}
+    <div id="left-banner" style="text-align: center;">
+        <h2>RateTracker Maintenance</h2>
+    </div>
+{% endblock bannertext %}
+
+{% block contenthtml %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="panel panel-default" style="margin-top: 20px;">
+                    <div class="panel-heading">
+                        <h3>RateTracker Maintenance</h3>
+                    </div>
+                    <div class="panel-body">
+                        <h5>Ratetracker is currently undergoing maintenance and will be available shortly.</h5>
+                        <p>In the mean time rate alert, best buy tables and all other tools remain unaffected.</p>
+                        <p>If you need access to either the latest rates for your accounts, advice on where to switch your accounts or any other details,
+                            <b>please don't hesitate to call us on 0800 321 3581</b>
+                        </p>
+                        {% if user.is_authenticated %}
+                        <p>Your viewing of this message has been noted, we will send an email alert for when RateTracker resumes service.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenthtml %}

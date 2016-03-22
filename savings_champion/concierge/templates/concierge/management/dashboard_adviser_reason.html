@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block bannertext %}
+    <h3>Adviser Reasons</h3>
+{% endblock %}
+
+{% block contenthtml %}
+    <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-2 col-xs-offset-1">
+                    <p>Adviser</p>
+                </div>
+                <div class="col-xs-2">
+                    <p>Client Name</p>
+                </div>
+                <div class="col-xs-2">
+                    <p>Client Email</p>
+                </div>
+                <div class="col-xs-2">
+                    <p>Adviser Note</p>
+                </div>
+                <div class="col-xs-2">
+                    <p>Client Telephone</p>
+                </div>
+            </div>
+        {% for reason in reasons %}
+            <div class="row">
+                <div class="col-xs-2 col-xs-offset-1">
+                    <p>{{ reason.3 }}</p>
+                </div>
+                <div class="col-xs-2">
+                    <p>{{ reason.0 }}</p>
+                </div>
+                <div class="col-xs-2">
+                    <p>{{ reason.1 }}</p>
+                </div>
+                <div class="col-xs-2">
+                    <p>{{ reason.2 }}</p>
+                </div>
+                <div class="col-xs-2">
+                    <p>{{ reason.4 }}</p>
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
+{% endblock %}

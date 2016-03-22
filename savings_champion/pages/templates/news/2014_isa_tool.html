@@ -1,0 +1,36 @@
+{% if post.show_isa_tool %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3>2014 ISA Topup Tool</h3>
+        </div>
+        <div class="panel-body">
+            <form>
+                <label>
+                    Select Your Provider
+                    <select>
+                        {% for provider in providers %}
+                            <option value="{{ provider.isa_topup_2014_email_list }}"
+                                    data-allowed="{{ provider.isa_topup_2014 }}" data-conditions="{{ provider.isa_topup_2014_conditions }}">{{ provider.title }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+
+                <div class="good-results">
+                    <h3>Congratulations</h3>
+
+                    <p>You have chosen a provider which allows you to topup your ISA in June 2014.</p>
+
+                    <p>Ensure you don't miss out on this golden opportunity, join our 2014 ISA Topup notification</p>
+
+                    <p>We will email you when it's time for you to top up your ISA so you can make the most of your
+                        savings.</p>
+
+                    <label>
+                        Enter your email
+                        <input type="email" class="form-control" required="true">
+                    </label>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endif %}

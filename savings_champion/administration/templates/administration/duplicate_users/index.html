@@ -1,0 +1,5 @@
+<ul>
+    {% for user in duplicate_users %}
+        <li>{{ user.username }} - {{ user.date_joined }} - {{ user.last_login }} - {{ user.email }}</li>
+    {% endfor %}
+</ul>

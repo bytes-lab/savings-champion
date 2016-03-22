@@ -1,0 +1,14 @@
+    {% load product_filters %}
+<tr class="tdrow info">
+  <td colspan="{{total}}"><div class="hider">Gross Rate</div></td>
+</tr>
+<tr class="hide">
+  <td colspan="{{total}}">This is the rate of interest earned on the account today, before tax has been deducted.   This may be different to the AER depending on how often the interest is paid out and if any bonuses are applicable for less than 12 months. </td>
+</tr>
+<tr class="gr">
+  {% for product in products %}
+ 
+    <td class="{% cycle 'odd' ''%}{% if product.is_sc_stamp %} recommended{% endif %}">{% if product.gross_rate %}{{product.gross_rate|floatformat:2}}%{% else %}&nbsp;{% endif%}</td>
+  {% endfor %}
+</tr>
+  

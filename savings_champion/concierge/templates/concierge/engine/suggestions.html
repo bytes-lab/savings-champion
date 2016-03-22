@@ -1,0 +1,119 @@
+{% load humanize %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Concierge Engine Output</h3>
+        <input type="button" class="btn btn-success pull-right js-concierge-engine-run" value="Run Concierge Engine">
+        <input type="button" class="btn btn-danger pull-right js-concierge-engine-run-best-case" value="Run Concierge Engine (Take No Prisoners)">
+
+        <div class="clearfix"></div>
+    </div>
+    <table class="table">
+        <tbody>
+        {% for term, products in suggestions.items %}
+            <tr>
+                <td colspan="4">
+                    <h3 style="font-weight: bold; font-size: 18px;">{{ term }}</h3>
+                </td>
+            </tr>
+            {% for product, expected_rate, balance in products %}
+                <tr>
+                    <td>{{ product }}</td>
+                    <td>{{ expected_rate|floatformat:"-2"|intcomma }}%</td>
+                    <td>&pound;{{ balance|floatformat:"-2"|intcomma }}</td>
+                    <td>
+                        <input class="btn btn-danger js-remove-product"
+                               data-url="{% url 'engine_remove_product' %}"
+                               data-concierge-user="{{ concierge_user_id }}"
+                               data-master-product="{{ product.product.pk }}"
+                               type="button" value="Remove Product">
+                    </td>
+                </tr>
+            {% endfor %}
+            {% if forloop.last %}
+                <tr>
+                    <td style="text-align: right;font-weight: bold;">Totals</td>
+                    <td>
+                        Old Amount: &pound;{{ existing_amount|floatformat:"-2"|intcomma }}
+                    </td>
+                    <td>
+                        Old Rate: {{ existing_rate|floatformat:"-2" }}%
+                    </td>
+                    <td>
+                        Old Interest: &pound;{{ existing_interest|floatformat:"-2"|intcomma }}
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>New Amount: &pound;{{ total_amount|floatformat:"-2"|intcomma }}</td>
+                    <td>New Rate: {{ total_rate|floatformat:"-2" }}%</td>
+                    <td>New Interest: &pound;{{ total_interest|floatformat:"-2"|intcomma }}</td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;font-weight: bold;">Difference</td>
+                    <td></td>
+                    <td>Rate: {{ difference_rate|floatformat:"-2" }}%</td>
+                    <td>Interest: £{{ difference_interest|floatformat:"-2"|intcomma }}</td>
+                </tr>
+
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Excluded Accounts</h3>
+        <input class="pull-right btn btn-default js-copy-excluded-products" type="button" value="Select All">
+        <div class="clearfix"></div>
+    </div>
+    <table class="table table-condensed js-excluded-products-table">
+        {% for pool_term, pool_tiers in naughty_list.items %}
+            <tbody>
+            <tr>
+                <td colspan="5">Up to {{ pool_term }} months</td>
+            </tr>
+            <tr>
+                <td>Account</td>
+                <td>Balance</td>
+                <td>Rate</td>
+                <td>Rejection Reason</td>
+                <td></td>
+            </tr>
+            {% for pool_tier in pool_tiers %}
+                <tr>
+                    <td>
+                        {{ pool_tier.0 }}
+                    </td>
+                    <td>
+                        <p>&pound;{{ pool_tier.1|floatformat:"-2"|intcomma }}</p>
+                    </td>
+                    <td>
+                        <p>{{ pool_tier.2|floatformat:"-2"|intcomma }}%</p>
+                    </td>
+                    <td>
+                        <ul>{% for restriction in pool_tier.3 %}<li>{{ restriction }}</li>{% endfor %}</ul>
+                    </td>
+                    <td>
+                        <input type="button" class="btn btn-success js-allow-product"
+                               data-url="{% url 'engine_allow_product' %}"
+                               data-concierge-user="{{ concierge_user_id }}"
+                               data-master-product="{{ pool_tier.0.product.pk }}"
+                               data-restriction="{% for restriction in pool_tier.4 %}{{ restriction }} {% endfor %}"
+                               value="Allow">
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        {% endfor %}
+    </table>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <input class="btn btn-primary js-toggle-engine-log" value="Toggle Concierge Engine Log" type="button">
+    </div>
+    <div class="panel-body js-engine-log" style="display: none;">
+        {% for message in engine_log %}
+            <code>{{ message }}</code><br>
+        {% endfor %}
+    </div>
+</div>

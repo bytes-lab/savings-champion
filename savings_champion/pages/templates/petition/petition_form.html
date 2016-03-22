@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static crispy_forms_tags block_tags page_tags %}
+
+{% block bannertext %}
+    <h3>&ldquo;Switch My Savings&rdquo; Campaign</h3>
+    <h5>Get better returns by signing our petition</h5>
+{% endblock %}
+
+{% block contenthtml %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {% get_static_block petition petition.heading as block %}
+                        <div class="col-md-10 col-md-offset-1" style="text-align: justify;">
+                            {{ block|safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h4 style="margin-bottom: 10px;">
+                            {% get_static_block petition petition.form.heading as block %}
+                            {{ block|safe }}
+                        </h4>
+                        {% crispy form %}
+                        <div style="margin-top: 10px;">
+                            {% get_static_block petition petition.footer.left as block %}
+                            {{ block|safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="petition-text panel panel-default">
+                    <div class="panel-heading">
+                        <h4 style="display: inline;padding: 10px 0;vertical-align: text-bottom;">
+                            {% get_static_block petition petition.text.heading as block %}
+                            {{ block|safe }}
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+                        {% get_static_block petition petition.text as block %}
+                        <div class="col-md-10 col-md-offset-1" style="text-align: justify;">
+                            {{ block|safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

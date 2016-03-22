@@ -1,0 +1,27 @@
+{% if bestbuy_form.initial_deposit %}
+<p class="group initial {% if bestbuy_form.initial_deposit.errors %}errors{% endif %}">
+  <span class="ico pound-ico"></span>
+  {{bestbuy_form.initial_deposit.label_tag}}
+  {{bestbuy_form.initial_deposit}}
+  {% if bestbuy_form.initial_deposit.errors %}
+    <p class="ico-error"><span class="arr"></span>Please enter a valid initial deposit </p>
+  {% endif %}  
+</p>
+{% endif %}
+{% if bestbuy_form.monthly_deposit %}
+<p class="group {% if bestbuy_form.monthly_deposit.errors %}errors{% endif %}">
+  <span class="ico pound-ico"></span>
+   {{bestbuy_form.monthly_deposit.label_tag}}
+   {{bestbuy_form.monthly_deposit}}
+    {% if bestbuy_form.monthly_deposit.errors %}
+    <p class="ico-error"><span class="arr"></span>Please enter a valid monthly deposit </p>
+  {% endif %} 
+</p>
+{% endif %}
+{% if bestbuy_form.tax_rate %}
+<p class="group tax_rate {% if bestbuy_form.tax_rate.errors %}errors{% endif %}">
+  <span class="ico g-ico"></span>
+   {{bestbuy_form.tax_rate.label_tag}}
+   {{bestbuy_form.tax_rate}}
+</p>
+{% endif %}

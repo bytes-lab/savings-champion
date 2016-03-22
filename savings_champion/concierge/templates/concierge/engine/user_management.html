@@ -1,0 +1,68 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="js-engine-output" data-url="{% url 'engine_process_user' concierge_user_id %}" data-url-best-case="{% url 'engine_process_user_best_case' concierge_user_id %}">
+            {% include 'concierge/engine/suggestions.html' %}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default js-existing-products" data-url="{% url 'engine_get_existing_products' %}" data-concierge-user-id="{{ concierge_user_id }}">
+            {% include 'concierge/engine/existing_products.html' %}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default js-required-accounts" data-url="{% url 'engine_get_required_products' %}"
+             data-concierge-user="{{ concierge_user_id }}">
+            {% include 'concierge/engine/required.html' %}
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default js-removed-accounts" data-url="{% url 'engine_get_removed_products' %}"
+             data-concierge-user="{{ concierge_user_id }}">
+            {% include 'concierge/engine/removed.html' %}
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default js-allowed-accounts" data-url="{% url 'engine_get_allowed_products' %}"
+             data-concierge-user="{{ concierge_user_id }}">
+            {% include 'concierge/engine/allowed.html' %}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>Concierge User Options</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" method="post">
+                    <div class="user-options">
+                        {% include 'concierge/engine/user_options.html' %}
+                    </div>
+                    <div class="form-actions"><input type="button" name="update-user-options" value="Update User Options"
+                                                     class="btn" id="button-id-update-user-options"
+                                                     data-url="{% url 'engine_update_user' concierge_user_id %}">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>Concierge User Pools</h3>
+                <input type="button" class="btn btn-success pull-right" name="add-pool" value="Add Pool"
+                       data-url="{% url 'engine_create_pool' concierge_user_id %}">
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="panel-body js-user-pools" data-url="{% url 'engine_get_pool' concierge_user_id %}">
+                {% include 'concierge/engine/user_pools.html' %}
+            </div>
+        </div>
+    </div>
+</div>

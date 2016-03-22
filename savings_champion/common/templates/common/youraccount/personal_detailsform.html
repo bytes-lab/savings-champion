@@ -1,0 +1,20 @@
+<div class="modal fade edit-details" id="personaldetails" tabindex="-1" role="dialog" aria-labelledby="personaldetailsformLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="personaldetailsformLabel">Edit your details</h4>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'update_details' %}" method="post" class="personaldetailsform">
+                    {% csrf_token %}
+                    {{ personalform }}
+                </form>
+            </div>
+            <div class="modal-footer">
+                <input type="button" value="Update My Details" class="btn btn-success js-edit-details"/>
+            </div>
+        </div>
+    </div>
+</div>

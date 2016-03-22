@@ -1,0 +1,7 @@
+Dear {{ name }},
+
+Thank you for your enquiry.
+Your feedback will help us negotiate future products that everyone can benefit from.
+
+However the process of bringing new products to market can take some time.
+In the interim, we'll be in touch to provide some immediate guidance to ensure you're not missing out on the very best rates.

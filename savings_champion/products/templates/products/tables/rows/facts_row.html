@@ -1,0 +1,28 @@
+<tr class="tdrow info">
+  <td colspan="{{total}}"><div class="hider">Facts</div></td>
+</tr>
+<tr class="hide">
+  <td colspan="{{total}}">Most accounts have terms and conditions that you must be aware of before you invest.  The Facts tell you the main ones.</td>
+</tr>
+<tr>
+  {% for product in products %}
+    <td>{% if product.facts %}{{product.facts|safe}}{% else %}{% endif %}</td>
+  {% endfor %}
+</tr>
+<tr class="tdrow info">
+  <td colspan="{{total}}"><div class="hider">Financial Services Compensation Scheme licence</div></td>
+</tr>
+<tr class="hide">
+  <td colspan="{{total}}">Some providers are linked and therefore not all of your money may be protected, if you hold more than £85,000 in total with these providers. <a href="/advice-guides/fscs-licence-information/">Click here</a> if you want to find out more</td>
+</tr>
+
+<tr>
+  {% for product in products %}
+    <td>{% if product.fscs_licence %}{{product.fscs_licence|safe}}{% else %}{% endif %}</td>
+  {% endfor %}
+</tr>
+<tr>
+  {% for product in products %}
+    <td>{% if product.url %}<a href="{{product.url}}" data-provider="{{product.provider.title}}" target="_blank" class="proceed viewtable" {% if product.url|slice:"11:20" == "bluespeck" %}title="Products with a * are affiliate links which grant us revenue. We never compromise our results based on revenue potential."{% endif %}>{% if product.url|slice:"11:20" == "bluespeck" %}*{% endif %}Proceed</a>{% else %}&nbsp;{% endif %}</td>
+  {% endfor %}
+</tr>

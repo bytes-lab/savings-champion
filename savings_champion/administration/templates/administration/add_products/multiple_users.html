@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block bannertext %}
+    <h3>Product couldn't be added</h3>
+{% endblock %}
+
+{% block contenthtml %}
+<p>Couldn't add product to email, Multiple users matched!</p>
+<table>
+    <th>Email</th>
+    <th>Username</th>
+    <th>Date Joined</th>
+    <th>Last Logged In</th>
+    {% for user in users %}
+        <tr>
+            <td>{{ user.email }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.date_joined }}</td>
+            <td>{{ user.last_login }}</td>
+        </tr>
+    {% endfor %}
+</table>
+<a href="{% url 'admininstrationindex' %}"><input type="button" class="form-control bluesubmit" value="Return to administration index"/></a>
+{% endblock %}

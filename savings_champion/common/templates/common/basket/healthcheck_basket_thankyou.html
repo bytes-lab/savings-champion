@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load block_tags static page_tags %}
+{% block additional_head %}
+    <link rel="stylesheet" href="{% static 'css/main/smallfooter.css' %}">
+    <link rel="stylesheet" href="{%  static 'css/libs/skins/square/blue.css' %}">
+{% endblock additional_head %}
+
+{% block title %}
+    Welcome
+{% endblock title %}
+{% block topbar %}
+{% endblock topbar %}
+
+{% block bannertext %}
+    <div id="healthcheck-signup-banner">
+        <h2>Thank you for taking part in our free services, we hope you find them useful.</h2>
+    </div>
+{% endblock bannertext %}
+
+
+{% block contenthtml %}
+<div id="healthcheck-basket-signup">
+    <div class="content-width">
+        <div style="float:left;width:68%;border: 1px grey solid;border-radius: 10px;">
+            <div style="padding:10px;">
+                <p>We are frequently approached by savers who are also looking for the best advice for their wealth
+                management.</p>
+                <br>
+                <p>If you are in the process of considering other investments, your pension or inheritance
+                tax planning, please <a href="{% url 'ifa_landing' %}" style="color: blue">click here to find out more.</a></p>
+            </div>
+        </div>
+        <div style="float: right;width:28%;">
+            <img style="max-width: 75%;" src="{% static 'img/shutterstock_145272889.large.png' %}">
+        </div>
+        <div style="clear: both;text-align: center;"></div>
+    </div>
+</div>
+{% endblock contenthtml %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static crispy_forms_tags %}
+
+{% block bannertext %}
+    <h3>Add product to user portfolio</h3>
+{% endblock %}
+
+{% block contenthtml %}
+    <link type="text/css" href="{% static '3rd_party/select2/select2.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static '3rd_party/select2/select2-bootstrap.css' %}" rel="stylesheet">
+    <div id="activation">
+        <div class="content-width">
+            <div id="add-variable-products">
+                <div id="add-products-forms">
+                    <div class="type-switch">
+                        <div class="variable active">
+                            <a style="cursor:pointer;" class="add-products-button">Variable Rate Accounts</a>
+                        </div>
+                        <div class="fixed">
+                            <a style="cursor:pointer;" class="fixed-click">Fixed Rate Accounts</a>
+                        </div>
+                    </div>
+                    <form class="variable-product-form product-form" action="{% url 'add_customer_product_logic' %}"
+                          method="post">
+                        {% crispy form %}
+                    </form>
+                </div>
+            </div>
+
+            <div id="add-fixed-products">
+                <div id="add-products-forms">
+                    <div class="type-switch">
+                        <div class="variable">
+                            <a style="cursor:pointer;" class="add-products-button">Variable Rate Accounts</a>
+                        </div>
+                        <div class="fixed active">
+                            <a style="cursor:pointer;" class="fixed-click">Fixed Rate Accounts</a>
+                        </div>
+                    </div>
+
+                    <form class="fixed-product-form product-form"
+                          action="{% url 'add_customer_product_logic' %}?fixed=true" method="post">
+                        {% csrf_token %}
+                        {% crispy fixed_product_form %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenthtml %}
+
+{% block footer_scripts %}
+    <script type="text/javascript" src="{% static '3rd_party/colorbox/jquery.colorbox-min.js' %}"></script>
+    <script type="text/javascript" src="{% static '3rd_party/select2/select2.min.js' %}"></script>
+
+    <script type="text/javascript" src="{% static '3rd_party/jquery-validation/jquery.validate.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/administration/add.js' %}"></script>
+{% endblock footer_scripts %}

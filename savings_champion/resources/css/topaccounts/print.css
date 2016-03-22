@@ -1,0 +1,236 @@
+@media print {
+  * {
+    background: transparent !important;
+    color: black !important;
+    text-shadow: none !important;
+    -webkit-filter: none !important;
+            filter: none !important;
+    -ms-filter: none !important; }
+  /* Black prints faster: h5bp.com/s */
+  a, a:visited {
+    text-decoration: underline; }
+  a[href]:after {
+    content: ""; }
+  abbr[title]:after {
+    content: ""; }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+    content: ""; }
+  /* Don't show links for images, or javascript/internal links */
+  pre, blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid; }
+  thead {
+    display: table-header-group; }
+  /* h5bp.com/t */
+  tr, img {
+    page-break-inside: avoid; }
+  img {
+    max-width: 100% !important; }
+  @page {
+    margin: 0.5cm; }
+  p, h2, h3 {
+    orphans: 3;
+    widows: 3; }
+  h2, h3 {
+    page-break-after: avoid; }
+  p {
+    font-size: 12px !important; }
+  body {
+    -ms-overflow-style: none;
+    overflow: visible !important; }
+  .best-buy-signup-toaster-container {
+    display: none !important; }
+  .btn {
+    display: none !important; }
+  .img-responsive {
+    max-width: 134px; }
+  #topaccounts-sidebar {
+    display: none !important; }
+  #topaccounts-table {
+    padding: 0;
+    text-align: left;
+    overflow: auto; }
+    #topaccounts-table .table-section {
+      width: 100%;
+      display: inline-block;
+      zoom: 1;
+      *display: inline; }
+    #topaccounts-table .header h1 {
+      font-size: 16px;
+      color: #CC5500;
+      border-top: #CCCCCC 1px solid;
+      margin-top: 20px; }
+      #topaccounts-table .header h1 span {
+        background-color: #F3F3F3;
+        padding: 0px 15px;
+        position: relative;
+        top: -20px; }
+    #topaccounts-table .table-summary {
+      display: block; }
+      #topaccounts-table .table-summary .summary {
+        vertical-align: top;
+        display: inline-block;
+        zoom: 1;
+        *display: inline;
+        padding: 10px;
+        background-color: #CFEBF2;
+        width: 75%; }
+        #topaccounts-table .table-summary .summary p {
+          margin-bottom: 10px; }
+      #topaccounts-table .table-summary .sueimage {
+        width: 15%;
+        height: auto;
+        display: inline-block;
+        zoom: 1;
+        *display: inline; }
+      #topaccounts-table .table-summary .author {
+        display: block;
+        padding: 5px 20px;
+        color: #666666;
+        font-size: 14px; }
+    #topaccounts-table .product-section {
+      padding: 0px 0px; }
+      #topaccounts-table .product-section table {
+        table-layout: fixed; }
+      #topaccounts-table .product-section .account-table tr {
+        width: 100%;
+        display: table-row;
+        border-top: 2px solid #E7E7E7;
+        border-bottom: 2px solid #E7E7E7; }
+      #topaccounts-table .product-section .account-table td {
+        padding: 0;
+        margin: 0;
+        display: table-cell;
+        vertical-align: top;
+        max-width: 160px;
+        height: 100%; }
+      #topaccounts-table .product-section .account-table p {
+        margin: 0;
+        font-size: 14px; }
+      #topaccounts-table .product-section .account-table .number {
+        margin: 0;
+        margin-bottom: 5px;
+        font-size: 16px;
+        text-align: center;
+        padding: 0px 0px;
+        border-bottom: #E7E7E7 2px solid;
+        font-weight: bold;
+        background-color: #F3F3F3;
+        border-top: none; }
+        #topaccounts-table .product-section .account-table .number p {
+          width: 50px;
+          height: 50px;
+          border-radius: 25px;
+          font-size: 14px;
+          color: #fff;
+          line-height: 50px;
+          text-align: center;
+          background: #000;
+          display: inline-block; }
+      #topaccounts-table .product-section .account-table .column-header {
+        height: 20px;
+        border-bottom: #E7E7E7 2px solid;
+        display: block;
+        background-color: #F3F3F3; }
+      #topaccounts-table .product-section .account-table .td-heading h3 {
+        font-size: 14px;
+        margin-top: 0px;
+        padding: 5px 10px; }
+      #topaccounts-table .product-section .account-table .td-heading a {
+        color: #0085B2;
+        font-size: 14px;
+        margin-left: 10px; }
+      #topaccounts-table .product-section .even {
+        background-color: #E7E7E7; }
+      #topaccounts-table .product-section .account-table .logo {
+        text-align: center;
+        padding-top: 10px; }
+        #topaccounts-table .product-section .account-table .logo .down-arrow {
+          display: none; }
+        #topaccounts-table .product-section .account-table .logo p {
+          font-size: 14px;
+          text-align: left;
+          padding: 0px 10px;
+          font-weight: bold; }
+      #topaccounts-table .product-section .account-table .gross-rate p {
+        color: #CC5500; }
+      #topaccounts-table .product-section .account-table .apply {
+        height: 40px;
+        color: white;
+        text-align: center;
+        background-color: #00B3E6;
+        border: 2px solid #0085B2;
+        width: 80%;
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 10%; }
+        #topaccounts-table .product-section .account-table .apply a {
+          font-weight: bold;
+          font-size: 14px;
+          margin-top: 10px;
+          display: block; }
+      #topaccounts-table .product-section .account-table .verdict-signup p {
+        padding: 10px 0px; }
+      #topaccounts-table .product-section .account-table .verdict p, #topaccounts-table .product-section .account-table .facts p {
+        font-size: 14px; }
+    #topaccounts-table .verdict-signup {
+      background-color: white;
+      height: 70px; }
+    #topaccounts-table a {
+      font-weight: bold; }
+  #apply-box {
+    text-align: left;
+    background-color: white;
+    width: 650px;
+    min-width: 450px;
+    overflow: hidden;
+    border: 4px solid black; }
+    #apply-box h3 {
+      font-size: 22px;
+      color: #CC5300;
+      margin: 15px; }
+    #apply-box .left-side {
+      width: 45%;
+      float: left;
+      display: inline-block;
+      zoom: 1;
+      *display: inline;
+      border-right: 3px solid #E7E7E7;
+      padding-right: 4%; }
+    #apply-box .right-side {
+      width: 45%;
+      float: right;
+      display: inline-block;
+      zoom: 1;
+      *display: inline; }
+    #apply-box p {
+      margin: 10px 15px;
+      color: #444444; }
+    #apply-box .heading {
+      font-weight: bold;
+      font-size: 20px;
+      color: black; }
+    #apply-box .continue-box {
+      margin: 10px 15px;
+      background-color: #00B3E6;
+      border: 2px solid #0085B2; }
+    #apply-box a {
+      padding: 10px 15px;
+      display: block;
+      color: white;
+      font-weight: bold; }
+    #apply-box form {
+      margin: 10px 15px; }
+    #apply-box input {
+      padding: 8px 4px;
+      width: 250px;
+      margin-bottom: 10px; }
+    #apply-box .bluesubmit {
+      height: auto;
+      white-space: normal; }
+  #advisor-box, .js-best-buy-signup-toaster-container, .print-button, .how-we-make-money, .print-hidden, .topaccounts-sidebar {
+    display: none !important; }
+  .print-shown {
+    display: block !important; } }
+
+/*# sourceMappingURL=print.css.map */

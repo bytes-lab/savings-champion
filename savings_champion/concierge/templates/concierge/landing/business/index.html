@@ -1,0 +1,63 @@
+{% extends 'concierge/landing/business/base.html' %}
+{% load static crispy_forms_tags  %}
+
+{% block additional_css %}
+    <link rel="canonical" href="https://savingschampion.co.uk{% url 'concierge_business_landing' %}">
+{% endblock %}
+
+{% block concierge_personal %}
+    <div class="col-lg-10 col-lg-offset-1 js-concierge-tool">
+        <div class="concierge-engine-chat">
+            <h4>Business Savings Accounts Calculator</h4>
+            <p>We analyse the whole of the market in under a minute.</p>
+        </div>
+        <hr/>
+        <h3>Step 1 of 2</h3>
+        <form method="post" action="{% url 'concierge_business_landing' user.pk %}">
+            {{ personal_pools.management_form }}
+            {{ personal_pools.non_form_errors }}
+            {% csrf_token %}
+            <div class="empty-form js-form-part container-fluid">
+                {% crispy personal_pools.empty_form %}
+            </div>
+            {% for form in personal_pools %}
+                <div class="js-form-part container-fluid">
+                    {% crispy form %}
+                </div>
+            {% endfor %}
+            <button type="button" class="btn btn-primary add-pool pull-right" value="Add Additional Term"
+                    name="Add Additional Term">
+                <span class="glyphicon glyphicon-plus"></span> Add another deposit term and amount
+            </button>
+            <div class="clearfix"></div>
+            <div class="container-fluid">
+                <div class="row">
+                    <hr/>
+                    <h3>Step 2 of 2</h3>
+                    <div class="col-md-6 col-md-offset-2">
+                        <p>Find out how much interest you could receive</p>
+                    </div>
+                    <button class="btn btn-success pull-right js-personal js-tool-index"
+                            value='Save Pools and Calculate'
+                            name='Save Pools and Calculate'>
+                        <span class="glyphicon glyphicon-repeat"></span>
+                        Calculate
+                    </button>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <p>* Mandatory field</p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="js-concierge-tool-unavailable" style="display: none;">
+        <h5>Our tool is not able to give any indicative rates for trust accounts.</h5>
+        <h5>This is because many providers deal with trusts on a discretionary basis.</h5>
+        <h5>Please speak to our concierge team on 0800 321 3581. They will be able to help you.</h5>
+        <button class="btn btn-danger" onclick="$('.js-concierge-tool').show();$('.js-concierge-tool-unavailable').hide();">I am interested in other accounts</button>
+    </div>
+
+{% endblock %}

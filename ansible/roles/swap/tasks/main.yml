@@ -1,0 +1,12 @@
+---
+
+- name: Check for Swap
+  shell: "free | grep Swap | column -t | awk '{print $2}'"
+  register: swap_size
+
+- name: Ensure Swap Exists
+  file: path=/var/swap.img mode=0600 state=touch
+  sudo: true
+  when: swap_size.stdout_lines[0] == '0'
+  notify:
+  - set swap size

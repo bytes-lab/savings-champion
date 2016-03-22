@@ -1,0 +1,16 @@
+<tr class="tdrow info">
+  <td colspan="{{total}}"><div class="hider">Access</div></td>
+</tr>
+<tr class="hide">
+  <td colspan="{{total}}">How you can manage your account, by post, online, branch telephone and/or ATM.</td>
+</tr>
+<tr>
+  {% for product in products %}
+    <td>
+      <img src="{{STATIC_URL}}img/t-{% if not product.is_post_access %}no{% endif %}mail.png" alt="{% if not product.is_post_access %}no{% endif %} mail" />
+      <img src="{{STATIC_URL}}img/t-{% if not product.is_internet_access %}no{% endif %}mouse.png" alt="{% if not product.is_internet_access %}no{% endif %} mouse" />
+      <img src="{{STATIC_URL}}img/t-{% if not product.is_branch_access %}no{% endif %}home.png" alt="{% if not product.is_branch_access %}no{% endif %} home" />
+      <img src="{{STATIC_URL}}img/t-{% if not product.is_phone_access %}no{% endif %}phone.png" alt="{% if not product.is_phone_access %}no{% endif %} phone" />
+    </td>
+  {% endfor %}
+</tr> 

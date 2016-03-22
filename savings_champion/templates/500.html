@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block bannertext %}
+<div id="left-banner">
+    <h2>Uh Oh, Something has gone wrong</h2>
+</div>
+{% endblock bannertext %}
+
+{% block content %}
+<br>
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div id="500" class="alert alert-danger">
+            <p>Sorry something went wrong on our end trying to do that, please try again in a few minutes.</p>
+            {% if request.sentry.id %}
+                <p>If the error persists and you need assistance, email info@savingschampion.co.uk. You may reference this error as <strong>{{ request.sentry.id }}</strong>.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
+

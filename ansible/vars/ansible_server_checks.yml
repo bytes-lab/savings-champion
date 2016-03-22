@@ -1,0 +1,70 @@
+---
+
+sensu_checks:
+  check_ping:
+    handler: default
+    command: "/etc/sensu/plugins/ping/check-ping.rb -h 8.8.8.8"
+    interval: 60
+    subscribers:
+      - all
+  postgres_alive:
+    handler: default
+    command: "/etc/sensu/plugins/postgres/postgres-alive.rb -u savings_champion -p r8Y@Mge#aTtW -h localhost -d savings_champion"
+    interval: 60
+    subscribers:
+      - database
+  memcached_stats:
+    handler: default
+    command: "/etc/sensu/plugins/memcached/check-memcached-stats.rb"
+    interval: 60
+    subscribers:
+      - app_servers
+  check_mail_queue:
+    handler: default
+    command: "/etc/sensu/plugins/postfix/check-mailq.rb -w 50 -c 100"
+    interval: 60
+    subscribers:
+      - app_servers
+  check_ssl_certificate:
+    handler: default
+    command: "/etc/sensu/plugins/ssl/check-ssl-cert.rb -c 7 -w 30 -h savingschampion.co.uk -p 443"
+    interval: 3600
+    subscribers:
+      - load_balancers
+  check_cpu:
+    handler: default
+    command: "/etc/sensu/plugins/system/check-cpu.rb"
+    interval: 60
+    subscribers:
+      - all
+  check_disk:
+    handler: default
+    command: "/etc/sensu/plugins/system/check-disk.rb"
+    interval: 60
+    subscribers:
+      - all
+  check_load:
+    handler: default
+    command: "/etc/sensu/plugins/system/check-load.rb"
+    interval: 60
+    subscribers:
+      - all
+  check_ram:
+    handler: default
+    command: "/etc/sensu/plugins/system/check-ram.rb"
+    interval: 60
+    subscribers:
+      - all
+  check_rabbitmq_alive:
+    handler: default
+    command: "/etc/sensu/plugins/rabbitmq/rabbitmq-amqp-alive.rb --user savingschampion --password savingschampion --vhost savingschampion"
+    interval: 60
+    subscribers:
+      - app_servers
+  check_load_balancers_status:
+    type: metric
+    handler: default
+    command: "/etc/sensu/plugins/nginx/nginx-metrics.rb --url https://127.0.0.1/nginx_status"
+    interval: 30
+    subscribers:
+      - load_balancers

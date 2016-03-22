@@ -1,0 +1,1 @@
+{"version":3,"sources":["smallfooter.css"],"names":[],"mappings":"AAAA;EACE,qBAAqB,EAAE;;AAEzB;EACE,aAAa,EAAE","file":"main/smallfooter.css","sourcesContent":[".wrapper {\n  margin: 0 auto -31px; }\n\n#footer, .push, #footer .bottombar {\n  height: 50px; }\n"],"sourceRoot":"/source/"}

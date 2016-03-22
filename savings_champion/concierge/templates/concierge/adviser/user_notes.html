@@ -1,0 +1,13 @@
+{% load crispy_forms_tags %}
+<div class="panel-heading">
+    Users Notes
+</div>
+<div class="panel-body">
+    {% for user_note in user_notes %}
+        <div class="well well-small">
+            <div>{{ user_note.note }}</div>
+            <div>Created: {{ user_note.created }}</div>
+        </div>
+    {% endfor %}
+    {% crispy user_notes_form %}
+</div>

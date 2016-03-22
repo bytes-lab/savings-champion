@@ -1,0 +1,87 @@
+---
+
+- name: Add Postgresql repo key
+  apt_key: url='https://www.postgresql.org/media/keys/ACCC4CF8.asc' state=present
+  sudo: true
+
+- name: Add Postgresql server repo
+  apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main' update_cache=yes state=present
+  sudo: true
+
+- name: Install Barman
+  apt: name=barman state=latest
+  sudo: true
+
+- name: Create barman user
+  user: name=barman
+
+- name: Create Barman Backup Directory
+  file: path=/var/lib/barman owner=barman group=barman state=directory
+  sudo: true
+
+- name: Create Barman Backup Directory
+  file: "path=/var/lib/barman/{{ item }}/incoming owner=barman group=barman state=directory"
+  sudo: true
+  with_items: groups['master_database']
+
+- name: Ensure main server config directory exists
+  file: path=/etc/barman/ state=directory
+  sudo: true
+
+- name: Create Master Barman Configuration
+  template: src=barman.conf.j2 dest=/etc/barman/barman.conf
+  sudo: true
+
+- name: Delete default ubuntu config 
+  file: state=absent path=/etc/barman.conf
+  sudo: true
+
+- name: Create link to our config from Ubuntu default location
+  file: state=link src=/etc/barman/barman.conf dest=/etc/barman.conf
+  sudo: true
+
+- name: Ensure per-server config directory exists
+  file: path=/etc/barman/conf.d/ state=directory
+  sudo: true
+
+- name: Create Barman Per-Server Configuration
+  template: src=server.conf.j2 dest=/etc/barman/conf.d/{{ item }}.conf
+  with_items: groups['master_database']
+  sudo: true
+
+- name: Ensure Every DB can communicate via SSH (Add Authorised Key)
+  authorized_key: >
+    key='ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDJLnMDBoq2sEei8ng9yrCho/AsEg3fZIWves0RPTj06CAJ27SdHb42nsl/fk6f1UAeB1ZB7XUB9n1WqCy0Rb/kZD5d6dD4pGVtmoZJarO93qwpDT5/xfXXjwz4dvfWZx6agb9slNdvezNajjzkDRmKwYpvfFBpPaCtjdsUYgFnI0Aif1SsDTzyKg6B5qEP67xGFKLZ7/B7gI/5CnouUAe13AdJGE65cQp6MdIb4SA80tbtDgjN6efc+YX08Mfv1s6wJmInJxhlC9ysPSrWFUb5mlVC2+REIwDvRtDFd+ppftSwtihNu8vXWj+jY1zZMXoXDb6gSW4pyOV3IRcKNZ0/ josh@Thor' 
+    user=barman
+  sudo: true
+
+- name: Ensure every DB can communicate via SSH (Add Private Keyfile)
+  copy: src=id_rsa dest=~/.ssh/id_rsa mode=0600
+  sudo: true
+  sudo_user: barman
+
+- name: Ensure known_hosts contains master database server
+  sshknownhosts: >
+    host={{ item }} 
+    dest=~/.ssh/known_hosts 
+    state=present
+  with_items: groups['master_database']
+  sudo: true
+  sudo_user: barman
+
+- name: Add barman backup to crontab to ensure retention policy is enforced
+  cron: >
+    user=barman
+    name="Ensure retention policy of barman is enforced"
+    job="barman backup all"
+    special_time=hourly
+  sudo: true
+  sudo_user: barman
+
+- name: Add barman cron to crontab to ensure retention policy is enforced
+  cron: >
+    user=barman
+    name="Ensure retention policy of barman is enforced"
+    job="barman cron"
+  sudo: true
+  sudo_user: barman

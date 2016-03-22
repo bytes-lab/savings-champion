@@ -1,0 +1,9 @@
+{% if form %}
+    <form action="{% url 'change_user_email' %}" method="post">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" />
+    </form>
+{% else %}
+    <p>Successfully updated</p>
+{% endif %}

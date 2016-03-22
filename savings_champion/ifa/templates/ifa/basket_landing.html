@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load page_tags static crispy_forms_tags %}
+
+{% block title %}
+    Wealth Management
+{% endblock title %}
+
+{% block bannertext %}
+    <div id="left-banner">
+        {% get_block ifa.incentive as message %}
+        <h2 class="js-banner-title" style="font-size: 30px">{{ message.block_title }}</h2>
+    </div>
+{% endblock bannertext %}
+
+{% block contenthtml %}
+
+    {% get_block ifa.incentive as message %}
+    <div id="ifa-landing">
+        <div class="content-width">
+            <div class="preselect">
+                <div class="ifa-message">
+                    <img src="{% static 'img/ifa/beach.jpg' %}">
+                    <div class="ifa-text">
+                        <p>We are frequently approached by savers who are also looking for the best advice for their
+                            wealth management.</p>
+                        <p>If you are in the process of considering other investments, your pension or inheritance tax
+                            planning,</p>
+                        <div class="pull-down">
+                            <p>Please select the approximate value of your investable assets:</p>
+                            <select class="asset-value">
+                                <option value="#">Please select a value</option>
+                                <option value="{% url 'bj_signup' %}">&pound;0 - &pound;249,999</option>
+                                <option value="{% url 'tpo_signup' 1 %}">&pound;250,000 - &pound;1million</option>
+                                <option value="{% url 'tpo_signup' 2 %}">&pound;1million - &pound;5million</option>
+                                <option value="{% url 'tpo_signup' 3 %}">&pound;5million+</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenthtml %}
+
+{% block footer_scripts %}
+    <script src="{% static 'js/ifa/ifa.js' %}"></script>
+    <link href="{% static '3rd_party/select2/select2.css' %}" type="text/css" media="screen" rel="stylesheet" />
+    <script type="text/javascript" src="{% static '3rd_party/select2/select2.min.js' %}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(".location").select2({'minimumResultsForSearch': 6, 'allowClear': false, 'closeOnSelect': false, 'placeholder': ''});
+        });
+    </script>
+    <script src="{% static '3rd_party/parsleyjs/parsley.js' %}"></script>
+{% endblock footer_scripts %}

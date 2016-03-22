@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load product_filters humanize block_tags cache static crispy_forms_tags pipeline %}
+
+{% block title %}
+    Free Best Buy Delivery Service
+{% endblock %}
+
+{% block meta_description %}
+    Savings Champion displays the UK’s Best Buys, offers a verdict, and allows you to
+    calculate the interest you would earn from each. Get them sent direct to you.
+{% endblock %}
+
+{% block bannertext %}
+    <div id="left-banner">
+        <h2>Free Best Buy Delivery Service</h2>
+    </div>
+{% endblock bannertext %}
+
+<!-- I highly recommend closing code blocks etc -->
+{% block contenthtml %}
+
+    <div class="container" style="padding-top: 20px;">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row" style="margin: 10px;">
+                            <h4 style="font-size:18px;text-align: center;">Receive our business best buy tables, direct to your inbox for <strong>FREE</strong>.</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img class="img-responsive hidden-xs hidden-sm"
+                                     src="{% static 'img/topaccounts/Unbiased Business Best Buy Tables.jpg' %}" alt="">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-10 col-md-offset-1">
+                                        <ul class="icon-list tick icon-list--green"
+                                            style="margin-left: 5px; margin-top: 20px; margin-bottom: 20px; line-height: 1.5;">
+                                            <li>
+                                                <p>Selected from the best available, never by commercial arrangement!</p>
+                                            </li>
+                                            <li>
+                                                <p>Unbiased whole of market coverage</p>
+                                            </li>
+                                            <li>
+                                                <p>Choice of weekly or monthly updates</p>
+                                            </li>
+                                            <li>
+                                                <p>Save time and effort</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10 col-md-offset-1">
+                                        <div class="form-group">
+                                            <div style="margin-bottom:10px;">
+                                                {% get_static_block bestbuy-table bestbuy_deliver.form.call_to_action as block %}
+                                                {{ block|safe }}
+                                            </div>
+                                            <form class="js-weekly-rate-alerts js-weekly-bestbuy-trigger form-inline"
+                                                  action="#" method="post">
+                                                {% crispy weekly_form %}
+                                                <div class="form-actions form-group">
+                                                    <input type="submit" name="sign-up" value="Subscribe"
+                                                           class="btn btn-info"
+                                                           id="button-id-sign-up">
+                                                </div>
+                                            </form>
+                                            <div style="margin-bottom: 40px;">
+                                                <small class="text-muted" style="font-size: 80%;">We respect you and
+                                                    your
+                                                    privacy, we
+                                                    will
+                                                    never send you spam and you can unsubscribe at any time.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10 col-md-offset-1">
+                                        {% get_static_block bestbuy-table bestbuy_delivery.quote as block %}
+                                        {{ block|safe }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenthtml %}
+
+{% block footer_scripts %}
+    {% javascript 'bestbuys' %}
+{% endblock footer_scripts %}
+

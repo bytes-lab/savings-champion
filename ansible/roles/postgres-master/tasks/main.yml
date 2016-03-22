@@ -1,0 +1,14 @@
+---
+
+- name: Add Master Only Postgresql Config
+  template: src=postgresql.conf.j2 dest=/etc/postgresql/9.3/main/postgresql.conf
+  sudo: true
+
+- name: Ensure Postgresql is started
+  service: name=postgresql state=restarted
+  sudo: true
+
+- name: Ensure known_hosts contains backup server
+  sshknownhosts: host=backup.savingschampion.co.uk dest=~/.ssh/known_hosts state=present
+  sudo: true
+  sudo_user: postgres

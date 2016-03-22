@@ -1,0 +1,120 @@
+---
+
+- name: Ensure .ssh directory exists
+  file: state=directory path=~/.ssh
+  sudo: true
+  sudo_user: savingschampion
+
+- name: Ensure srv directory exists
+  file: state=directory path="{{ code_location }}" owner=savingschampion group=savingschampion
+  sudo: true
+
+- name: Add deployment SSH key
+  copy: src=id_rsa dest=~/.ssh/id_rsa mode=0600
+  sudo: true
+  sudo_user: savingschampion
+
+- name: Get project dependencies
+  apt: name={{ item }} state=latest
+  with_items:
+  - libxml2-dev
+  - libxslt1-dev
+  - libpq-dev
+  - python-dev
+  - git
+  - python-virtualenv
+  - npm
+  - supervisor
+  - graphviz
+  sudo: true
+
+- name: Get Latest Codebase
+  git: >
+    accept_hostkey=yes 
+    dest="{{ code_location }}" 
+    force=yes 
+    repo=git@git.assembla.com:savings-champion.git
+    version=master
+  sudo: true
+  sudo_user: savingschampion
+  when: code_location != "/vagrant"
+
+- name: Set up missing directories
+  file: path="{{ code_location }}/static" state=directory owner=www-data group=www-data
+  sudo: true
+
+- name: Set up missing directories
+  file: path="{{ code_location }}/savings_champion/assets/" state=directory owner=www-data group=www-data
+  sudo: true
+
+- name: Set up missing directories
+  file: path="{{ code_location }}/savings_champion/assets/uploads" state=directory owner=www-data group=www-data
+  sudo: true
+
+- name: Set up missing directories
+  file: path=/home/savingschampion/.virtualenvs state=directory
+  sudo: true
+  sudo_user: savingschampion
+
+- name: Set up virtualenv for project and update to latest versions
+  pip: requirements="{{ code_location }}/savings_champion/requirements.txt" virtualenv=~/.virtualenvs/savings_champion state=latest
+  sudo: yes
+  sudo_user: savingschampion
+
+- name: Install Yuglify
+  npm: name=yuglify global=yes
+
+- name: Link nodejs to node
+  file: state=link src=/usr/bin/nodejs dest=/usr/bin/node
+  sudo: true
+
+- name: Configure Django database router for deployment environment
+  template: src=db_router.py.j2 dest="{{ code_location }}/savings_champion/db_router.py"
+  sudo: true
+  sudo_user: savingschampion
+
+- name: Configure Django for deployment environment
+  template: src=settings_production.py.j2 dest="{{ code_location }}/savings_champion/settings.py"
+  sudo: true
+  sudo_user: savingschampion
+
+- name: Collect Django static files
+  django_manage: >
+    command=collectstatic
+    app_path="{{ code_location }}/savings_champion"
+    pythonpath="{{ code_location }}/savings_champion"
+    virtualenv=/home/savingschampion/.virtualenvs/savings_champion/
+
+- name: Django Migrations
+  django_manage: >
+    command=syncdb
+    app_path="{{ code_location }}/savings_champion"
+    pythonpath="{{ code_location }}/savings_champion"
+    virtualenv=/home/savingschampion/.virtualenvs/savings_champion/
+
+- name: Django Migrations
+  django_manage: >
+    command=migrate
+    app_path="{{ code_location }}/savings_champion"
+    pythonpath="{{ code_location }}/savings_champion"
+    virtualenv=/home/savingschampion/.virtualenvs/savings_champion/
+  ignore_errors: true
+
+- name: restart uwsgi
+  supervisorctl: state=restarted name=uwsgi
+  sudo: true
+  ignore_errors: true
+
+- name: restart celery
+  supervisorctl: >
+    state=restarted name="celery:"
+  sudo: true
+  ignore_errors: true
+
+- name: Ensure products stay up to date with salesforce
+  cron: >
+    user=savingschampion
+    name="Keep ProductTiers MasterProducts and Providers updated with salesforce"
+    hour="12,5"
+    job="/home/savingschampion/.virtualenvs/bin/python /srv/savings_champion/savings_champion/manage.py salesforce_rest_api_mirror"
+

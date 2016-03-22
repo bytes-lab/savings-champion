@@ -1,0 +1,72 @@
+
+
+<div class="conciergeMessage">
+    <p>{{headermessage|safe}}</p>    
+</div>
+
+<div class="concierge-form">        
+    <form id="conciergeform" action="{% url 'concierge_thankyou' %}" method="post" target="_blank">
+        {% csrf_token %}
+        {{conciergeform.source}}
+        <label>Name*</label> {{conciergeform.name}}
+        <label>Email*</label> {{conciergeform.email}}
+        <label>Tel No.*</label> {{conciergeform.telephone}}
+        
+        <span class="altContainer" style="display: none;">
+          <label>Alt Tel No.</label>{{conciergeform.alt_telephone}}
+        </span>
+          <label>Time to Call</label> {{conciergeform.timetocall}}
+    
+        <input type="image" src="{{STATIC_URL}}img/submit_org.png" alt="Submit" value="Submit" class="button" onClick="if (_gaq) {_gaq.push(['_trackEvent', 'Concierge', 'This is Money', 'Signup']);}if(ga) {ga('send', 'event', 'Concierge', 'This is Money', 'Signup');}">
+       
+        
+    </form>
+</div>
+    <div class="conciergeBodyMessage">
+        <p>{{bodymessage|safe}}</p>    
+    </div>
+
+    <div class="conciergeClickMessage">
+        <p>Click a word below for more information</p>    
+    </div>
+    <table class="table">
+        <tr>
+            <td class="popupmessage"><a href="#" class="fakelink">Independence</a></td>
+            <td  style="display: none;">We are totally independent and cover the whole market, we monitor 4,000 savings accounts and 9,000 savings interest rates</td>
+            <td class="popupmessage"><a href="#" class="fakelink">Protection</a></td>
+            <td  style="display: none;">We know how to make sure your savings are fully protected by the Financial Service Compensation Scheme, there are 118 banks and building societies covered under FSCS and only 90 separate licences.  
+                We can make sure you do not have too much invested under any particular licence. </td>
+            <td class="popupmessage"><a href="#" class="fakelink">Research</a></td>
+            <td style="display: none;">We research thoroughly all the accounts we recommend to make sure they are worth your cash.  We review account terms and conditions and assess the quality of the service banks and building societies provide</td>
+        </tr>
+        <tr>
+            <td class="popupmessage"><a href="#" class="fakelink">Recommendations</a></td>
+            <td style="display: none;">Our recommendations will be based on your personal circumstances and objectives.  For example you may want to be able to access some of your funds immediately and lock some away for a better rate.  There are many factors to consider such as: who you currently bank with, your age, your income requirements and even your postcode that may have a bearing on our recommendations. </td>
+            <td class="popupmessage"><a href="#" class="fakelink">Value</a></td>
+            <td style="display: none;">We believe we offer the best value service in the UK.  There is an annual charge of 0.20% of your savings portfolio (subject to a minimum fee of £295). We feel that this service will offer best value for those with more than £100,000 in savings.  We collect the fee quarterly and, if you ever find anyone who can provide this service and is charging less, we would have no hesitation in refunding any fee levied for that period.</td>
+            <td class="popupmessage"><a href="#" class="fakelink">Paperwork</a></td>
+            <td  style="display: none;">We do all the administration work possible on your behalf.  We will fill out the application forms and R85s and write cover letters. We deal with many clients with specialist requirements, for example, those who are acting as power of attorney.</td>
+        </tr>
+        <tr>
+            <td class="popupmessage"><a href="#" class="fakelink">Illustration</a></td>
+            <td  style="display: none;">We provide a secure online portal so you can view your portfolio at any time.</td>
+            <td class="popupmessage"><a href="#" class="fakelink">Personal</a></td>
+            <td  style="display: none;">Concierge clients get a dedicated account manager.  Your account manager can be contacted in normal office hours on a Freephone number and, with prior arrangement, can be available outside these hours and face to face.</td>
+            <td class="popupmessage"><a href="#" class="fakelink">Proactive</a></td>
+            <td  style="display: none;">We proactively manage your accounts on a daily basis.  If your interest rate drops, your bonus is due to end, or your bond matures we will contact you with our recommendations.  As well as looking after your portfolio, we provide quarterly and annual reviews.  Written quarterly reviews let you know how your portfolio is performing against the marketplace, annual reviews aid completion of the dreaded tax return.</td>
+        </tr>
+        <tr>
+            <td class="popupmessage"><a href="#" class="fakelink">Married</a></td>
+            <td  style="display: none;">If you are married we can usually get better overall interest rates and optimise your portfolio for tax efficiency</td>
+            <td class="popupmessage"><a href="#" class="fakelink">Control</a></td>
+            <td  style="display: none;">We don’t hold client’s money or have any control over it. Accounts are opened in your name with the banks and building societies,  only you can deposit or withdraw money.</td>
+            <td class="popupmessage"><a href="#" class="fakelink">Guarantee</a></td>
+            <td  style="display: none;">We provide a complete satisfaction guarantee.  We have such confidence in our experience, expertise and technology that should you justifiably believe that we have failed to deliver, we would have no hesitation in refunding any fee levied for that period.</td>
+        </tr>
+    </table>
+  
+<script type="text/javascript">
+    $('.popupmessage').click(function() {
+        $.colorbox({html:"<div class='messageContainer'><h1>"+ $(this).next().text() + "</h1></div>"});
+    });
+</script>

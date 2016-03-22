@@ -1,0 +1,261 @@
+.undefined {
+  margin: 0 -20px 0;
+  padding-bottom:20px;
+  margin-top:10px;
+  -webkit-print-color-adjust: exact;
+}
+.undefined table thead {
+	background:#fff;
+	font-size: 14px;
+	
+}
+
+.undefined table tbody {
+	background:#fff;
+	font-size: 12px;
+	
+}
+
+.undefined table tfoot {
+	background:#fff;
+	font-size: 14px;
+	
+}
+.undefined .id-col{
+	color: #fff;
+	
+}
+
+.undefined .provider-col{
+  width: auto;
+  padding-left: 20px;
+}
+.undefined .account-col{
+	width: auto;
+}
+
+.undefined .accountname-col{
+	width: auto;
+}
+
+.undefined .balance-col{
+	
+}
+
+.undefined .maturity-col{
+	
+}
+
+
+.undefined h2{
+  color:#fff;
+  background-color:#384343;
+  padding:5px;
+  line-height: 30px;
+  margin-bottom:0;
+}
+  .undefined h2,
+  .undefined h3 {
+     color:#fff;
+     padding-left:10px;
+  }
+  .undefined h3 {
+    font-size:16px;
+    font-weight:bold;
+    width: 783px;
+    padding: 3px 3px 3px 10px;
+	position:relative;
+	margin-bottom:0;
+  }
+  .undefined .your-trackers{
+	  background-color: #4FBC2F;
+  }
+  
+  .undefined .your-tim-trackers{
+	  background-color: #451344;
+  }
+  
+  .isa .undefined .your-trackers{
+	  background-color: #29DCD6;
+  }
+  
+  .undefined .your-reminders{
+	  background-color: #EE7500;
+  }
+  
+  .undefined .your-tim-reminders{
+	  background-color: #451344;
+  }
+  
+  .undefined tr.deleted-account {
+  	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+		filter: alpha(opacity=50);
+		opacity: 0.5;
+		
+  }
+  
+  .undefined tr.deleted-account td{
+  	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+		filter: alpha(opacity=50);
+		opacity: 0.5;
+		
+  }
+  
+  .undefined tr.total_row{
+  	font-weight: bold;
+  	background-color: white;
+  }
+
+  .undefined td.grand_total{
+  	font-weight: bold;
+  	background-color: white;
+  }
+  .undefined h3 span {
+    display:none;
+    width:29px;
+    height:29px;
+    background:url('../../img/pm.png') no-repeat 0 -29px transparent;
+	position:absolute;
+	top:50%;
+	right:10px;
+	margin-top:-15px;
+  }
+    .undefined h3 .open{
+      background:url('../../img/pm.png') no-repeat 0 0 transparent;
+    }
+
+	.undefined table {
+	width: 800px;
+	margin-bottom: 20px;
+	border-spacing: 0px;
+	}
+	.undefined table th {
+	  font-weight:bold;
+	  text-align:left;
+	}
+
+ .undefined th,
+ .undefined td{
+    border:0px;
+    border-bottom:1px solid #DCDCDC;
+    vertical-align: middle;
+    padding: 5px 5px 5px 5px;
+    font-family: Arial, Helvetica ,sans-serif;
+  }
+
+  .undefined .counter {
+    background-color:#384343;
+    color:#fff;
+    text-align:center;
+    font-weight:bold;
+    width:20px;
+  }
+  .undefined .odd,
+  .undefined .even{
+    background-color: #eceded;
+  }
+	.undefined .addg {
+		margin-bottom:5px;
+	}
+	
+
+	.undefined .bonusText {
+			color: red;
+			font-size: 12px;
+		}	
+  div.portfolio-preferences {
+	  padding:5px;
+  }
+  .portfolio-preferences .alert {
+     background:url('../../img/mail-ico.png') no-repeat left center transparent;
+     padding-left:40px;
+	   float:left;
+  }
+
+  .portfolio-preferences .email{
+     font-style: italic;
+	 margin-left:88px;
+  }
+  .portfolio-preferences .submit {
+		float:right;
+	}
+  .undefined td.delete{
+	width:20px;
+  }
+  .undefined td.balance{
+	width:80px;
+	
+  }
+  .undefined .delete a {
+    display:block;
+    width:29px;
+    height:29px;
+   /* background:url('../../img/portfolio-delete-states.png') no-repeat 0 -29px; transparent; */
+  }
+  /* .undefined .delete .deleted { */
+  /*   background:url('../../img/portfolio-delete-states.png') no-repeat 0 0 transparent; */
+  /* } */
+ 
+
+
+  .log-create .content {
+    float: left;
+    width: 595px;
+	}
+	.log-create .buttons {
+		float: right;
+		padding-top: 55px;
+		width: 295px;
+	}
+	.log-create .buttons a {
+		margin-bottom:20px;
+		cursor:pointer;
+	}
+	.log-create .buttons .register {
+		background:url(../../img/register.png) no-repeat 0 0 transparent;
+		display:block;
+		height:58px;
+		width:195px;
+	}
+	.log-create .buttons .login {
+		background:url(../../img/login.png) no-repeat 0 0 transparent;
+		display: block;
+		height: 58px;
+		width: 195px;
+	}
+	.log-create .buttons .add {
+		background:url(../../img/add.png) no-repeat 0 0 transparent;
+		display: block;
+		height: 57px;
+		width: 283px;
+
+	}
+	.undefined .addg {
+		background:url(../../img/addmoreg.png) no-repeat 0 0 transparent;
+		display: block;
+		height: 57px;
+		width: 198px;
+		float:right;
+	}
+	.undefined .addo {
+		background:url(../../img/addmoreo.png) no-repeat 0 0 transparent;
+		display: block;
+		height: 57px;
+		width: 198px;
+		float:right;
+	}
+  .log-create h2 {
+		border-bottom: 1px solid #DEDEDE;
+		font-size: 34px;
+		line-height: 45px;
+		margin-bottom: 30px;
+		padding-bottom: 10px;
+	}
+
+
+	.undefined img.bonusAlert {
+		padding-left: 5px;	
+	}
+	
+#printReminderPortfolio {
+	display: none;	

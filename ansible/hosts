@@ -1,0 +1,31 @@
+[load_balancers]
+178.62.61.193 ansible_ssh_user='root' internal_address='10.131.255.118'
+178.62.61.83 ansible_ssh_user='root' internal_address='10.131.255.65'
+178.62.61.84 ansible_ssh_user='root' internal_address='10.131.255.66'
+
+[app_servers:vars]
+s3 = true
+
+[app_servers]
+178.62.61.195 ansible_ssh_user='root' internal_address='10.131.255.119'
+178.62.61.87 ansible_ssh_user='root' internal_address='10.131.255.68'
+
+[databases:children]
+master_database
+slave_databases
+
+[master_database]
+# System is not designed for multi-master.
+# Only one master is allowed here.
+178.62.61.196 ansible_ssh_user='root' repmgr_node_number=1
+
+[slave_databases]  # Node numbers should be in sequence and should not repeat at any time.
+178.62.61.200 ansible_ssh_user='root' repmgr_node_number=2
+178.62.61.206 ansible_ssh_user='root' repmgr_node_number=3
+
+[backups]
+37.187.6.145 ansible_ssh_user='root'
+
+[monitoring]
+37.187.4.95 ansible_ssh_user='root'
+37.187.108.123 ansible_ssh_user='root'

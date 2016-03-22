@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% load static crispy_forms_tags %}
+
+{% block additional_head %}
+    <script src="{% static '3rd_party/pace/pace.min.js' %}"></script>
+    <link href="{% static '3rd_party/pace/themes/pace-theme-flat-top.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block contenthtml %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3>Lead Capture</h3>
+                    </div>
+                    <div class="panel-body">
+                        <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#lead-capture">
+                            Lead Capture
+                        </button>
+                        <div id="lead-capture" class="collapse">
+                            {% include 'concierge/adviser/client_dashboard_lead_capture_form.html' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 engine-root">
+                <div class="col-md-6">
+                    <div class="panel panel-default js-user-options" data-url="">
+                        <div class="panel-heading">
+                            <h3>User Options</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal" method="post">
+                                <div class="user-options">
+                                    {% include 'concierge/engine/user_options.html' %}
+                                </div>
+                                <div class="form-actions">
+                                    <input type="button" name="update-user-options"
+                                           value="Update User Options"
+                                           class="btn" id="button-id-update-user-options"
+                                           data-url="{% url 'engine_update_user' concierge_user.pk %}">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default js-client-notes">
+                        {% include 'concierge/adviser/user_notes.html' %}
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3>Concierge Engine</h3>
+                        </div>
+                        <div class="panel-body">
+                            <input class="btn btn-primary js-load-concierge-engine" type="button"
+                                   value="Concierge Engine"
+                                   data-url="{% url 'engine_load_user' concierge_user.user.email %}">
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block footer_scripts %}
+    <script src="{% static '3rd_party/jquery-cookie/jquery.cookie.js' %}"></script>
+    <script src="{% static 'js/concierge/client_dashboard.js' %}"></script>
+    <script src="{% static 'js/concierge/engine.js' %}"></script>
+{% endblock %}

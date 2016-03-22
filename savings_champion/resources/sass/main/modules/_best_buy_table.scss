@@ -1,0 +1,205 @@
+#topaccounts-table {
+  padding: 30px 0;
+  text-align: left;
+  .product-section {
+    .table {
+      table-layout: fixed;
+    }
+    .even {
+      background-color: #E7E7E7;
+    }
+  }
+  .header h1 {
+    color: #CC5500;
+    padding-left: 10px;
+  }
+  a {
+    font-weight: bold;
+  }
+}
+
+.gross-rate {
+  p {
+
+    color: #CC5500;
+    font-size: 36px;
+  }
+}
+
+.account-table {
+  p {
+    font-size: 14px;
+    text-align: center;
+  }
+
+  a {
+    text-align: center;
+  }
+
+  button {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .number {
+    text-align: center;
+    background-color: #F3F3F3;
+    p {
+      width: 50px;
+      height: 50px;
+      border-radius: 25px;
+      color: #fff;
+      line-height: 50px;
+      text-align: center;
+      background: #000;
+      display: inline-block;
+    }
+  }
+  .td-heading {
+    text-align: center;
+    background-color: lighten(#E7E7E7, 5%);
+  }
+  .logo {
+    p {
+      font-weight: bold;
+    }
+  }
+
+}
+
+.form-inline {
+  label.radio {
+    display: block;
+    input[type=radio] {
+      margin: 5px;
+    }
+  }
+  .control-label {
+    display: inline-block;
+    width: 50%;
+    vertical-align: middle;
+  }
+  .controls {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+@media (min-width: 960px) {
+
+  #apply-box {
+    background-color: white;
+    min-width: 450px;
+    overflow: hidden;
+    h3 {
+      font-size: 22px;
+      color: #CC5300;
+      margin: 15px;
+    }
+    .left-side {
+      width: 45%;
+      float: left;
+      display: inline-block;
+      zoom: 1;
+      *display: inline;
+      border-right: 3px solid #E7E7E7;
+      padding-right: 4%;
+    }
+    .right-side {
+      width: 45%;
+      float: right;
+      display: inline-block;
+      zoom: 1;
+      *display: inline;
+    }
+    p {
+      margin: 10px 15px;
+      color: #444444;
+    }
+    .heading {
+      font-weight: bold;
+      font-size: 20px;
+      color: black;
+    }
+    .continue-box {
+      margin: 10px 15px;
+      background-color: #00B3E6;
+      border: 2px solid #0085B2;
+    }
+    a {
+      padding: 10px 15px;
+      display: block;
+      color: white;
+      font-weight: bold;
+    }
+    form {
+      margin: 10px 15px;
+    }
+    input {
+      padding: 8px 4px;
+      width: 250px;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+@media (max-width: 959px) and (min-width: 768px){
+  .gross-rate {
+    p {
+      font-size: 24px;
+    }
+  }
+  .facts {
+    p {
+      font-size: 12px;
+    }
+  }
+  .account-table {
+    p {
+      font-size: 12px;
+    }
+  }
+}
+
+@media (max-width: 767px) and (min-width: 490px) {
+    .facts {
+      p {
+        font-size: 10px;
+      }
+    }
+}
+
+@media (max-width: 489px) and (min-width: 440px) {
+  .account-table {
+    p {
+      font-size: 10px;
+    }
+  }
+  .gross-rate {
+    p {
+      font-size: 18px;
+    }
+  }
+}
+
+
+@media (min-width: 690px) {
+  .gross-rate p {
+    color: #CC5500;
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 689px) and (min-width: 400px) {
+  .gross-rate p {
+    color: #CC5500;
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 400px) {
+  .gross-rate p {
+    color: #CC5500;
+  }
+}

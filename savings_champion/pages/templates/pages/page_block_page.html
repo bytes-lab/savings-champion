@@ -1,0 +1,22 @@
+{% extends "base.html" %}{% load page_tags %}
+
+{% block body_class %}generic{% endblock body_class %}
+
+{% block title %}
+{% get_special_block block_key as message %}
+{{message.block_title}}
+{% endblock title %}
+
+{% block content_class %}light pad{% endblock content_class %}
+
+{% block content %}
+{% get_special_block block_key as message %}
+<h1>{{message.block_title}}</h1>
+{{message.text|safe}}
+{% endblock content %}
+
+{% block post_content %}
+<div id="h-nav-wrap">
+    {% include "h-nav.html" %}
+</div>
+{% endblock post_content %}

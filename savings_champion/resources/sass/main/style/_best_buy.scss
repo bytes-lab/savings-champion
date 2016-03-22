@@ -1,0 +1,353 @@
+
+.js-best-buy-signup-toaster-container {
+  position: relative;
+  z-index: 100;
+}
+
+.js-best-buy-signup-toaster {
+  $box_height: 600px;
+  z-index: 100;
+  height: $box_height;
+  position: absolute;
+  display: none;
+  top: 0px - $box_height;
+}
+
+.js-best-buy-signup-toaster-fade {
+  display: none;
+  position: fixed;
+  left: 0%;
+  top: 0%;
+  background-color: black;
+  -moz-opacity: 0.7;
+  opacity: .70;
+  filter: alpha(opacity=70);
+  width: 100%;
+  height: 100%;
+  z-index: 90;
+}
+
+@media print {
+  #topaccounts-sidebar, #banner, #header, #footer, .best-buy-signup-toaster-container, .print-button {
+    display: none;
+  }
+
+}
+
+#overlay {
+  background: rgba(0, 0, 0, 0.3);
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99998;
+}
+
+.js-highlight {
+  position: relative;
+}
+
+.panel-body h3 {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+#topaccounts {
+  padding: 30px 0;
+  text-align: left;
+  overflow: auto;
+  .info-section {
+    width: 75%;
+    float: right;
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+    .account-box {
+      background-color: white;
+      border: #E7E7E7 5px solid;
+      overflow: hidden;
+      margin-bottom: 20px;
+      .heading {
+        padding: 10px 10px 0 10px;
+        font-size: 14px;
+      }
+    }
+    h1 {
+      font-size: 24px;
+      color: #CC5500;
+      text-align: left;
+      border-top: #CCCCCC 1px solid;
+      span {
+        background-color: #F3F3F3;
+        padding: 0 15px;
+        position: relative;
+        top: -15px;
+      }
+    }
+    .account-box {
+      h3 {
+        padding: 10px 10px;
+        border-bottom: #E7E7E7 1px solid;
+        color: #0085B2;
+        a {
+          color: inherit;
+          text-decoration: none;
+        }
+      }
+      .pros-cons {
+        width: 47%;
+        display: inline-block;
+        zoom: 1;
+        *display: inline;
+        padding: 5px 10px;
+        p {
+          padding: 5px 0;
+          font-size: 14px;
+        }
+        .procon-symbol {
+          margin-right: 15px;
+          width: 19px;
+          height: auto;
+        }
+      }
+      .tips {
+        width: 47%;
+        float: right;
+        padding: 5px;
+        p {
+          padding: 5px 0;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+/*
+ * ==========================================================
+ * #topaccounts-sidebar
+ */
+
+#topaccounts-sidebar {
+  display: inline-block;
+  zoom: 1;
+  *display: inline;
+  a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  p {
+    padding: 8px 0 14px 10px;
+  }
+  ul {
+    list-style-type: none;
+    padding-left:0;
+  }
+  li {
+    padding: 8px 0;
+    border-top: #E7E7E7 1px solid;
+    color: #0085B2;
+    padding-left: 10px;
+    font-size: 14px;
+    &.bottom {
+      border-bottom: #E7E7E7 1px solid;
+    }
+  }
+  .active {
+    font-weight: bold;
+    background-color: #E7E7E7;
+    color: black;
+  }
+  .signup-box {
+    margin-bottom: 10px;
+    background-color: white;
+    border: 1px solid #E7E7E7;
+    padding: 10px;
+    border-radius: 4px;
+    .signup-message {
+      color: #c50;
+      text-align: center;
+      font-size: 20px;
+    }
+    p {
+      margin: 0;
+      font-size: 14px;
+      padding: 4px 10px;
+      text-align: justify;
+    }
+  }
+  .message-box {
+    margin-bottom: 10px;
+    background-color: white;
+    border: 1px solid #E7E7E7;
+    border-radius: 4px;
+    padding: 10px;
+    .message {
+      color: #c50;
+    }
+    p {
+      margin: 0;
+      font-size: 14px;
+      padding: 4px 10px;
+    }
+    a {
+      color: #0085B2;
+      text-decoration: underline;
+    }
+  }
+  .signup-bestbuy-form {
+    input {
+      margin: 5px 10px;
+    }
+  }
+}
+
+/*
+ *
+ * ========================================================================
+ * #topaccounts-compare
+ */
+
+#topaccounts-compare {
+  padding: 30px 0;
+  text-align: left;
+  .table-section {
+    float: right;
+    width: 100%;
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+    .return-link {
+      color: #0099CC;
+      padding-bottom: 10px;
+      display: block;
+    }
+  }
+  .header h1 {
+    font-size: 28px;
+    color: #CC5500;
+    border-top: #CCCCCC 1px solid;
+    margin-top: 20px;
+    span {
+      background-color: #F3F3F3;
+      padding: 0 15px;
+      position: relative;
+      top: -20px;
+    }
+  }
+  .product-section {
+    width: 100%;
+    padding: 0 0;
+    .account-table {
+      tr {
+        width: 100%;
+        display: table-row;
+      }
+      td {
+        display: table-cell;
+        width: 15%;
+        float: left;
+        margin: 5px 0;
+        height: auto;
+      }
+      .td-heading {
+        width: 100%;
+      }
+      p {
+        margin: 10px;
+      }
+      .number {
+        margin: 0;
+        margin-bottom: 5px;
+        font-size: 20px;
+        text-align: center;
+        padding: 10px 0;
+        border-bottom: #E7E7E7 2px solid;
+        font-weight: bold;
+        background-color: #F3F3F3;
+      }
+      .padding {
+        padding: 0 0;
+      }
+      .column-header {
+        height: 20px;
+        border-bottom: #E7E7E7 2px solid;
+        display: block;
+        background-color: #F3F3F3;
+      }
+      h3 {
+        padding: 0 5px;
+      }
+      .logo {
+        text-align: center;
+        width: 100%;
+        p {
+          font-size: 14px;
+          text-align: left;
+          padding: 10px;
+          font-weight: bold;
+        }
+      }
+      .aer-rate p {
+        font-size: 20px;
+      }
+      .verdict p, .facts p {
+        font-size: 14px;
+      }
+      .apply {
+        height: 40px;
+        color: white;
+        text-align: center;
+        background-color: #00B3E6;
+        border: 2px solid #0085B2;
+        width: 80%;
+        display: table-cell;
+        vertical-align: middle;
+        a {
+          font-weight: bold;
+          font-size: 16px;
+        }
+      }
+    }
+    .even {
+      background-color: #E7E7E7;
+    }
+    .your-account {
+      background-color: #F5E3D1;
+    }
+  }
+}
+
+.form-inline .form-group {
+  display: inline-block;
+  margin-bottom: 0;
+  padding: 0 10px;
+  vertical-align: middle;
+}
+
+
+
+.print-shown {
+  display: none;
+}
+
+.whatis {
+  font-size:14px;
+  color: #428bca;
+}
+
+.js-callback-form-hidden {
+  display: none;
+}
+
+p.callback-form-number {
+  text-align: center!important;
+  font-weight: bold;
+  font-size: 18px!important;
+  color: #CC5500
+}

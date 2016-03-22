@@ -1,0 +1,49 @@
+{% extends "products/ratetracker/wizard.html" %}
+{% load product_tags product_filters humanize page_tags %}
+
+{% block title %}{% get_block isatrackeromrc.meta as message %}{{message.block_title}}{% endblock title %}
+
+{% block meta_description %}
+		{% get_block isatrackeromrc.meta as message %}
+    {% if message %}
+    <meta name="description" content="{{message.text|striptags}}">
+		{% endif %}
+{% endblock %}
+
+{% block tracker_intro %}
+	{% get_block isatracker.intro as message %}
+
+	{% if message %}
+		<div class="tracker-summary">
+			{{message.text|safe}}	
+		</div>
+		{% endif %}
+		
+{% endblock tracker_intro %}	
+
+{% block tracker_tabs %}
+	<ul class="tracker-tabs">
+		<li><a href="{% url isa_rate_check %}" class="active">One Minute ISA Check</a></li>
+		<li><a href="{% url isa_tracker %}">My ISA Tracker &trade; Portfolio</a></li>
+	</ul>
+{% endblock tracker_tabs %}
+
+{% block bestbuys_json_init %}
+	{% get_isa_bestbuys_json as bestbuy_json %}
+	var bestbuysJSON = {{bestbuy_json|safe}};
+
+	{% get_providers_isa_bestbuy_json as json %}
+	var productsJSON = {{json|safe}};
+	
+	
+{% endblock bestbuys_json_init %}
+	
+
+{% block form_endpoint %}{% url isa_rate_check %}{% endblock form_endpoint %}
+
+	{% block tracker_message %}
+	{% get_block isatracker.message as message %}
+	{% if message %}
+	<div class="tracker-message"><p>{{message.text|safe}}</p></div>
+	{% endif %}
+	{% endblock tracker_message %}

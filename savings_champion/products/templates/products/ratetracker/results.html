@@ -1,0 +1,243 @@
+{% extends "products/tracker_base.html" %}
+{% load product_tags product_filters humanize %}
+
+{% block title %}My Results, One Minute Rate Check{% endblock title %}
+
+{% block extra_scripts %}
+    <script type="text/javascript">
+        window.onload = onPageLoad();
+
+        function onPageLoad() {
+            if (_gaq) {
+                _gaq.push(['_trackEvent', 'OMRC Results', 'Clicked']);
+            }
+            if (ga) {
+                ga('send', 'event', 'OMRC Results', 'Clicked');
+            }
+        }
+
+        $(function () {
+            $('input[name="reset"]').click(function () {
+                window.location.href = "{% url rate_check %}";
+            });
+            var left_height = $('td.track-account').height();
+            var right_height = $('td.facts-row').height();
+
+            if ((left_height > 0) || (right_height > 0)) {
+                if (left_height > right_height) {
+                    $('td.facts-row').height(left_height);
+                } else {
+                    $('td.track-account').height(right_height);
+                }
+            }
+
+            $('#track-this').click(function () {
+                $('#track-product').submit();
+            });
+        });
+    </script>
+
+{% endblock extra_scripts %}
+{% block tracker_tabs %}
+    <ul class="tracker-tabs">
+        <li><a href="{% url rate_check %}" class="active">One Minute Rate Check</a></li>
+        <li><a href="{% url rate_tracker %}">My Rate Tracker <sup>&reg;</sup> Portfolio</a></li>
+    </ul>
+{% endblock tracker_tabs %}
+
+{% block tracker_content %}
+
+    <div class="group">
+        <ul class="account-steps group" id="steps">
+            <li><a class="complete" href="{% url rate_check %}#provider"><span>Step 1</span>Provider</a></li>
+            <li><a href="{% url rate_check %}#type" class="complete"><span>Step 2</span>Account Type</a></li>
+            <li><a href="{% url rate_check %}#balance" class="complete"><span>Step 3</span>Balance(£)</a></li>
+            <li><a href="{% url rate_check %}#name" class="complete"><span>Step 4</span>Account Name</a></li>
+            <li><a class="last end active" href="{% url rate_check %}#results"><span>Step 5</span>Results</a></li>
+        </ul>
+
+        <div class="reset-wrap">
+            <input type="image" alt="Reset" src="{{ STATIC_URL }}img/track_but.png" id="track-this"/>
+        </div>
+    </div>
+    {% if selected_product %}
+
+        <div id="y-account" class="rt-account">
+            <h2>Your account
+                <span class="arr"></span>
+            </h2>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>{{ selected_product.provider }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="odd bestbuy-type">
+                    <td>
+                        <span class="ico"></span>
+                        {% if bestbuy_type %}
+                            <a href="{% url view_bestbuy_table bestbuy_type.slug %}" class=""><span class="label">Best Buy Account Type:</span> {{ bestbuy_type }}
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr class="even rt-account-name">
+                    <td><span>Account Name:</span> {{ selected_product.title }}
+                        {% ifequal selected_product.status|lower 'closed' %}
+                            <br/>*This account is <strong>closed</strong> to new business
+                        {% endifequal %}
+                    </td>
+                </tr>
+
+                <tr class="odd">
+                    <td>
+                        <span class="rate">{{ rate|floatformat:2 }}%</span>
+                        <span class="bonusExpired">{% if selected_product.gross_rate > rate %}This account has a bonus
+                            of {{ selected_product.bonus_amount|floatformat:2 }}% which has now expired.
+                            The rate displayed excludes the bonus.{% endif %}</span>
+                        <span class="date">*Gross Rate</span>
+
+                    </td>
+                </tr>
+                <tr class="even">
+                    <td><span>Balance:</span> {% if ratetracker_form.balance.value %}&pound;
+                        {{ ratetracker_form.balance.value|intcomma }}{% else %}{% endif %}</td>
+                </tr>
+                <tr class="odd">
+                    <td><span>Total Balance after 12 months</span><br/> <span class="totalBalance"><span
+                            class="balanceValue">{% if ratetracker_form.balance.value %}&pound;
+                        {{ your_interest_amount|floatformat:"2"|intcomma }}{% else %}{% endif %}</span> <span
+                            class="noTax">(Before tax)</span></span></td>
+                </tr>
+                <tr class="odd">
+                    <td class="track-account group">
+                        <form action="{% block form_endpoint %}{% url rate_check %}{% endblock form_endpoint %}"
+                              method="post" id="track-product">
+                            {% csrf_token %}
+                            {% for f in track_product_form.hidden_fields %}{{ f }}{% endfor %}
+                            {% if selected_product.show_opening_date %}
+
+                                {{ track_product_form.opening_date.as_hidden }}
+
+                            {% endif %}
+
+                            {% if selected_product.show_opening_date or selected_product.fixed_bonus_not_expired %}
+                                {% if selected_product.gross_rate == rate %}
+                                    {% if selected_product.show_opening_date %}
+                                        <p>This product has a bonus of
+                                            <strong>{{ selected_product.bonus_amount|floatformat:2 }}%</strong>
+                                            that will expire in <strong>{{ expiryDate|date:"F Y" }}</strong></p>
+                                    {% else %}
+                                        <p>This product has a bonus of
+                                            <strong>{{ selected_product.bonus_amount|floatformat:2 }}%</strong>
+                                            that will expire on
+                                            <strong>{{ selected_product.bonus_end_date|date:"D d M Y" }}</strong></p>
+                                    {% endif %}
+                                    <p class="registerBonusMessage">Track this account with our free Rate Tracker
+                                        service and we will notify you when your bonus is about to expire.</p>
+                                {% endif %}
+                            {% endif %}
+                            <div class="track-options {{ RATETRACKER_TYPE|lower }}-button-wrap">
+                                <a class="search-again" href="">search again</a>
+                                <input class="track-but" type="image" name="track" alt="Track this account"
+                                       src="{{ STATIC_URL }}img/track_but.png"/>
+                            </div>
+
+                        </form>
+
+                    </td>
+                </tr>
+                <tr class="even bestbuy-type">
+                    <td>
+                        {% if selected_product.show_opening_date or selected_product.fixed_bonus_not_expired or selected_product.fixed_bonus_has_expired %}
+                            <span class="providerBonusMessage">*Some providers are known to apply a further 
+                                12 month bonus for some existing customers.  Therefore, you may have an enhanced 
+                                rate that is specific to your circumstances.  If you think this rate is wrong, 
+                                we recommend that you contact your provider directly to confirm your rate.</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+
+        </div><!-- end y-accoun t -->
+    {% endif %}
+    {% if suggested_product %}
+        <div id="s-account" class="rt-account">
+            <h2>Suggested account
+                <span class="arr"></span>
+            </h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>{{ suggested_product.provider }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="even bestbuy-type">
+                    <td>
+                        <span class="ico"></span>
+                        {% if bestbuy_type %}
+                            <a href="{% url view_bestbuy_table bestbuy_type.slug %}" class=""><span class="label">Best Buy Account Type:</span> {{ bestbuy_type }}
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr class="odd rt-account-name">
+                    <td class="account-name"><span>Account Name:</span> {{ suggested_product.title }}</td>
+                </tr>
+                <tr class="even">
+                    <td>
+                        <span class="rate">{% if suggested_product.gross_rate %}
+                            {{ suggested_product.gross_rate|floatformat:2 }}%{% else %}
+                            &nbsp;{% endif %}</span>
+
+                        <span class="date">*Gross Rate</span>
+
+                    </td>
+                </tr>
+                <tr class="odd">
+                    <td><span>Balance:</span> {% if ratetracker_form.balance.value %}&pound;
+                        {{ ratetracker_form.balance.value|intcomma }}{% else %}{% endif %}</td>
+                </tr>
+
+                <tr class="even">
+                    <td><span>Total Balance after 12 months</span><br/><span
+                            class="totalBalance">{% if ratetracker_form.balance.value %}&pound;
+                        {{ suggested_interest_amount|floatformat:"2"|intcomma }}<span class="unmodifiedTotalBalance"
+                                                                                      style="display: none;">{{ suggested_interest_amount }}</span>{% else %}{% endif %}
+                        <span class="noTax">(Before tax)</span></span></td>
+                </tr>
+
+                <tr class="extra extraColor">
+                    <td><span class="extraText">That's an extra <span
+                            class="extraBalanceText">{% if ratetracker_form.balance.value %}&pound;
+                        {{ extra_interest|floatformat:"2"|intcomma }}{% else %}{% endif %}</span> (before tax)</span>
+                    </td>
+                </tr>
+                {% if suggested_product.facts %}
+                    <tr class="even">
+                        <td class="facts-row">
+
+                            <span class="fact">FACTS:</span>
+                            {{ suggested_product.facts|safe }}
+                    </tr>
+                {% endif %}
+                <tr class="odd bestbuy-type">
+                    <td>
+                        <span class="ico"></span>
+                        {% if bestbuy_type %}
+                            <a href="{% url view_bestbuy_table bestbuy_type.slug %}" class=""><span class="label">Best Buy Account Type:</span> {{ bestbuy_type }}
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div><!-- end s-account -->
+    {% endif %}
+
+{% endblock tracker_content %}

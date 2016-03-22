@@ -1,0 +1,48 @@
+<p>This portfolio has been successfully updated from</p>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>SC Code</th>
+            <th>Provider</th>
+            <th>Product</th>
+            <th>Balance</th>
+            <th>Opening Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{oldportfolio.id}}</td>
+            <td>{{oldportfolio.product.sc_code}}</td>
+            <td>{{oldportfolio.provider}}</td>
+            <td>{{oldportfolio.product.title}}</td>
+            <td>{{oldportfolio.balance}}</td>
+            <td>{{oldportfolio.opening_date}}</td>
+        </tr> 
+    </tbody>
+</table>
+<p>to...</p>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>SC Code</th>
+            <th>Provider</th>
+            <th>Product</th>
+            <th>Balance</th>
+            <th>Opening Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{newportfolio.id}}</td>
+            <td>{{newportfolio.product.sc_code}}</td>
+            <td>{{newportfolio.provider}}</td>
+            <td>{{newportfolio.product.title}}</td>
+            <td>{{newportfolio.balance}}</td>
+            <td>{{newportfolio.opening_date}}</td>
+        </tr> 
+    </tbody>
+</table>
+
+<a href="{% url 'change_customer_portfolio' %}">Change more portfolios</a>

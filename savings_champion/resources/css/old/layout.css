@@ -1,0 +1,91 @@
+/* #Main Layout
+================================================== */
+body {
+	background:#f2f2f2;
+	position:relative;
+}
+#login-wrap {
+	background:#384343;
+}
+#head-wrap {
+	background:#fff;
+}
+
+#precontent-wrap {
+	background:#ededed;
+	border-bottom:1px dashed #c6c6c6;
+	position:relative;
+	padding-top:20px;
+	margin-bottom:40px;
+}
+.generic #precontent-wrap {
+	padding-top:0px;
+	border-bottom:0px;
+}
+
+#header,
+#login,
+#wrapper,
+#footer,
+#tag,
+#post-content,
+#navigation,
+#precontent {
+	width:980px;
+	margin:0 auto;
+}
+#header {
+	position:relative;
+	padding-top:130px;
+}
+#foot-wrap {
+	border-top:1px solid #ccc
+}
+#pre-content {
+	margin:0 auto 30px auto;
+	padding-bottom:20px;
+}
+#post-content-wrap {
+	border-top:1px solid #e1e1e1
+}
+#side1 {
+	width:180px;
+	float:left;
+	margin-right:30px;
+}
+#content {
+	width:710px;
+	float:right;
+	padding-bottom:30px;
+	position:relative;
+}
+.home .main {
+	width:620px;
+	float:left;
+	margin-right:20px;
+}
+.home .sidebar {
+	width:300px;
+	float:left
+}
+.home #content,
+.ratetracker #content {
+	background:#fff;
+	padding:20px;
+	float: none;
+	width:940px;
+}
+.full-width #content {
+	width:980px;
+}
+
+
+/* #Rate Tracker (Alt Layout)
+================================================== */
+.ratetracker #side1 {
+	width:260px;
+}
+.ratetracker .ico-nav {
+	width:180px;
+	margin:25px 40px;
+}

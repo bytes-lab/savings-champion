@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load block_tags static crispy_forms_tags %}
+
+{% block title %}
+    Seven Steps to Manage Cash in Excess of £100,000
+{% endblock title %}
+
+{% block bannertext %}
+    <div id="left-banner">
+        {% get_static_block biggest-mistake incentive as block %}
+        <h2 class="js-banner-title" style="font-size: 30px">{{ block|safe }}</h2>
+    </div>
+{% endblock bannertext %}
+
+{% block contenthtml %}
+    <div id="ifa-landing">
+        <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col-sm-4">
+                            <img class="img-responsive" src="{% static 'img/the_biggest_mistake/seven_steps_to_manage_cash_over_100k.jpg' %}">
+                        </div>
+                        <div class="col-sm-8">
+                            <h2 style="text-align: center">Get your free guide today</h2>
+                            {% crispy form %}
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col-sm-12">
+                            {% get_static_block biggest-mistake need-to-know as block %}
+                            {{ block|safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenthtml %}
+

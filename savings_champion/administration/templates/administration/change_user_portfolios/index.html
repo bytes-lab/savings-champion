@@ -1,0 +1,38 @@
+{% if emailform %}
+    <form action="{% url 'change_customer_portfolio' %}" method="post">
+        {% csrf_token %}
+        {{emailform}}
+        <input type="submit" />
+    </form>
+{% else %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>SC Code</th>
+                <th>Provider</th>
+                <th>Product</th>
+                <th>Balance</th>
+                <th>Opening Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in portfolios %}
+                <tr>
+                    <td>{{p.id}}</td>
+                    <td>{{p.product.sc_code}}</td>
+                    <td>{{p.provider}}</td>
+                    <td>{{p.master_product.title}}</td>
+                    <td>{{p.balance}}</td>
+                    <td>{{p.opening_date}}</td>
+                </tr> 
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <form action="{% url 'change_customer_portfolio_logic' %}" method="post">
+        {% csrf_token %}
+        {{portfolioform}}
+        <input type="submit" />
+    </form>
+{% endif %}

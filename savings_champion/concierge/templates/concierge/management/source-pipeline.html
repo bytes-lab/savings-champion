@@ -1,0 +1,120 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Lead Progress by Source <span
+                class="js-refresh-source-pipeline pull-right glyphicon glyphicon-refresh"></span></h3>
+    </div>
+    <table class="table table-responsive table-bordered table-striped table-hover">
+        <tbody>
+        <tr>
+            <th>
+                <p>Lead Source</p>
+            </th>
+            <th>
+                <p>Unclaimed</p>
+            </th>
+            <th>
+                <p>Claimed</p>
+            </th>
+            <th>
+                <p>Attempted Contact</p>
+            </th>
+            <th>
+                <p>Contacted</p>
+            </th>
+            <th>
+                <p>Fact Finds</p>
+            </th>
+            <th>
+                <p>Illustrated</p>
+            </th>
+            <th>
+                <p>Recommendation</p>
+            </th>
+            <th>
+                <p>Signed</p>
+            </th>
+            <th>
+                <p>Unsuitable</p>
+            </th>
+            <th>
+                <p>Fake Leads</p>
+            </th>
+            <th>
+                <p>3 Calls + Email</p>
+            </th>
+            <th>
+                <p>Total</p>
+            </th>
+        </tr>
+        {% for source, stats in lead_source.items %}
+            <tr>
+                <td>{{ source }}</td>
+                <td>
+                    {% ifnotequal stats.unclaimed 0 %}
+                        {{ stats.unclaimed }}
+                    {% endifnotequal %}
+                </td>
+                <td>
+                    {% ifnotequal stats.0 0 %}
+                        {{ stats.0 }}
+                    {% endifnotequal %}
+                </td>
+                <td>
+                    {% ifnotequal stats.5|add:stats.6|add:stats.7 0 %}
+                        {{ stats.5|add:stats.6|add:stats.7 }}
+                    {% endifnotequal %}
+                </td>
+                <td>
+                    {% ifnotequal stats.1 0 %}
+                        {{ stats.1 }}
+                    {% endifnotequal %}
+                </td>
+                <td>
+                    {% ifnotequal stats.3 0 %}
+                        {{ stats.3 }}
+                    {% endifnotequal %}
+                </td>
+                <td>
+                    {% ifnotequal stats.4 0 %}
+                        {{ stats.4 }}
+                    {% endifnotequal %}
+                </td>
+                <td>
+                    {% ifnotequal stats.11 0 %}
+                        {{ stats.11 }}
+                    {% endifnotequal %}
+                </td>
+                <td>
+                    {% ifnotequal stats.9 0 %}
+                        {{ stats.9 }}
+                    {% endifnotequal %}
+                </td>
+                <td>
+                    {% ifnotequal stats.8 0 %}
+                        <a href="{% url 'management_adviser_reason' %}?status=8&source={{ source|urlencode }}">
+                            {{ stats.8 }}
+                        </a>
+                    {% endifnotequal %}
+                </td>
+                <td>
+                    {% ifnotequal stats.2 0 %}
+                        <a href="{% url 'management_adviser_reason' %}?status=2&source={{ source|urlencode }}">
+                            {{ stats.2 }}
+                        </a>
+                    {% endifnotequal %}
+                </td>
+                <td>
+                    {% ifnotequal stats.10 0 %}
+                        {{ stats.10 }}
+                    {% endifnotequal %}
+                </td>
+                <td>
+                    {% ifnotequal stats.total 0 %}
+                        {{ stats.total }}
+                    {% endifnotequal %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

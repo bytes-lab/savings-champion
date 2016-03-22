@@ -1,0 +1,20 @@
+{% load crispy_forms_tags %}
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p>Total Users All Time: {{ total_users.count }}</p>
+                <p>Total Users For Range: {{ users_by_range.count }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                {% crispy form %}
+            </div>
+        </div>
+    </div>
+</div>

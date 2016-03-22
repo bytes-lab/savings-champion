@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags static %}
+
+{% block contenthtml %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Referral Filter</h3>
+                    </div>
+                    <div class="panel-body">
+                        {% crispy form %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Total Referrals</h3>
+                    </div>
+                    <table class="table table-condensed table-striped">
+                        <tr>
+                            <td>Referrer</td>
+                            <td>Total</td>
+                            {% for action in actions %}
+                                <td>{{ action }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% for referral_count in referral_counts %}
+                            <tr>
+                                {% for referral_count_field in referral_count %}
+                                    <td>{{ referral_count_field.1 }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Unpaid Referrals</h3>
+                    </div>
+                    <table class="table">
+                        <tr>
+                            <td>Referrer</td>
+                            <td>Name</td>
+                            <td>Email</td>
+                            <td>Telephone</td>
+                            <td>Action</td>
+                            <td>Referral Term</td>
+                            <td>Date/Time</td>
+                            <td></td>
+                        </tr>
+                        {% for referral in referrals %}
+                        <tr id="{{ referral.pk }}">
+                            <td>{{ referral.referrer }}</td>
+                            <td>{{ referral.user.first_name }} {{ referral.user.last_name }}</td>
+                            <td>{{ referral.user.email }}</td>
+                            <td>{{ referral.user.profile.telephone }}</td>
+                            <td>{{ referral.get_referral_action_display }}</td>
+                            <td>{{ referral.referral_term }}</td>
+                            <td>{{ referral.referral_date }}</td>
+                            <td>
+                                <button class="btn btn-danger js-referrals-mark-as-paid" data-url="{% url 'referral_reporting_paid' referral.pk %}">Void</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer_scripts %}
+    <script src="{% static 'js/administration/user_referrals.js' %}"></script>
+{% endblock %}

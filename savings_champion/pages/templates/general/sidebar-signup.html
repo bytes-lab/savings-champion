@@ -1,0 +1,29 @@
+{% load block_tags cache %}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="signup-box">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="bold signup-message">Request call back</p>
+
+                    <p>For no-obligation advice on your savings you can speak to one of our expert advisers based in our
+                        Bath office.</p>
+
+                    <p class="callback-form-number">0800 321 3581</p>
+                </div>
+            </div>
+            <div class="row js-callback-form">
+                {% include 'products/topaccounts/callback/form.html' %}
+            </div>
+            <div class="row js-callback-form-failure js-callback-form-hidden">
+                <div class="col-md-12">
+                    <div class="alert alert-danger">
+                        <p>Your request for a callback was not able to be taken at this time. Please try again later or
+                            contact us
+                            on the number above.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

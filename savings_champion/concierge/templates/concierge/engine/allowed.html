@@ -1,0 +1,30 @@
+{% load crispy_forms_tags %}
+<div class="panel-heading">
+    <h3>Allowed Product Restrictions</h3>
+</div>
+<div class="panel-body">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Provider</th>
+                <th>Product</th>
+                <th>Restriction</th>
+                <th>Disallow</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for account in allowed_accounts %}
+            <tr>
+                <td>{{ account.product.provider }}</td>
+                <td>{{ account.product }}</td>
+                <td>{{ account.get_restriction_display }}</td>
+                <td>
+                    <input type="button" class="btn btn-danger js-remove-allowed-account"
+                           value="Disallow" data-allowed-product="{{ account.pk }}" data-concierge-user="{{ concierge_user_id }}"
+                           data-url="{% url 'engine_remove_allowed_product' %}">
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

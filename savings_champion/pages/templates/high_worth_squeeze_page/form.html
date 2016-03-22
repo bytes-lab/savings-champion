@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load block_tags static crispy_forms_tags %}
+
+{% block title %}
+    Protect your income from the increasing threat of tax
+{% endblock title %}
+
+{% block bannertext %}
+    <div id="left-banner">
+        {% get_static_block high-worth-squeeze-page incentive as block %}
+        <h2 class="js-banner-title" style="font-size: 30px">{{ block|safe }}</h2>
+    </div>
+{% endblock bannertext %}
+
+{% block topbar %}
+{% endblock %}
+
+{% block logobar %}
+    {% include 'logobar-thin.html' %}
+{% endblock logobar %}
+
+{% block navigation %}
+{% endblock %}
+
+{% block contenthtml %}
+    <div id="iht-landing">
+        <div class="container-fluid">
+            <div class="row background-picture" style="min-height:600px;background-repeat:no-repeat;background-position:center;background-size:cover;background-image: url('{% static 'img/high_worth_squeeze_page/dfhdrhdrhd.jpg' %}') ">
+                <div class="col-sm-3 col-sm-offset-1">
+                    <h2 style="
+                                text-align: center;
+                                color: white;
+                                background-color: rgba(10,10,10,0.3);
+                                border-radius: 3px;
+                                padding: 15px;
+                            ">Get your FREE Guide for High Earners today</h2>
+                    {% crispy form %}
+                </div>
+                <div class="col-sm-5 col-sm-offset-1">
+                    <h1 style="
+    text-align: center;
+    color: white;
+    background-color: rgba(10,10,10,0.3);
+    border-radius: 3px;
+    padding: 15px;
+">Protect your income from the increasing threat of tax</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <h3 style="text-align: center">Request your free guide now: “2016 Financial Planning Tips For High Earners”</h3>
+                    <p style="margin-top: 10%;color: rgba(0,0,0,0.5);">This guide is written by award-winning, independent, chartered financial planners - The Private Office LLP. The Private Office LLP takes your privacy seriously.  The information you disclose in this form will not be shared without your express permission. The Private Office LLP is a sister company of Savings Champion</p>
+                    <p style="margin-top: 1%;color: rgba(0,0,0,0.5);">The Private Office is a trading name of The Partners of The Private Office LLP. The Partners of The Private Office LLP is a Limited Liability Partnership, authorised and regulated by the Financial Conduct Authority. Our registration number is 602193 which may be checked on the FCA Register by visiting www.fsa.gov.uk/register/home.do. Registered Office: No 2 The Bourse, Leeds, LS1 5DE. Registered in England and Wales No. OC334113.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenthtml %}
+
+{% block footerblock %}
+{% endblock %}
+
+{% block bottombar %}
+{% endblock %}
+

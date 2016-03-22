@@ -1,0 +1,515 @@
+{% extends "base.html" %}
+{% load product_filters humanize block_tags cache static pipeline common_filters %}
+
+{% block title %}
+    {{ bestbuy.title }} Best Buys
+{% endblock %}
+
+{% block meta_description %}
+    Savings Champion displays the UK’s five Best Buys {{ bestbuy.title }} accounts, offers a verdict, and allows you to
+    calculate the interest you would earn from each.
+{% endblock %}
+
+{% block additional_head %}
+    <link rel="stylesheet" href="{% static 'css/topaccounts/print.css' %}"/>
+{% endblock %}
+
+{% cache 43200 bestbuy_table bestbuy.pk user.is_authenticated %}
+    {% block bannertext %}
+        <div id="left-banner">
+            {% get_static_block bestbuy-index banner.heading as block %}
+            <h2>{{ block|safe|striptags }}</h2>
+            {% get_static_block bestbuy-index banner.subheading as block %}
+            <h5>{{ block|safe|striptags }}</h5>
+        </div>
+    {% endblock bannertext %}
+
+    {% block contenthtml %}
+        <div id="topaccounts-table">
+            <div class="container-fluid">
+                <div class="row">
+                    {% include "products/topaccounts/business/leftnav.html" %}
+                    <div class="table-section col-sm-8">
+                        <div class="panel panel-default">
+                            <div class="header">
+                                <h1>
+                                    <span>{{ bestbuy.get_title_display }}</span>
+                                </h1>
+                            </div>
+                            <div class="product-section">
+
+                                <div class="print-shown">
+                                    <p>{% now "jS F Y H:i" %}</p>
+                                </div>
+                                {% for term in terms %}
+                                    {% if term > 0 %}
+
+
+                                        <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="heading{{ term }}">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion"
+                                                   href="#collapse{{ term }}" aria-expanded="true"
+                                                   aria-controls="collapse{{ term }}" class="js-full-table">
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                            <h4>{{ term }} Year</h4>
+                                                        </div>
+                                                        {% for product in products|lookup:term %}
+                                                            {% if forloop.first %}
+                                                                <div class="col-md-2">
+                                                                        <img class="img-responsive center-block"
+                                                                             src="
+
+                                                                                     {{ MEDIA_URL }}{{ product.provider.logo }}"
+                                                                             alt="Logo for {{ product.provider }}">
+
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <h4>Top rate: {{ product.gross_rate|floatformat:2 }}%</h4>
+                                                                </div>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                        <div class="col-md-3 col-md-offset-1">
+                                                            <button class="js-show-full-table btn btn-primary">Show full
+                                                                table
+                                                            </button>
+                                                            <button class="js-hide-full-table btn btn-primary"
+                                                                    style="display: none;">Hide full table
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </h4>
+                                        </div>
+
+                                    {% endif %}
+                                {% for product in products|lookup:term %}
+                                    {% if forloop.first %}
+
+                                        {% if term > 0 %}
+
+                                            <div id="collapse{{ term }}" class="panel-collapse collapse" role="tabpanel"
+                                                 aria-labelledby="heading{{ term }}">
+                                            <div class="panel-body">
+
+                                        {% endif %}
+
+                                    <table class="account-table table">
+                                        <thead>
+                                        <tr class="number">
+                                            {% for product in products|lookup:term %}
+                                                <td class="padding"><p>{{ forloop.counter }}</p></td>
+                                            {% endfor %}
+                                        </tr>
+                                        <tr>
+                                            {% for product in products|lookup:term %}
+                                                <td>
+                                                    <div class="logo padding">
+                                                        {% if product.master_product.url %}
+                                                            <a href="{% url 'outbound_clickthrough' product.master_product_id %}" target="_blank">
+                                                        {% endif %}
+                                                        {% if product.provider.logo %}
+                                                            <img class="img-responsive center-block"
+                                                                 src="{{ MEDIA_URL }}{{ product.provider.logo }}"
+                                                                 alt="Logo for {{ product.provider }}">
+                                                        {% else %}
+                                                            {{ product.provider }}
+                                                        {% endif %}
+                                                        <p>
+                                                            {{ product.master_product.title }}
+                                                            {% if product.master_product.is_paid %}*{% endif %}
+                                                        </p>
+                                                        {% if product.master_product.url %}
+                                                                <button {% if not product.master_product.url %}disabled="disabled"{% endif %} class="btn btn-success">Apply Now</button>
+                                                            </a>
+                                                        {% else %}
+                                                            <button disabled="disabled" class="btn btn-default">No Link</button>
+                                                        {% endif %}
+
+                                                    </div>
+                                                </td>
+                                            {% endfor %}
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        <tr class="how-we-make-money">
+                                            <td class="td-heading" colspan="5"><a
+                                                    href="{% url 'child_controller' 'about-us' 'how-do-we-make-our-money' %}">Click
+                                                here
+                                                to find
+                                                out what the * means</a></td>
+                                        </tr>
+
+
+                                        {% if bestbuy.title == "Fixed Rate Bonds" %}
+                                            <tr>
+                                                <td class="td-heading" colspan="5"><h3>Term</h3></td>
+                                            </tr>
+
+                                            <tr>
+                                                {% for product in products|lookup:term %}
+                                                    <td class="{% cycle 'odd' 'even' %}">
+                                                        <div class="padding">
+                                                            <p>
+                                                                {{ product.get_term }}
+                                                            </p>
+                                                        </div>
+                                                    </td>
+                                                {% endfor %}
+                                            </tr>
+                                        {% endif %}
+                                        <tr>
+                                            <td class="td-heading" colspan="5">
+                                                <h3>Gross Interest Rate <a href="#" class="whatis">What's This?</a></h3>
+                                                {% get_static_block bestbuy-table grossrate.explanation as block %}
+                                                <div class="explanation" style="display:none;">{{ block|safe }}</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            {% for product in products|lookup:term %}
+                                                <td class="{% cycle 'odd' 'even' %}">
+                                                    <div class="gross-rate padding">
+                                                        <p>{{ product.gross_rate|floatformat:2 }}%</p>
+                                                    </div>
+                                                </td>
+                                            {% endfor %}
+                                        </tr>
+
+                                        <tr>
+                                            <td class="td-heading" colspan="{{ products|lookup:term|length }}">
+                                                <h3 style="font-size: large; color:#C50;">Call us on 0800 321 3581 to see if there are better rates available for your specific business
+                                                    <a href="#" class="whatis">Why?</a></h3>
+                                                {% get_static_block bestbuy-table moneyline.explanation as block %}
+                                                <div class="explanation"
+                                                     style="display:none;">{{ block|safe }}</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td-heading" colspan="5">
+                                                <h3>AER <a href="#" class="whatis">What's This?</a></h3>
+                                                {% get_static_block bestbuy-table aer.explanation as block %}
+                                                <div class="explanation" style="display:none;">{{ block|safe }}</div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            {% for product in products|lookup:term %}
+                                                <td class="{% cycle 'odd' 'even' %}">
+                                                    <div class="aer-rate padding">
+                                                        <p>
+                                                            {{ product.aer|floatformat:2 }}%
+                                                        </p>
+                                                    </div>
+                                                </td>
+                                            {% endfor %}
+                                        </tr>
+
+                                        {% if bestbuy.slug == "childrens-accounts" %}
+                                            <tr>
+                                                <td class="td-heading" colspan="5"><h3>Minimum Age</h3></td>
+                                            </tr>
+
+                                            <tr>
+                                                {% for product in products|lookup:term %}
+                                                    <td class="{% cycle 'odd' 'even' %}">
+                                                        <div class="padding">
+                                                            <p>
+                                                                {{ product.minimum_age }}
+                                                            </p>
+                                                        </div>
+                                                    </td>
+                                                {% endfor %}
+                                            </tr>
+
+                                            <tr>
+                                                <td class="td-heading" colspan="5"><h3>Maximum Age</h3></td>
+                                            </tr>
+
+                                            <tr>
+                                                {% for product in products|lookup:term %}
+                                                    <td class="{% cycle 'odd' 'even' %}">
+                                                        <div class="padding">
+                                                            <p>
+                                                                {{ product.maximum_age }}
+                                                            </p>
+                                                        </div>
+                                                    </td>
+                                                {% endfor %}
+                                            </tr>
+                                        {% endif %}
+
+                                        {% if bestbuy.title == "Notice Accounts" %}
+                                            <tr>
+                                                <td class="td-heading" colspan="5"><h3>Notice</h3></td>
+                                            </tr>
+
+                                            <tr>
+                                                {% for product in products|lookup:term %}
+                                                    <td class="{% cycle 'odd' 'even' %}">
+                                                        <div class="padding">
+                                                            <p>
+                                                                {{ product.notice }} days
+                                                            </p>
+                                                        </div>
+                                                    </td>
+                                                {% endfor %}
+                                            </tr>
+                                        {% endif %}
+
+                                        <tr>
+                                            <td class="td-heading" colspan="5"><h3>Minimum Deposit</h3></td>
+                                        </tr>
+
+                                        <tr>
+                                            {% for product in products|lookup:term %}
+                                                <td class="{% cycle 'odd' 'even' %}">
+                                                    <div class="min-deposit padding">
+                                                        <p>
+                                                            &pound;{{ product.minimum|intcomma }}
+                                                        </p>
+                                                    </div>
+                                                </td>
+                                            {% endfor %}
+                                        </tr>
+
+                                        {% if bestbuy.title == "Regular Savings" %}
+                                            <tr>
+                                                <td class="td-heading" colspan="5"><h3>Minimum per month</h3></td>
+                                            </tr>
+
+                                            <tr>
+                                                {% for product in products|lookup:term %}
+                                                    <td class="{% cycle 'odd' 'even' %}">
+                                                        <div class="padding">
+                                                            <p>
+                                                                &pound;{{ product.master_product.minimum_monthly|floatformat:-2 }}
+                                                            </p>
+                                                        </div>
+                                                    </td>
+                                                {% endfor %}
+                                            </tr>
+
+                                            <tr>
+                                                <td class="td-heading" colspan="5"><h3>Maximum per month</h3></td>
+                                            </tr>
+
+                                            <tr>
+                                                {% for product in products|lookup:term %}
+                                                    <td class="{% cycle 'odd' 'even' %}">
+                                                        <div class="padding">
+                                                            <p>
+                                                                &pound;{{ product.master_product.maximum_monthly|floatformat:-2 }}
+                                                            </p>
+                                                        </div>
+                                                    </td>
+                                                {% endfor %}
+                                            </tr>
+                                        {% endif %}
+
+                                        <tr>
+                                            <td class="td-heading" colspan="5"><h3>Access</h3></td>
+                                        </tr>
+
+                                        <tr>
+                                            {% for product in products|lookup:term %}
+                                                <td class="{% cycle 'odd' 'even' %}">
+                                                    <div class="access padding">
+                                                        <p>
+                                                            {{ product.get_access }}
+                                                        </p>
+                                                    </div>
+                                                </td>
+                                            {% endfor %}
+                                        </tr>
+
+                                        {% if bestbuy.title == "Variable Rate ISAs" or bestbuy.title == "Fixed Rate ISAs" %}
+                                            <tr>
+                                                <td class="td-heading" colspan="5"><h3>Transfers in allowed</h3></td>
+                                            </tr>
+
+                                            <tr>
+                                                {% for product in products|lookup:term %}
+                                                    <td class="{% cycle 'odd' 'even' %}">
+                                                        <div class="padding">
+                                                            <p>
+                                                                {% if product.is_isa_transfers_in %}Yes{% else %}
+                                                                    No{% endif %}
+                                                            </p>
+                                                        </div>
+                                                    </td>
+                                                {% endfor %}
+                                            </tr>
+                                        {% endif %}
+                                        <tr>
+                                            <td class="td-heading" colspan="5"><h3>Facts</h3></td>
+                                        </tr>
+
+                                        <tr>
+                                            {% for product in products|lookup:term %}
+                                                <td class="{% cycle 'odd' 'even' %}">
+                                                    <div class="facts padding">
+                                                        <p>
+                                                            {{ product.master_product.facts }}
+                                                        </p>
+                                                    </div>
+                                                </td>
+                                            {% endfor %}
+                                        </tr>
+
+                                        <tr>
+                                            <td class="td-heading" colspan="5">
+                                                <h3>Financial Services Compensation Scheme <a href="#" class="whatis">What's
+                                                    This?</a>
+                                                </h3>
+                                                {% get_static_block bestbuy-table fscs.explanation as block %}
+                                                <div class="explanation" style="display:none;">{{ block|safe }}</div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            {% for product in products|lookup:term %}
+                                                <td class="{% cycle 'odd' 'even' %}">
+                                                    <div class="facts padding">
+                                                        <p>
+                                                            {{ product.master_product.provider.fscs_licence }}
+                                                        </p>
+                                                    </div>
+                                                </td>
+                                            {% endfor %}
+                                        </tr>
+                                        <tr>
+                                            {% for product in products|lookup:term %}
+                                                <td class="{% cycle 'odd' 'even' %}">
+                                                    {% if product.master_product.url %}
+                                                    <a class="apply-link{% if user.is_authenticated %} authenticated{% endif %}"
+                                                           href="{% url 'outbound_clickthrough' product.master_product_id %}"
+                                                           product="{{ product.title }}"
+                                                           provider="{{ product.provider }}" target="_blank">
+                                                        <button class="apply btn btn-success">Apply</button>
+                                                    </a>
+                                                    {% else %}
+                                                        <button disabled="disabled" class="btn btn-default">No Link</button>
+                                                    {% endif %}
+
+                                                </td>
+                                            {% endfor %}
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    {% if term > 0 %}
+                                        </div>
+                                        </div>
+                                        </div>
+                                    {% endif %}
+                                    {% endif %}
+                                    {% empty %}
+                                    <div class="alert alert-info">
+                                        <p>We're currently updating our bestbuys, please try again in 5-10 minutes.</p>
+
+                                        <p>If this message persists please contact us.</p>
+                                    </div>
+                                {% endfor %}
+                                {% endfor %}
+                                <input type="button" class="btn btn-primary print-button form-control"
+                                       value="Print this table"/>
+                            </div>
+                        </div>
+                        <!--inline html for the colorbox (if needed) -->
+                        <div style="display: none">
+                            <div id="apply-box" class="apply-box">
+                                <h3>Join Savings Champion and never worry about your interest rates again!</h3>
+
+                                <div class="left-side">
+                                    <p class="heading">
+                                        Yes, Please!
+                                    </p>
+
+                                    <p>
+                                        I want Savings Champion to track my accounts and let me know if they become
+                                        uncompetitive
+                                    </p>
+
+                                    <form action="{% url 'email_instructions' %}" method="post"
+                                          class="email-instructions-form">
+                                        {% csrf_token %}
+                                        {{ emailform }}
+                                        <input type="submit" class="bluesubmit form-control"
+                                               value="Email me instructions &amp; continue to the provider"/>
+                                    </form>
+                                </div>
+                                <div class="right-side">
+                                    <p class="heading">
+                                        No, thanks.
+                                    </p>
+
+                                    <p>
+                                        Just take me straight to the provider
+                                    </p>
+
+                                    <div class="continue-box">
+                                        <a class="no-reminder" target="_blank" href=".">Continue to provider</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {% if not user.is_authenticated %}
+            <div class="modal fade" id="bestbuy-modal">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <img style="width: 80%;" src="{% static 'img/awards/banner_invert.png' %}">
+                        </div>
+                        <div class="modal-body">
+                            {% get_static_block bestbuy-table bestbuy_deliver.validation as block %}
+                            {{ block|safe }}
+                            <hr>
+                            {% get_static_block bestbuy-table bestbuy_delivery.quote as block %}
+                            {{ block|safe }}
+                            <div style="clear: both;"></div>
+                            <div>
+                                {% get_static_block bestbuy-table bestbuy_deliver.form.call_to_action as block %}
+                                {{ block|safe }}
+                            </div>
+                            <div class="form-group">
+                                <form class="js-weekly-rate-alerts form-inline" action="#" method="post">
+
+                                    <div class="form-actions form-group">
+                                        <input type="submit" name="sign-up" value="Subscribe" class="btn btn bluesubmit"
+                                               id="button-id-sign-up">
+                                    </div>
+                                </form>
+                                <div>
+                                    <small class="text-muted" style="font-size: 80%;">We respect you and your privacy,
+                                        we
+                                        will
+                                        never
+                                        send you spam and you can unsubscribe at any time.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+        {% endif %}
+    {% endblock contenthtml %}
+
+    {% block footer_scripts %}
+        {% javascript 'bestbuys' %}
+    {% endblock footer_scripts %}
+
+{% endcache %}
+

@@ -1,0 +1,9 @@
+<div class="personaldetailscontainer">
+    <h3>Edit your details</h3>
+    <form action="{% url 'update_details' %}" method="post" class="personaldetailsform">
+        {% csrf_token %}
+        {{form}}
+        
+        <input type="submit" value="Update my details" class="bluesubmit form-control" />
+    </form>
+</div>

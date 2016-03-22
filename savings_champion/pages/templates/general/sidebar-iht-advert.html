@@ -1,0 +1,33 @@
+{% load block_tags cache static %}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="signup-box">
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="{% url 'iht_guide_signup' %}">
+                        <p class="bold signup-message">Have you protected your family's inheritance?</p>
+                        <p>Find out how to take simple steps to reduce the amount of IHT paid on your estate.</p>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <a href="{% url 'iht_guide_signup' %}">
+                        <img class="img-responsive" src="{% static 'img/iht_guide/guide.png' %}">
+                    </a>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <a href="{% url 'iht_guide_signup' %}">
+                        <button class="btn btn-primary btn-block">
+                            <span>Get your free guide now </span>
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

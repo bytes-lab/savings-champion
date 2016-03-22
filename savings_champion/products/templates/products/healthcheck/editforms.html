@@ -1,0 +1,46 @@
+{% load crispy_forms_tags %}
+<div class="js-edit-variable-product-form modal fade">
+    <div class="modal-dialog">
+        <form id="editportfolioform" class="editform" action="{% url 'updatePortfolio' %}" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add a Variable Rate Product</h4>
+                </div>
+                <div class="modal-body">
+                    {% crispy edit_form %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close Without Saving</button>
+                    <input class="btn btn-primary" type="submit" value="Save Edits"/>
+                </div>
+            </div>
+        </form>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="js-edit-fixed-product-form modal fade">
+    <div class="modal-dialog">
+        <form id="editreminderform" class="editform" action="{% url 'updateReminder' %}" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add a Fixed Rate Product</h4>
+                </div>
+                <div class="modal-body">
+                    {% crispy reminder_edit %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close Without Saving</button>
+                    <input class="btn btn-primary" type="submit" value="Save Edits"/>
+                </div>
+            </div>
+        </form>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div><!-- /.modal -->

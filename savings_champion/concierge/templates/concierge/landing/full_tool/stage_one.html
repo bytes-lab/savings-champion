@@ -1,0 +1,19 @@
+{% extends 'concierge/landing/full_tool/base.html' %}
+{% load static crispy_forms_tags %}
+{% block concierge_personal %}
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <ol class="breadcrumb">
+                <li><span class="label label-default">1</span> Define Liquidity</li>
+                <li class="active"><span class="label label-success">2</span> <b>Personalise Results</b></li>
+                <li><span class="label label-default">3</span> Build Bespoke Portfolio</li>
+            </ol>
+            <div class="loading" data-url="{% url 'concierge_full_tool_landing_stage_one_async' %}"
+            data-worst-case-task-id="{{ worst_engine_output_task_id }}"
+            data-best-case-task-id="{{ best_engine_output_task_id }}">
+                <h3>We're calculating your possible rates</h3>
+                <p>This process can take up to 2 minutes, however should be considerably shorter.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

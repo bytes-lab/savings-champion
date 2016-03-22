@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block contenthtml %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            {% if basic_information %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Basic Information</h3>
+                </div>
+                <div class="panel-body">
+                    {% crispy basic_information %}
+                </div>
+            </div>
+            {% endif %}
+            {% if not_qualified %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Not Qualified</h3>
+                </div>
+                <div class="panel-body">
+                    {% crispy not_qualified %}
+                </div>
+            </div>
+            {% endif %}
+            {% if not_suitable %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Not Suitable Information</h3>
+                </div>
+                <div class="panel-body">
+                    {% crispy not_suitable %}
+                </div>
+            </div>
+            {% endif %}
+            {% if partner_basic_information %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Partner Basic Information</h3>
+                </div>
+                <div class="panel-body">
+                    {% crispy partner_basic_information %}
+                </div>
+            </div>
+            {% endif %}
+            {% if further_infomation %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Further Information</h3>
+                </div>
+                <div class="panel-body">
+                    {% crispy further_infomation %}
+                </div>
+            </div>
+            {% endif %}
+            {% if correspondence_infomation %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Correspondence Information</h3>
+                </div>
+                <div class="panel-body">
+                    {% crispy correspondence_infomation %}
+                </div>
+            </div>
+            {% endif %}
+            {% if existing_product_infomation %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Existing Product Information</h3>
+                </div>
+                <div class="panel-body">
+                    {% crispy existing_product_infomation %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

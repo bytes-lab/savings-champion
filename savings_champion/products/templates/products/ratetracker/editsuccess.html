@@ -1,0 +1,8 @@
+<div class="editformcontainer resultsMessage">
+    <p>You have successfully updated the balance of {{ product }} to £{{ balance }}</p>
+    {% if outsideLimitMessage %}
+    <p class="alert alert-danger outsideLimit">
+        {{ outsideLimitMessage }}
+    </p>
+    {% endif %}
+</div>

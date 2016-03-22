@@ -1,0 +1,49 @@
+{% load crispy_forms_tags %}
+<div class="panel-heading">
+    <button type="button" class="btn btn-success js-require-product-popup">
+        <span class="glyphicon glyphicon-plus-sign"></span> Add Required Products
+    </button>
+</div>
+<div class="panel-body">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Provider</th>
+                <th>Product</th>
+                <th>Balance</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for account in required_accounts %}
+            <tr>
+                <td>{{ account.master_product.provider }}</td>
+                <td>{{ account.master_product }}</td>
+                <td>{{ account.balance }}</td>
+                <td>
+                    <input type="button" class="btn btn-danger js-remove-required-account"
+                           value="Remove" data-product="{{ account.pk }}" data-concierge-user="{{ concierge_user_id }}"
+                           data-url="{% url 'engine_removed_required_product' %}">
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="modal fade js-require-product-popup-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Pick a product to require</h4>
+            </div>
+            <div class="modal-body">
+                {% crispy require_product_form %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary js-require-product-popup-submit" data-url="{% url 'engine_require_product' %}">Require Product</button>
+            </div>
+        </div>
+    </div>
+</div>

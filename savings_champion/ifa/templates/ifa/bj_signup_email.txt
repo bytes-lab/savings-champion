@@ -1,0 +1,6 @@
+The following user has just enquired about Beckford James:
+
+Name: {{ name }}
+Email: {{ email }}
+Telephone Number: {{ telephone }}
+Postcode: {{ postcode }}

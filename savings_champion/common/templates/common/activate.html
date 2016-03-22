@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load block_tags %}
+
+{% block title %}
+    Activate your account
+{% endblock title %}
+
+{% block bannertext %}
+<div id="activation-banner">
+    {% get_static_block healthcheck-activate banner.heading as block %}
+        <h2>{{block|safe|striptags}}</h2>
+    {% get_static_block healthcheck-activate banner.subheading as block %}
+        <h5>{{block|safe|striptags}}</h5>
+</div>
+{% endblock bannertext %}
+
+{% block contenthtml %}
+<div id="activation">
+    <div class="content-width">
+        <div class="form-section panel panel-default">
+            <div class="panel-body">
+                {{ form.non_field_errors }}
+                <form action="{% url 'activation_complete' %}" method="post" class="activate-form">
+                    {% csrf_token %}
+
+                    {% for f in form.hidden_fields %}
+                        {{ f }}
+                    {% endfor %}
+
+                    {{ form.email.as_hidden }}
+
+                    <p>Password</p>{{ form.password }}
+                    <p>Confirm Password</p>{{ form.password2 }}
+                    <p>Telephone{% if not telephone_required %}<span class="optional"> (optional)</span>{% endif %}
+                    </p>{{ form.telephone }}
+                    <p>Year of Birth<span class="optional"> (optional)</span></p>{{ form.dob }}
+                    <p>Postcode<span class="optional"> (optional)</span></p>{{ form.postcode }}
+
+                    <p>{{ form.newsletter }} Sign up for our newsletter</p>
+
+                    <p>{{ form.ratealert }} Sign up for rate alerts</p>
+
+                    <input class="bluesubmit form-control" type="submit" value="Complete Activation"/>
+                </form>
+            </div>
+        </div>
+        
+        <div class="sidebar panel panel-default">
+            <div class="panel-body">
+                {% get_static_block healthcheck-activate sidebar.block1 as block %}
+                {{ block|safe }}
+            </div>
+        </div>
+        
+    </div>
+</div>
+{% endblock contenthtml %}
+
+{% block footer_scripts %}
+    <script type="text/javascript" src="{{STATIC_URL}}js/validation/activate-val.js"></script>
+{% endblock footer_scripts %}

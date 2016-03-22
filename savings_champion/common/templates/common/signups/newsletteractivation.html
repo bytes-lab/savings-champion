@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load block_tags %}
+
+{% block title %}
+    Thanks for signing up
+{% endblock title %}
+
+{% block bannertext %}
+    <div id="left-banner">
+        <h2>Great - would you also like to sign up for rate alerts?</h2>
+    </div>    
+{% endblock bannertext %}
+
+{% block contenthtml %}
+
+<div id="signup-thankyou">
+    <div class="content-width">
+        {% get_static_block activation subscription.raupsell as block %}
+            {{block|safe}}
+        <form action="{% url 'thankyou_newsletter' %}" method="post">
+            {% csrf_token %}
+            {{raform}}
+            <input type="submit" value="Yes Please" class="bluesubmit yes-button form-control" />
+            <a href="{% url 'thankyou_newsletter' %}">No Thanks</a>
+        </form>
+        
+    </div>    
+</div>
+
+{% endblock contenthtml %}

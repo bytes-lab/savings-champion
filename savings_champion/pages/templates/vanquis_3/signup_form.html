@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load block_tags static crispy_forms_tags %}
+
+{% block title %}
+    7 Pitfalls for Larger Savers
+{% endblock title %}
+
+{% block bannertext %}
+    <div id="left-banner">
+        {% get_static_block vanquis-3 incentive as block %}
+        <h2 class="js-banner-title" style="font-size: 30px">{{ block|safe }}</h2>
+    </div>
+{% endblock bannertext %}
+
+{% block contenthtml %}
+    <div id="ifa-landing">
+        <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    {% get_static_block vanquis-3 enquire as block %}
+                                    {{ block|safe }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <img class="img-responsive" src="{% static 'img/product/vanquis-3/logo-rosette.gif' %}">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <img class="img-responsive"
+                                                 src="{% static 'img/concierge/FSCS_small.jpg' %}">
+                                            {% get_static_block vanquis-3 fscs-copy as block %}
+                                            {{ block|safe }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col-sm-7">
+                            {% crispy form %}
+                            <div class="clearfix"></div>
+                            <div class="row" style="padding-top: 10px;">
+                                <div class="col-sm-12">
+                                    {% get_static_block vanquis-3 need-to-know as block %}
+                                    {{ block|safe }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="well well-sm">
+                                {% get_static_block vanquis-3 quote as block %}
+                                {{ block|safe }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="js-provider-url" data-url="http://www.highyieldaccount.co.uk/4-year-fixed-rate-bonds/"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenthtml %}
+
+{% block footer_scripts %}
+    <script async src="{% static 'js/products/products.js' %}"></script>
+{% endblock %}

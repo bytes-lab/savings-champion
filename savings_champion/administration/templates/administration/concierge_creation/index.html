@@ -1,0 +1,10 @@
+{% if form %}
+    <p>I would check <a href="{% url 'view_user_status' %}" target="_blank">here</a> to see if you need to set a password afterwards or not (if the user is anything but fully signed up they need a password)</p>
+    <form action="{% url 'create_concierge_client' %}" method="post">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" />
+    </form>
+{% else %}
+    {{message}}
+{% endif %}

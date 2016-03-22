@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Rate Tracker FAQ
+{% endblock %}
+
+{% block meta_description %}
+    Frequently asked questions for Rate Tracker
+{% endblock %}
+
+{% block bannertext %}
+<div id="left-banner">
+    <h2>Rate Tracker</h2>
+</div>
+{% endblock bannertext %}
+
+{% block contenthtml %}
+
+<div id="SavingsHealthcheck-faq">
+    <div class="content-width">
+        <div class="question-section">
+            <h1><span>Frequently Asked Questions</span></h1>
+            {% for faq in faqs %}
+                <div id="{{ faq.question|slugify }}" class="question-block">
+                    <div class="question">
+                        <p>{{faq.question}}</p>
+                        <a href="#" class="arrow close-arrow">
+                            <img class="expanded-arrow-img" src="{% static 'img/portfolio/downarrow.png' %}" alt="Minimise Portfolio Button">
+                            <img class="closed-arrow-img" style="display: none;" src="{% static 'img/portfolio/sidearrow.png' %}" alt="Minimise Portfolio Button">
+                        </a>
+                        
+                    </div>
+                    <div class="answer">{{faq.answer|safe}}</div>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <div class="enquiry-section">
+            <div class="enquire">
+                <p>Sign Up Now, it's free!</p>
+                <form action="{% url 'healthcheck_signup' %}" method="post" class="form signup-form">
+                    {% csrf_token %}
+                    {{form}}
+                     <input type="submit" value="Sign Up Now" class="bluesubmit healthcheck-faq-signup form-control">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock contenthtml %}
+
+{% block footer_scripts %}
+    <script type="text/javascript" src="{% static 'js/faq/faq.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/validation/healthcheck-faq-val.js' %}"></script>
+{% endblock footer_scripts %}

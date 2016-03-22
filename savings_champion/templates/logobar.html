@@ -1,0 +1,38 @@
+{% load static %}
+<div class="lower-header container-fluid">
+    <div class="row">
+        <div class="{% if request.first_session == 'true' and request.referrer.name == 'RadioTimes' %}col-sm-3 col-sm-offset-1{% else %}col-sm-4 col-sm-offset-1{% endif %}">
+            <div class="logo">
+                <a rel="home" title="Savings Champion Home" href="/">
+                    <img class="img-responsive logo" alt="Savings Champion Home" src="{% static 'img/logo.updated.27.02.2015.png' %}">
+                </a>
+            </div>
+        </div>
+        <div class="{% if request.first_session == 'true' and request.referrer.name == 'RadioTimes' %}col-sm-3{% else %}col-sm-4 col-sm-offset-2{% endif %}">
+            <div class="contact-section">
+                <div class="number-section">
+                    <div class="pull-right" style="margin-bottom:20px;">
+                        <h4 style="font-weight: bold;">Speak Direct to a Savings Expert</h4>
+                        {% if request.first_session == 'true' and request.referrer.name == 'RadioTimes' %}
+                            <div>
+                                <span class="glyphicon glyphicon-phone-alt"></span><span style="font-size:20px;"> 0800 689 1857</span>
+                            </div>
+                        {% else %}
+                        <div>
+                            <!-- <span class="glyphicon glyphicon-phone-alt"></span><span style="font-size:20px;"> 0800 321 3581</span> -->
+                            <span class="glyphicon glyphicon-phone-alt"></span><span style="font-size:20px;"> 0800 011 9705</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if request.first_session == 'true' and request.referrer.name == 'RadioTimes' %}
+        <div class="col-sm-2 col-sm-offset-1">
+            <img class="img-responsive" src="{% static 'img/radio_times/logo.png' %}">
+        </div>
+        {% endif %}
+    </div>
+</div>
+    
+

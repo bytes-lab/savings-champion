@@ -1,0 +1,29 @@
+<div class="product-form">
+    <div class="switch-button-container">
+        <a title="Switch to Variable Rate Product" class="switch to-variable selected">Variable Rate Product</a>
+        <a title="Switch to Fixed Rate Product" class="switch to-fixed">Click to add Fixed Rate Product</a>
+    </div>
+    {{ form.is_fixed }}
+    <p id="variable-rate-message" class="message">You are adding a Variable Rate product. If you can't find your provider or account, it may be because it is a Fixed Rate product.</p>
+    <p id="fixed-rate-message" class="message" style="display: none;">You are adding a Fixed Rate product or or Index Linked Certificate. We will remind you when your product matures.</p>
+    <p>Account Provider</p>
+    {{form.provider}}
+    <p>Balance (£)</p>
+    {{form.balance}}
+    <div class="variable-section">
+        <p>Account Name</p>
+        {{form.product}}
+        <div class="opening-date-group" style="display: none;">
+            <p>Opening Date:</p>
+            {{form.opening_date}}
+        </div>
+    </div>
+    <div class="fixed-section" style="display: none;">
+        <p>Account Type</p>
+        {{form.account_type}}
+        <div class="maturity-date-group">
+            <p>Maturity Date</p>
+            {{form.maturity_date}}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block bannertext %}
+<div id="left-banner">
+    <a href="{% url 'concierge_signup' %}">Concierge Service >></a>
+    <h2>How it works</h2>
+</div>
+{% endblock bannertext %}
+
+{% block contenthtml %}
+
+<div id="concierge-faq">
+    <div class="content-width">
+        <div class="question-section">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla iaculis odio dui. Nunc commodo vestibulum eros a elementum. Sed ornare hendrerit nibh, ut porttitor dui tempor eget. Etiam et urna nulla, eget fermentum ipsum. Nulla mattis consectetur nunc commodo egestas. Pellentesque imperdiet pulvinar sodales. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum vulputate rhoncus rutrum. Phasellus dapibus dapibus justo quis cursus. Cras augue lacus, ultricies eget pulvinar eu, facilisis id sapien. Suspendisse suscipit tempor nibh, in gravida quam elementum et.
+
+Donec feugiat vehicula sagittis. Maecenas at suscipit tellus. Nam iaculis aliquam magna, eget interdum quam euismod ac. Pellentesque non elit mauris. Pellentesque accumsan, diam quis pharetra tempus, leo lectus dictum ligula, in vestibulum ligula diam vel enim. Suspendisse potenti. Aenean luctus congue nisi quis ullamcorper. Nullam ac purus neque, id blandit leo. Nulla facilisi. Phasellus et neque purus, commodo lacinia lacus. Sed convallis velit vel dui iaculis dignissim. Aenean consequat odio non leo sagittis sagittis. Morbi cursus commodo rhoncus. Fusce eget lectus magna.
+
+Donec sit amet tortor turpis, ut suscipit purus. Aenean ac est orci. Ut tincidunt est velit. Nam sapien sem, cursus hendrerit malesuada et, semper sed velit. Integer hendrerit laoreet tortor vitae iaculis. Nulla ut est mauris. Proin sodales elit nec erat suscipit placerat. In hac habitasse platea dictumst. Phasellus dignissim egestas nisl, et facilisis nibh ullamcorper id. Suspendisse dictum pretium neque eget vulputate. Proin molestie turpis sed sapien egestas consequat. Morbi pharetra mattis scelerisque. Cras mollis neque sed nulla iaculis placerat.
+            </p>
+        </div>
+        
+        <div class="enquiry-section">
+            <div class="enquire">
+                <p>Enquire Now - 0800 321 3581</p>
+                <form action="{% url 'concierge_thankyou' %}" method="post" class="form concierge-form">
+                    {% csrf_token %}
+                    {{form.name.label_tag}}{{form.name}}
+                    {{form.email.label_tag}}{{form.email}}
+                    {{form.telephone.label_tag}}{{form.telephone}}
+                    {{form.timetocall.label_tag}}{{form.timetocall}}
+                    <input type="submit" value="Enquire Now" class="bluesubmit form-control">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock contenthtml %}
+
+{% block footer_scripts %}
+    <script type="text/javascript" src="{{STATIC_URL}}js/libs/additional-methods.min.js"></script>
+    <script type="text/javascript" src="{{STATIC_URL}}js/validation/concierge-faq-val.js"></script>
+{% endblock footer_scripts %}

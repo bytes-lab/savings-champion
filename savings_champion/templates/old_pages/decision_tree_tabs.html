@@ -1,0 +1,155 @@
+{% load common_tags %}
+
+    <div class="tabbed">
+    <ul class="tabs group">
+      <li class="active tab1"><span class="arr"></span><a href="#tab1">Savings Champion's Gateway to Rate Tracker</a></li>
+      <!--<li class="tab2"><span class="arr"></span><a href="#tab2">Are Savings Right For Me?</a></li>
+      <li class="tab3"><span class="arr"></span><a href="#">Account Picker</a></li>-->
+    </ul>
+
+        <div class="active group" id="tab1">
+          <form class="rate-check" action="{% url rate_tracker %}#content" method="post">
+            <input type="hidden" name="part1" value="True"/>
+          <div class="rate-check group">
+            <p class="t-message">Take a minute to check what interest rate you are currently earning by entering just four simple bits of information.  Begin to type your provider name and then choose from the drop down list provided, then enter your account type.  Click through to Rate Tracker to complete the simple steps to savings success.</p>
+
+
+            {% csrf_token %}
+            <div class="group">
+              <p class="question icon">
+                  <label for="id_provider">Provider</label>
+                  <input id="id_provider" class="text" type="text" name="provider" />
+              </p>
+              <p class="graph icon">
+                  <label for="id_account_type" id="account_type_label_home">Account Type</label>
+                  <input id="id_account_type" class="text" type="text" name="account_type" />
+              </p>
+            </div>
+
+            <input class="button" type="image" value="checkaccount" alt="Check Your Account" src="{{STATIC_URL}}img/check-account.png">
+      </div>
+            </form>
+
+
+        </div>
+    <div class="group" style="display:none;" id="tab2">
+            {% get_decision_tree_form request as decision_tree_form %}
+      <form action="." method="post" id="desForm">
+
+        <div class="decision-tree">
+          <div class="pane active group" id="des1">
+            <p class="t-message">Saving money is good but putting it all into savings will shrink your capital in the long term.</p>
+            <p class="question icon">
+              {{decision_tree_form.investment_amount.label_tag}}
+              {{decision_tree_form.investment_amount}}
+            </p>
+            <a class="next ir" href="#des2">Next Step</a>
+          </div>
+
+	  <div class="pane group" style="display:none;" id="des2">
+            <p class="question icon">
+              {{decision_tree_form.estate_value.label_tag}}
+              {{decision_tree_form.estate_value}}
+            </p>
+            <a class="next ir" href="#des3">Next Step</a>
+          </div>
+
+	  <div class="pane group" style="display:none;" id="des3">
+            <p class="question icon">
+              {{decision_tree_form.easy_access_required.label_tag}}
+              {{decision_tree_form.easy_access_required}}
+            </p>
+            <a class="next ir" style="display:none" href="#des4">Next Step</a>
+          </div>
+          <div class="pane group" style="display:none;" id="des4">
+            <p class="question icon">
+	    {{decision_tree_form.terms.label_tag}}
+              {{decision_tree_form.terms}}
+            </p>
+            <a class="next ir" style="display:none" href="#des5">Next Step</a>
+          </div>
+          <div class="pane group" style="display:none;" id="des5">
+            <p class="question icon">
+              {{decision_tree_form.growth_income.label_tag}}
+              {{decision_tree_form.growth_income}}
+            </p>
+            <a class="next ir" style="display:none" href="#des6">Next Step</a>
+          </div>
+          <div class="pane group" style="display:none;" id="des6">
+            <p class="question icon">
+              {{decision_tree_form.uk_tax_payer.label_tag}}
+              {{decision_tree_form.uk_tax_payer}}
+            </p>
+            <p class="question icon">
+              {{decision_tree_form.marital_status.label_tag}}
+              {{decision_tree_form.marital_status}}
+            </p>
+            <a class="next ir" style="display:none" href="#des7">Next Step</a>
+          </div>
+	  <div class="pane group" style="display:none;" id="des7">
+             <p class="u-message">
+                Unless you need this cash for an imminent purpose, the impact of inflation and tax on your savings could be substantial. Therefore a more balanced investment portfolio may
+		be more sensible to consider. If you would like to speak to a Financial Adviser/Chartered Independent Financial Adviser please call us on 08456 804 964 or email us to arrange
+		a non obligatory telephone conversation.
+	     </p>
+          </div>
+
+          <ul id="decision-nav" class="balls group">
+              <a id="reset-des" class="reset" style="color: black; text-decoration: underline" href="#des1">Reset</a>
+          </ul>
+        </div>
+      </form>
+    </div>
+
+
+
+        <div class="group" style="display:none;" id="tab3">
+            {% get_account_picker_form request as account_picker_form %}
+            <form action="." method="post">
+              <div class="account-picker">
+              <div class="pane active group" id="pick1">
+          <p class="t-message">Not sure which type of savings account is right for you?  Let our savings Account Picker help you choose</p>
+
+          <p class="question icon">
+          {{account_picker_form.account_type.label_tag}}
+          {{account_picker_form.account_type}}
+          </p>
+
+          <a class="next ir" href="#pick2">Next Step</a>
+        </div>
+        <div class="pane group" style="display:none;" id="pick2">
+          <p class="question icon">
+          {{account_picker_form.access.label_tag}}
+          {{account_picker_form.access}}
+          </p>
+
+          <a class="next ir" href="#pick3">Next Step</a>
+        </div>
+        <div class="pane group" style="display:none;" id="pick3">
+          <p class="question icon">
+          {{account_picker_form.lump_sum.label_tag}}
+          {{account_picker_form.lump_sum}}
+          </p>
+
+
+          <a class="next ir" href="#pick4">Next Step</a>
+        </div>
+        <div class="pane group" style="display:none;" id="pick4">
+          <p class="question icon">
+          {{account_picker_form.is_monthly_income.label_tag}}
+          {{account_picker_form.is_monthly_income}}
+          </p>
+        </div>
+
+        <ul id="picker-nav" class="balls group">
+            <li class="active tab1"><a href="#pick1">1</a></li>
+            <li class="tab2"><a href="#pick2">2</a></li>
+	    <li class="tab3"><a href="#pick3">3</a></li>
+	    <li class="tab4"><a href="#pick4">4</a></li>
+        </ul>
+              <!--<input class="button" type="image" value="submit" alt="Submit" src="{{STATIC_URL}}img/submit.png">-->
+              </div>
+            </form>
+
+        </div>
+    </div>

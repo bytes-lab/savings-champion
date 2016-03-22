@@ -1,0 +1,8 @@
+[program:repmgrd]
+command=repmgrd -f /var/lib/postgresql/repmgr/repmgr.conf --verbose --monitoring-history > $HOME/repmgr/repmgrd.log 2>&1
+autostart=true
+autorestart=true
+user=postgres
+redirect_stderr=true
+stdout_logfile=/var/lib/postgresql/repmgr/repmgr.log
+directory=/var/lib/postgresql/

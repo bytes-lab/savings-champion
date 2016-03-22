@@ -1,0 +1,9 @@
+---
+
+sensu_checks:
+  test_check:
+    handler    : default
+    command    : "/bin/sh echo Hello World"
+    interval   : 60
+    subscribers:
+      - test

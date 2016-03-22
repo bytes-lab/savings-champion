@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags waffle_tags staticfiles block_tags %}
+
+{% block logobar %}
+    {% include product_faq.logobar %}
+{% endblock logobar %}
+
+{% block contenthtml %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {% get_static_block product-faq intro as block %}
+                        {{ block|safe }}
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {% flag 'savings_priority_list_investec' %}
+                            {% crispy form %}
+                        {% else %}
+                            <button class="btn btn-success js-to-provider pull-right">Proceed to open the account <span class="glyphicon glyphicon-arrow-right"></span></button>
+                        {% endflag %}
+                        <div class="js-provider-url" data-url="{{ product_faq.provider_url }}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% for question in product_questions %}
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>{{ question.question }}</h4>
+                    </div>
+                    <div class="panel-body">
+                        <p>{{ question.answer|safe }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block footer_scripts %}
+    <script async src="{% static 'js/products/products.js' %}"></script>
+{% endblock %}

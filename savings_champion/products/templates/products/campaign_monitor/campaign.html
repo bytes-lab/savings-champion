@@ -1,0 +1,45 @@
+{% load product_filters %}
+
+<!-- Copy + Paste everything between the Start and End (not inclusive) -->
+
+{% for bestbuy, products in bestbuys.items %}
+    <!-- Start of {{ bestbuy }} tables -->
+    <table border="1" style="width:100%;border-collapse: collapse;">
+        <thead>
+        <tr style="background-color: #F3F3F3">
+            {% if bestbuy != 'Fixed Rate Bonds' %}
+                <th>Rank</th>{% else %}
+            <th>Term (Years)
+            </th>{% endif %}
+            <th>Provider</th>
+            <th>Gross Rate</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                {% if bestbuy != 'Fixed Rate Bond' %}
+                    <td style="text-align:center;width:3%;">{{ forloop.counter }}</td>{% else %}
+                <td style="text-align:center;width:3%;">{{ product.term }}</td>{% endif %}
+                <td style="width:43%;">{{ product.provider.title }}</td>
+                <td style="text-align:center;width:10%;">{{ product.gross_rate|floatformat:2 }}%</td>
+            </tr>
+        {% endfor %}
+        <tr style="background-color: #e77207;">
+            <td colspan="3" style="vertical-align:middle;text-align: center;height:20px;">
+                <a style="text-weight: bold;color:white;"
+                   href="https://savingschampion.co.uk{% spaceless %}
+                        {% for product in products %}
+                            {% if forloop.first %}
+                                {% url 'personal_table' bestbuy|slugify %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endspaceless %}#table">
+                    <p style="margin: auto;">Find out more about these accounts</p>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- End of {{ bestbuy }} tables -->
+{% endfor %}

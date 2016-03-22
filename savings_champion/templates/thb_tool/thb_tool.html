@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="{% static 'js/thb_tool/jquery-2.1.1.min.js' %}"></script>
+    <script src="{% static 'js/thb_tool/react-0.13.3.js'%}"></script>
+    <link href="{% static 'css/thb_tool/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+    <script async="async" src="{% static 'js/thb_tool/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/thb_tool/moment.min.js' %}"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-10 col-xs-offset-1">
+        <div id="fscs-tool" data-source=""></div>
+      </div>
+    </div>
+  </div>
+  <script async="async" src="{% static 'js/thb_tool/app.js' %}"></script>
+</body>
+</html>

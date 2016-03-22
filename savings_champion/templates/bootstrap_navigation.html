@@ -1,0 +1,71 @@
+{% load nav_tags %}
+<div class="container-fluid">
+    <div class="row">
+        <header class="navbar navbar-default navbar-sc" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+
+                    <p>Navigation</p>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li>
+                        <a href="{% url 'concierge_landing' %}">Concierge Service</a>
+                    </li>
+                    <li class="dropdown">
+                        <span data-toggle="dropdown" class="dropdown-toggle">Best Buy Tables <b
+                                class="caret"></b></span>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'top_accounts' %}">Best Buy Overview</a></li>
+                                <li><a href="{% url 'reccuring_bestbuy_emails' %}">Free best buy delivery service</a>
+                                </li>
+                            <li><a href="{% url 'savings_health_check' %}">Specialist advice for savings of over
+                                £85,000</a></li>
+                            <li class="divider"></li>
+                            {% get_bestbuy_nav as bestbuys %}
+                            {% for bestbuy in bestbuys %}
+                                <li><a href="{{ bestbuy.get_bestbuy_table }}">{{ bestbuy.get_client_type_display }} {{ bestbuy }}</a></li>
+                            {% endfor %}
+                            <li class="divider"></li>
+                                <li><a href="{% url 'concierge_charity_signup' %}">Charity Savings Advice</a></li>
+                                <li><a href="{% url 'concierge_trust_signup' %}">Trust Savings Advice</a></li>
+                                <li><a href="{% url 'concierge_business_signup' %}">Business Savings Advice</a></li>
+                                <li><a href="{% url 'reccuring_business_bestbuy_emails' %}">Business Best Buy Delivery Service</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{% url 'healthcheck' %}">Rate Tracker&copy;</a></li>
+                    <li><a href="{% url 'news_index' %}">News and Alerts</a></li>
+                    <li><a href="{% url 'advice_guides' %}">Advice and Guides</a></li>
+                    <li class="dropdown">
+                        <span data-toggle="dropdown" class="dropdown-toggle">Tools <b class="caret"></b></span>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'concierge_business_landing' %}">Business Savings Calculator</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="{% url 'awards' %}">Awards</a></li>
+                    <li><a href="{% url 'child_controller' 'about-us' 'testimonials' %}">Testimonials</a></li>
+                    {% get_main_nav as pages %}
+                    {% for page in pages %}
+                        <li><a href="{{ page.get_absolute_url }}">{{ page }}</a></li>
+                    {% endfor %}
+                    <li><a href="{% url 'child_controller' 'about-us' 'contact-us' %}">Contact Us</a></li>
+                </ul>
+            </div>
+
+
+            <!-- /.container-fluid -->
+        </header>
+    </div>
+    <!-- /.navbar-collapse -->
+</div>

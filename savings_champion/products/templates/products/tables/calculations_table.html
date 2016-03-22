@@ -1,0 +1,78 @@
+{% load page_tags product_filters humanize %}
+  <div class="your-income group">
+    <h2 class="your-income" id="your-income">Your Interest</h2>
+    <a href="#bestbuy-form" class="back-to-tool">Back to Best Buy Tool</a>
+  </div>
+  
+  {% if bestbuy_form.tax_rate.value %}
+  {% get_form_message bestbuy_form.tax_rate.value as block %}
+	  {% if block %}
+	    <p class="group">{{block.text|striptags|safe}}</p>
+	  {% endif %}
+  {% else %}
+  {% get_form_message 'Non Tax Payer' as block %}
+  	{% if block %}
+	    <p class="group">{{block.text|striptags|safe}}</p>
+	{% endif %}
+  {% endif %}
+  {% if bestbuy_form.is_over_threshold %}
+  {% get_form_message "FSCS Ratetracker Message" as block %}
+	{% if block %}
+       	 <p class="question">{{block.text|safe}}</p>
+	{% endif %}
+  {% endif %}
+  <table id="your-table">
+    <colgroup>
+      <col class="odd one featured"/>
+      <col class="even two"/>
+      <col class="odd three"/>
+      <col class="even four"/>
+      <col class="odd five"/>
+    </colgroup>
+    <tbody>
+      <tr class="tdrow info">
+        <td colspan="4"><div class="hider">AER</div></td>
+        <td class="your-info"></td>
+      </tr>
+      <tr class="hide">
+        <td colspan="{{total}}">This stands for Annual Equivalent Rate and is to help you to compare different savings accounts, even if the interest is paid at different times, or a bonus applies for less than 12 months. The AER indicates the amount of interest you can earn before tax, if you were to leave the money invested for 12 months</td>
+      </tr>
+      <tr class="gr">
+        {% for calculation in calculations %}
+        <td>{% if calculation.aer %}{{calculation.aer|floatformat:2}}%{% else %}&nbsp;{% endif %}</td>
+        {% endfor %}
+      </tr>
+      <tr class="tdrow">
+        <td class="td-icon" colspan="4"><div class="hider">Interest earned after 12 months</div></td>
+        <td class="your-info"></td>
+      </tr>
+      <!--<tr class="hide">
+        <td colspan="{{total}}">In order to fully understand how inflation will affect your savings, this rate is calculated by subtracting current inflation from the Gross AER.</td>
+      </tr>-->
+      <tr>
+        {% for calculation in calculations %}
+        <td>{% if calculation.interest_earned %}&pound;{{calculation.interest_earned|floatformat:2|intcomma}}{% else %}&nbsp;{% endif %}</td>
+        {% endfor %}
+      </tr>
+      <tr class="tdrow">
+        <td colspan="4"><div class="hider">Total balance after 12 months</div></td>
+        <td class="your-info"></td>
+      </tr>
+      <!--<tr class="hide">
+        <td colspan="{{total}}">This is the amount of cash you will have saved over 12 months, before interest is paid, based on the lump sum and/or monthly amounts you have entered above.</td>
+      </tr>-->
+      <tr>
+        {% for calculation in calculations %}
+        <td>&pound;{{calculation.total_balance|floatformat:2|intcomma}}</td>
+        {% endfor %}
+      </tr>
+      <!--<tr>
+        <td>Proceed</td>
+        <td>Proceed</td>
+        <td>Proceed</td>
+        <td>Proceed</td>
+        <td>Proceed</td>
+      </tr>-->
+    </tbody>
+  </table>
+  <p>*The above results are for illustration only and assume that the rates remain unchanged for 12 months, therefore should only be used as a guide. For a detailed illustration please contact the relevant provider directly.</p>

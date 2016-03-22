@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load static crispy_forms_tags %}
+
+{% block additional_head %}
+    <script src="{% static '3rd_party/pace/pace.min.js' %}"></script>
+    <link href="{% static '3rd_party/pace/themes/pace-theme-flat-top.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block bannertext %}
+    <h3>Concierge Engine</h3>
+{% endblock %}
+
+{% block contenthtml %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 engine-root">
+                {% include 'concierge/engine/index_no_wrapper.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer_scripts %}
+    <script src="{% static '3rd_party/jquery-cookie/jquery.cookie.js' %}"></script>
+    <script src="{% static 'js/concierge/engine.js' %}"></script>
+    {% if email %}
+    <script>
+        $('#id_email').submit();
+    </script>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load cache static %}
+{% block title %}
+    {{ post.title }}
+{% endblock title %}
+
+{% block meta_description %}
+    {% if post and post.meta_description %}
+        {{ post.meta_description }}
+    {% endif %}
+{% endblock meta_description %}
+
+{% block bannertext %}
+    <div id="left-banner">
+        <h2>News &amp; Advice</h2>
+    </div>
+
+{% endblock bannertext %}
+
+{% block contenthtml %}
+    <div id="news-post">
+        <div class="container-fluid">
+            {% include "news/leftnav.html" %}
+            <div class="col-sm-9">
+                <div class="post panel panel-default">
+                    {% cache 86400 post post.id post.slug %}
+                        <div class="panel-heading">
+                            <div class="post-title">
+                                <h1>{{ post.title|safe }}</h1>
+
+                                <div class="publish_date">{{ post.publish_date|date:"dS F Y" }}</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                        <div class="social-links">
+                            <div class="fb-like" data-href="{{ post.get_absolute_url }}" data-width="350"
+                                 data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div>
+                            <a href="https://twitter.com/share" class="twitter-share-button" data-via="savingschampion"
+                               data-url="{{ post.get_absolute_url }}" data-text="{{ post.title }}">Tweet</a>
+                            <script>!function (d, s, id) {
+                                var js, fjs = d.getElementsByTagName(s)[0];
+                                if (!d.getElementById(id)) {
+                                    js = d.createElement(s);
+                                    js.id = id;
+                                    js.src = "//platform.twitter.com/widgets.js";
+                                    fjs.parentNode.insertBefore(js, fjs);
+                                }
+                            }(document, "script", "twitter-wjs");</script>
+                        </div>
+
+                        <div class="post-body">
+                            {% include "news/2014_isa_tool.html" %}
+                            {{ post.body|safe }}
+                            {% include "news/signupform.html" %}
+                        </div>
+
+
+
+                        <div class="social-links">
+                            <div class="fb-like" data-href="{{ post.get_absolute_url }}" data-width="350"
+                                 data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div>
+                            <a href="https://twitter.com/share" class="twitter-share-button" data-via="savingschampion"
+                               data-url="{{ post.get_absolute_url }}" data-text="{{ post.title }}">Tweet</a>
+                            <script>!function (d, s, id) {
+                                var js, fjs = d.getElementsByTagName(s)[0];
+                                if (!d.getElementById(id)) {
+                                    js = d.createElement(s);
+                                    js.id = id;
+                                    js.src = "//platform.twitter.com/widgets.js";
+                                    fjs.parentNode.insertBefore(js, fjs);
+                                }
+                            }(document, "script", "twitter-wjs");</script>
+                        </div>
+                    {% endcache %}
+                    {% if comments_enabled %}
+                        <div id="disqus_thread"></div>
+                        <script type="text/javascript">
+                            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                            var disqus_shortname = 'savingschampion'; // required: replace example with your forum shortname
+
+                            /* * * DON'T EDIT BELOW THIS LINE * * */
+                            (function() {
+                                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                            })();
+                        </script>
+                        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="application/ld+json">
+         { "@context" : "http://schema.org", "@type" : "Article", "name" : "{{ post.title|safe }}", "datePublished" : "{{ post.publish_date|date:"dS F Y" }}", "articleBody" : "{{ post.body|striptags|escapejs }}" }
+    </script>
+{% endblock contenthtml %}
+
+{% block footer_scripts %}
+    <script type="text/javascript" src="{% static 'js/news/comment.js' %}"></script>
+    <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.3";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+{% endblock footer_scripts %}

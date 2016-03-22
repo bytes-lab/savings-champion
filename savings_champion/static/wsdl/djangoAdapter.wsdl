@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Web Services API : dJangoAdapter
+-->
+<definitions targetNamespace="http://soap.sforce.com/schemas/class/dJangoAdapter" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://soap.sforce.com/schemas/class/dJangoAdapter">
+ <types>
+  <xsd:schema elementFormDefault="qualified" targetNamespace="http://soap.sforce.com/schemas/class/dJangoAdapter">
+   <xsd:element name="DebuggingInfo">
+    <xsd:complexType>
+     <xsd:sequence>
+      <xsd:element name="debugLog" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:simpleType name="ID">
+    <xsd:restriction base="xsd:string">
+     <xsd:length value="18"/>
+     <xsd:pattern value="[a-zA-Z0-9]{18}"/>
+    </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="LogCategory">
+    <xsd:restriction base="xsd:string">
+     <xsd:enumeration value="Db"/>
+     <xsd:enumeration value="Workflow"/>
+     <xsd:enumeration value="Validation"/>
+     <xsd:enumeration value="Callout"/>
+     <xsd:enumeration value="Apex_code"/>
+     <xsd:enumeration value="Apex_profiling"/>
+     <xsd:enumeration value="Visualforce"/>
+     <xsd:enumeration value="System"/>
+     <xsd:enumeration value="All"/>
+    </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="LogCategoryLevel">
+    <xsd:restriction base="xsd:string">
+     <xsd:enumeration value="Internal"/>
+     <xsd:enumeration value="Finest"/>
+     <xsd:enumeration value="Finer"/>
+     <xsd:enumeration value="Fine"/>
+     <xsd:enumeration value="Debug"/>
+     <xsd:enumeration value="Info"/>
+     <xsd:enumeration value="Warn"/>
+     <xsd:enumeration value="Error"/>
+    </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:complexType name="LogInfo">
+    <xsd:sequence>
+     <xsd:element name="category" type="tns:LogCategory"/>
+     <xsd:element name="level" type="tns:LogCategoryLevel"/>
+    </xsd:sequence>
+   </xsd:complexType>
+   <xsd:simpleType name="LogType">
+    <xsd:restriction base="xsd:string">
+     <xsd:enumeration value="None"/>
+     <xsd:enumeration value="Debugonly"/>
+     <xsd:enumeration value="Db"/>
+     <xsd:enumeration value="Profiling"/>
+     <xsd:enumeration value="Callout"/>
+     <xsd:enumeration value="Detail"/>
+    </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:element name="DebuggingHeader">
+    <xsd:complexType>
+     <xsd:sequence>
+      <xsd:element name="categories" minOccurs="0" maxOccurs="unbounded" type="tns:LogInfo"/>
+      <xsd:element name="debugLevel" type="tns:LogType"/>
+     </xsd:sequence>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="CallOptions">
+    <xsd:complexType>
+     <xsd:sequence>
+      <xsd:element name="client" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="SessionHeader">
+    <xsd:complexType>
+     <xsd:sequence>
+      <xsd:element name="sessionId" type="xsd:string"/>
+     </xsd:sequence>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="AllowFieldTruncationHeader">
+    <xsd:complexType>
+     <xsd:sequence>
+      <xsd:element name="allowFieldTruncation" type="xsd:boolean"/>
+     </xsd:sequence>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:complexType name="ProductPortfolio">
+    <xsd:sequence>
+     <xsd:element name="Balance" minOccurs="0" type="xsd:string" nillable="true"/>
+     <xsd:element name="Id" minOccurs="0" type="xsd:string" nillable="true"/>
+     <xsd:element name="OpeningDate" minOccurs="0" type="xsd:string" nillable="true"/>
+     <xsd:element name="RateTrack" minOccurs="0" type="xsd:string" nillable="true"/>
+     <xsd:element name="SCCode" minOccurs="0" type="xsd:string" nillable="true"/>
+     <xsd:element name="UserId" minOccurs="0" type="xsd:string" nillable="true"/>
+    </xsd:sequence>
+   </xsd:complexType>
+   <xsd:element name="deleteRateTracker">
+    <xsd:complexType>
+     <xsd:sequence>
+      <xsd:element name="pUserId" type="xsd:string" nillable="true"/>
+      <xsd:element name="pProductPortfolio" type="tns:ProductPortfolio" nillable="true"/>
+     </xsd:sequence>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="deleteRateTrackerResponse">
+    <xsd:complexType>
+     <xsd:sequence>
+      <xsd:element name="result" type="xsd:int" nillable="true"/>
+     </xsd:sequence>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="deleteUser">
+    <xsd:complexType>
+     <xsd:sequence>
+      <xsd:element name="pUserId" type="xsd:string" nillable="true"/>
+     </xsd:sequence>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="deleteUserResponse">
+    <xsd:complexType>
+     <xsd:sequence>
+      <xsd:element name="result" type="xsd:int" nillable="true"/>
+     </xsd:sequence>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="newRateTracker">
+    <xsd:complexType>
+     <xsd:sequence>
+      <xsd:element name="pUserId" type="xsd:string" nillable="true"/>
+      <xsd:element name="pProductPortfolio" type="tns:ProductPortfolio" nillable="true"/>
+     </xsd:sequence>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="newRateTrackerResponse">
+    <xsd:complexType>
+     <xsd:sequence>
+      <xsd:element name="result" type="xsd:int" nillable="true"/>
+     </xsd:sequence>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="newUser">
+    <xsd:complexType>
+     <xsd:sequence>
+      <xsd:element name="pUserId" type="xsd:string" nillable="true"/>
+      <xsd:element name="pUsername" type="xsd:string" nillable="true"/>
+      <xsd:element name="pEmail" type="xsd:string" nillable="true"/>
+      <xsd:element name="pFirstName" type="xsd:string" nillable="true"/>
+      <xsd:element name="pLastName" type="xsd:string" nillable="true"/>
+      <xsd:element name="pDob" type="xsd:string" nillable="true"/>
+      <xsd:element name="pTelephone" type="xsd:string" nillable="true"/>
+      <xsd:element name="pSalutation" type="xsd:string" nillable="true"/>
+      <xsd:element name="pPostCode" type="xsd:string" nillable="true"/>
+      <xsd:element name="pSubscriptions" type="xsd:int" nillable="true"/>
+     </xsd:sequence>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="newUserResponse">
+    <xsd:complexType>
+     <xsd:sequence>
+      <xsd:element name="result" type="xsd:int" nillable="true"/>
+     </xsd:sequence>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="updateUser">
+    <xsd:complexType>
+     <xsd:sequence>
+      <xsd:element name="pUserId" type="xsd:string" nillable="true"/>
+      <xsd:element name="pUsername" type="xsd:string" nillable="true"/>
+      <xsd:element name="pEmail" type="xsd:string" nillable="true"/>
+      <xsd:element name="pFirstName" type="xsd:string" nillable="true"/>
+      <xsd:element name="pLastName" type="xsd:string" nillable="true"/>
+      <xsd:element name="pDob" type="xsd:string" nillable="true"/>
+      <xsd:element name="pTelephone" type="xsd:string" nillable="true"/>
+      <xsd:element name="pSalutation" type="xsd:string" nillable="true"/>
+      <xsd:element name="pPostCode" type="xsd:string" nillable="true"/>
+      <xsd:element name="pSubscriptions" type="xsd:int" nillable="true"/>
+     </xsd:sequence>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="updateUserResponse">
+    <xsd:complexType>
+     <xsd:sequence>
+      <xsd:element name="result" type="xsd:int" nillable="true"/>
+     </xsd:sequence>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="updateUserSubscriptions">
+    <xsd:complexType>
+     <xsd:sequence>
+      <xsd:element name="pUserId" type="xsd:string" nillable="true"/>
+      <xsd:element name="pSubscriptions" type="xsd:int" nillable="true"/>
+     </xsd:sequence>
+    </xsd:complexType>
+   </xsd:element>
+   <xsd:element name="updateUserSubscriptionsResponse">
+    <xsd:complexType>
+     <xsd:sequence>
+      <xsd:element name="result" type="xsd:int" nillable="true"/>
+     </xsd:sequence>
+    </xsd:complexType>
+   </xsd:element>
+  </xsd:schema>
+ </types>
+ <!-- Message for the header parts -->
+ <message name="Header">
+  <part name="AllowFieldTruncationHeader" element="tns:AllowFieldTruncationHeader"/>
+  <part name="CallOptions" element="tns:CallOptions"/>
+  <part name="DebuggingHeader" element="tns:DebuggingHeader"/>
+  <part name="DebuggingInfo" element="tns:DebuggingInfo"/>
+  <part name="SessionHeader" element="tns:SessionHeader"/>
+ </message>
+ <!-- Operation Messages -->
+ <message name="deleteRateTrackerRequest">
+  <part element="tns:deleteRateTracker" name="parameters"/>
+ </message>
+ <message name="deleteRateTrackerResponse">
+  <part element="tns:deleteRateTrackerResponse" name="parameters"/>
+ </message>
+ <message name="deleteUserRequest">
+  <part element="tns:deleteUser" name="parameters"/>
+ </message>
+ <message name="deleteUserResponse">
+  <part element="tns:deleteUserResponse" name="parameters"/>
+ </message>
+ <message name="newRateTrackerRequest">
+  <part element="tns:newRateTracker" name="parameters"/>
+ </message>
+ <message name="newRateTrackerResponse">
+  <part element="tns:newRateTrackerResponse" name="parameters"/>
+ </message>
+ <message name="newUserRequest">
+  <part element="tns:newUser" name="parameters"/>
+ </message>
+ <message name="newUserResponse">
+  <part element="tns:newUserResponse" name="parameters"/>
+ </message>
+ <message name="updateUserRequest">
+  <part element="tns:updateUser" name="parameters"/>
+ </message>
+ <message name="updateUserResponse">
+  <part element="tns:updateUserResponse" name="parameters"/>
+ </message>
+ <message name="updateUserSubscriptionsRequest">
+  <part element="tns:updateUserSubscriptions" name="parameters"/>
+ </message>
+ <message name="updateUserSubscriptionsResponse">
+  <part element="tns:updateUserSubscriptionsResponse" name="parameters"/>
+ </message>
+ <portType name="dJangoAdapterPortType">
+  <operation name="deleteRateTracker">
+   <input message="tns:deleteRateTrackerRequest"/>
+   <output message="tns:deleteRateTrackerResponse"/>
+  </operation>
+  <operation name="deleteUser">
+   <input message="tns:deleteUserRequest"/>
+   <output message="tns:deleteUserResponse"/>
+  </operation>
+  <operation name="newRateTracker">
+   <input message="tns:newRateTrackerRequest"/>
+   <output message="tns:newRateTrackerResponse"/>
+  </operation>
+  <operation name="newUser">
+   <input message="tns:newUserRequest"/>
+   <output message="tns:newUserResponse"/>
+  </operation>
+  <operation name="updateUser">
+   <input message="tns:updateUserRequest"/>
+   <output message="tns:updateUserResponse"/>
+  </operation>
+  <operation name="updateUserSubscriptions">
+   <input message="tns:updateUserSubscriptionsRequest"/>
+   <output message="tns:updateUserSubscriptionsResponse"/>
+  </operation>
+ </portType>
+ <binding name="dJangoAdapterBinding" type="tns:dJangoAdapterPortType">
+  <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+  <operation name="deleteRateTracker">
+   <soap:operation soapAction=""/>
+   <input>
+    <soap:header use="literal" part="SessionHeader" message="tns:Header"/>
+    <soap:header use="literal" part="CallOptions" message="tns:Header"/>
+    <soap:header use="literal" part="DebuggingHeader" message="tns:Header"/>
+    <soap:header use="literal" part="AllowFieldTruncationHeader" message="tns:Header"/>
+    <soap:body use="literal" parts="parameters"/>
+   </input>
+   <output>
+    <soap:header use="literal" part="DebuggingInfo" message="tns:Header"/>
+    <soap:body use="literal"/>
+   </output>
+  </operation>
+  <operation name="deleteUser">
+   <soap:operation soapAction=""/>
+   <input>
+    <soap:header use="literal" part="SessionHeader" message="tns:Header"/>
+    <soap:header use="literal" part="CallOptions" message="tns:Header"/>
+    <soap:header use="literal" part="DebuggingHeader" message="tns:Header"/>
+    <soap:header use="literal" part="AllowFieldTruncationHeader" message="tns:Header"/>
+    <soap:body use="literal" parts="parameters"/>
+   </input>
+   <output>
+    <soap:header use="literal" part="DebuggingInfo" message="tns:Header"/>
+    <soap:body use="literal"/>
+   </output>
+  </operation>
+  <operation name="newRateTracker">
+   <soap:operation soapAction=""/>
+   <input>
+    <soap:header use="literal" part="SessionHeader" message="tns:Header"/>
+    <soap:header use="literal" part="CallOptions" message="tns:Header"/>
+    <soap:header use="literal" part="DebuggingHeader" message="tns:Header"/>
+    <soap:header use="literal" part="AllowFieldTruncationHeader" message="tns:Header"/>
+    <soap:body use="literal" parts="parameters"/>
+   </input>
+   <output>
+    <soap:header use="literal" part="DebuggingInfo" message="tns:Header"/>
+    <soap:body use="literal"/>
+   </output>
+  </operation>
+  <operation name="newUser">
+   <soap:operation soapAction=""/>
+   <input>
+    <soap:header use="literal" part="SessionHeader" message="tns:Header"/>
+    <soap:header use="literal" part="CallOptions" message="tns:Header"/>
+    <soap:header use="literal" part="DebuggingHeader" message="tns:Header"/>
+    <soap:header use="literal" part="AllowFieldTruncationHeader" message="tns:Header"/>
+    <soap:body use="literal" parts="parameters"/>
+   </input>
+   <output>
+    <soap:header use="literal" part="DebuggingInfo" message="tns:Header"/>
+    <soap:body use="literal"/>
+   </output>
+  </operation>
+  <operation name="updateUser">
+   <soap:operation soapAction=""/>
+   <input>
+    <soap:header use="literal" part="SessionHeader" message="tns:Header"/>
+    <soap:header use="literal" part="CallOptions" message="tns:Header"/>
+    <soap:header use="literal" part="DebuggingHeader" message="tns:Header"/>
+    <soap:header use="literal" part="AllowFieldTruncationHeader" message="tns:Header"/>
+    <soap:body use="literal" parts="parameters"/>
+   </input>
+   <output>
+    <soap:header use="literal" part="DebuggingInfo" message="tns:Header"/>
+    <soap:body use="literal"/>
+   </output>
+  </operation>
+  <operation name="updateUserSubscriptions">
+   <soap:operation soapAction=""/>
+   <input>
+    <soap:header use="literal" part="SessionHeader" message="tns:Header"/>
+    <soap:header use="literal" part="CallOptions" message="tns:Header"/>
+    <soap:header use="literal" part="DebuggingHeader" message="tns:Header"/>
+    <soap:header use="literal" part="AllowFieldTruncationHeader" message="tns:Header"/>
+    <soap:body use="literal" parts="parameters"/>
+   </input>
+   <output>
+    <soap:header use="literal" part="DebuggingInfo" message="tns:Header"/>
+    <soap:body use="literal"/>
+   </output>
+  </operation>
+ </binding>
+ <service name="dJangoAdapterService">
+  <documentation/>
+  <port binding="tns:dJangoAdapterBinding" name="dJangoAdapter">
+   <soap:address location="https://cs8-api.salesforce.com/services/Soap/class/dJangoAdapter"/>
+  </port>
+ </service>
+</definitions>

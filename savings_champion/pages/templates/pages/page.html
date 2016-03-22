@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{subtitle}}
+{% endblock title %}
+
+
+{% block meta_description %}
+    {{meta}}
+{% endblock %}
+
+{% block bannertext %}
+    <div id="left-banner">
+        <h2>{{title}}</h2>
+    </div>
+    
+{% endblock bannertext %}
+
+{% block contenthtml %}
+<div id="page">
+    <div class="container-fluid">
+        {% include leftnav %}
+        <div class="content-section col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1>{{ subtitle }}</h1>
+                </div>
+                <div class="panel-body">
+                    {{ body|safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock contenthtml %}
+
+{% block additional_head %}
+    <script src="//maps.google.com/maps/api/js?sensor=true" type="application/javascript"></script>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load block_tags static %}
+
+{% block title %}
+    10 Steps to Cut Your Inheritance Tax Bill
+{% endblock title %}
+
+{% block bannertext %}
+    <div id="left-banner" style="text-align: center;">
+        {% get_static_block iht-guide title as block %}
+        <h2>{{ block|striptags }}</h2>
+    </div>
+{% endblock bannertext %}
+
+{% block contenthtml %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="panel panel-default" style="margin-top: 20px;">
+                    <div class="panel-heading">
+                        {% get_static_block iht-guide heading as block %}
+                        <p>{{ block|striptags }}</p>
+                    </div>
+                    <div class="panel-body">
+                        {% get_static_block iht-guide message_no_pdf as block %}
+                        {{ block|safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Facebook Conversion Code for Registrations - IHT Guide Confirmation Page - FB Pilot -->
+    <script>
+        (function () {
+            var _fbq = window._fbq || (window._fbq = []);
+            if (!_fbq.loaded) {
+                var fbds = document.createElement('script');
+                fbds.async = true;
+                fbds.src = '//connect.facebook.net/en\_US/fbds.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(fbds, s);
+                _fbq.loaded = true;
+            }
+        })();
+        window._fbq = window._fbq || [];
+        window._fbq.push(['track', '6024292791552',
+                    {'value': '5.00', 'currency': 'GBP'}]
+        );
+    </script>
+    <noscript>
+        <img height="1" width="1" alt="" style="display:none"
+             src="https://www.facebook.com/tr?ev=6024292791552&cd[value]=5.00&cd[currency]=GBP&noscript=1"/>
+    </noscript>
+{% endblock contenthtml %}

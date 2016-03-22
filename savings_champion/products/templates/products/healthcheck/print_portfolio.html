@@ -1,0 +1,48 @@
+{% load pipeline block_tags product_filters common_tags humanize cache static %}
+<!DOCTYPE html>
+<head>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+    {% stylesheet 'main' %}
+    <link href='{% static 'css/portfolio/print.css' %}' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div id="portfolio">
+    <div id="portfolio-container">
+        <div class="portfolios">
+            {% for p in portfolio %}             
+                <div class="product-box {{p.get_personal_rating_readable|lower}}">
+                    <div class="top-bar">
+                        <div class="rating">{{p.get_personal_rating_readable}}</div>
+                            <div class="product-details">
+                                <p class="provider">{{p.provider}}</p> 
+                                {% if not p.maturity_date %}               
+                                    <p class="product">{{ p.product.title|truncatechars:20 }}</p>
+                                {% else %}
+                                    <p class="product">{{p.account_type}}</p>
+                                {% endif %}
+                                <span class="bold closed-balance">&pound;{{p.balance}} </span>  
+                                {% if not p.maturity_date %}
+                                    <span class="closed-interest-rate">Gross Rate: {{p.get_latest_rate|floatformat:2 }}%</span>
+                                {% else %}
+                                    <span class="bold closed-maturity-date">{% if p.get_matured_status %}Matured: {% else %} Matures: {% endif %} {{p.maturity_date|date:"F Y"}}</span>
+                                {% endif %}                    
+                            </div>
+                    </div>
+                </div>      
+            {% endfor %}
+        </div>
+    </div>
+    <div class="total-container">
+        <div class="portfolio-total">
+            <p>Total: &pound;{{grandtotal|intcomma}}</p>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    setTimeout(function(){
+        window.print();
+        window.close();
+    }, 500);
+</script>
+</body>

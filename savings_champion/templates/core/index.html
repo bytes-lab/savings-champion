@@ -1,0 +1,307 @@
+{% extends "base.html" %}
+{% load block_tags cache pipeline static crispy_forms_tags waffle_tags %}
+
+{% block title %}
+    {% get_static_block home title as block %}
+    {{ block|safe|striptags }}
+{% endblock title %}
+
+{% cache 86400 index %}
+
+    {% block contenthtml %}
+        <div id="index">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="panel panel-default" style="background-color: #333333;color: white;">
+                        <div class="panel-body" style="padding: 0;">
+                            <div class="container-fluid">
+                                <div class="row" style="background-color: #555;margin-bottom:-15px;">
+                                    <a data-target="#carousel-example-generic" data-slide-to="0" data-interval="8">
+                                        <div class="col-md-4 carousel-tab active" data-slide=".slide-text-1" data-interval="8">
+                                            <h3>FREE Information</h3>
+                                        </div>
+                                    </a>
+                                    <a data-target="#carousel-example-generic" data-slide-to="1" data-interval="8">
+                                        <div class="col-md-4 carousel-tab" data-slide=".slide-text-2" data-interval="8">
+                                            <h3>Inheritance Tax</h3>
+                                        </div>
+                                    </a>
+                                    <a data-target="#carousel-example-generic" data-slide-to="2" data-interval="8">
+                                        <div class="col-md-4 carousel-tab " data-slide=".slide-text-3" data-interval="8">
+                                            <h3>Over £100,000 in savings</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 slide-text slide-text-3" style="display: none;">
+                                        <h1>Over £100,000 in savings</h1>
+                                        <h3>Our cash management service is proven to:</h3>
+
+                                        <ul>
+                                            <li>
+                                                <h3>Maximise Interest</h3>
+                                            </li>
+                                            <li>
+                                                <h3>Maximise Protection</h3>
+                                            </li>
+                                            <li>
+                                                <h3>Make Your Life Easier</h3>
+                                            </li>
+                                        </ul>
+
+                                        <div class="slide-cta">
+                                            <a href="{% url 'healthcheck_basket_signup' %}?concierge=true">
+                                                <button class="btn btn-savchamp">Enquire Now <span
+                                                        class="glyphicon glyphicon-chevron-right"></span></button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 slide-text slide-text-2"
+                                         style="display: none;">
+                                        <h1>Concerned About Inheritance Tax?</h1>
+
+                                        <h3>Understand how inheritance tax might impact your family.</h3>
+
+                                        <h3>Request your free guide written by independent, chartered financial planners, who are experts in advising on inheritance tax planning.</h3>
+
+                                        <div class="slide-cta">
+                                            <a href="{% url 'iht_squeeze_page' %}">
+                                                <button class="btn btn-savchamp">Request a guide <span
+                                                        class="glyphicon glyphicon-chevron-right"></span></button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 slide-text slide-text-1">
+                                        <h1>Get <b>FREE</b> whole of market information:</h1>
+
+                                        <ul>
+                                            <li>
+                                                <h3>Uncompromised Best Buy Tables</h3>
+                                            </li>
+                                            <li>
+                                                <h3>Account Monitoring and Alert Services</h3>
+                                            </li>
+                                            <li>
+                                                <h3>Access to Savings Experts</h3>
+                                            </li>
+                                        </ul>
+
+                                        <div class="slide-cta">
+                                            {% crispy form %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8" style="padding-left: 0;padding-right: 0;">
+                                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel"
+                                             data-pause="hover" data-interval="10000" style="">
+                                            <!-- Indicators -->
+                                            <ol class="carousel-indicators">
+                                                <li data-target="#carousel-example-generic" data-slide-to="0"
+                                                    class="active"></li>
+                                                <li data-target="#carousel-example-generic" data-slide-to="1"
+                                                    class=""></li>
+                                                <li data-target="#carousel-example-generic" data-slide-to="2"
+                                                    class=""></li>
+                                            </ol>
+
+                                            <!-- Wrapper for slides -->
+                                            <div class="carousel-inner" role="listbox">
+                                                <div class="item active" data-text-element=".slide-text-1">
+                                                    <img src="{% static 'img/Savings_Rates_Alerts.jpg' %}"
+                                                         alt="..." style="width: 100%;">
+
+                                                    <div class="carousel-caption"></div>
+                                                </div>
+                                                <div class="item" data-text-element=".slide-text-2">
+                                                    <img src="{% static 'img/Inheritance_Tax_Guide.jpg' %}"
+                                                         alt="..." style="width: 100%;">
+
+                                                    <div class="carousel-caption"></div>
+                                                </div>
+                                                <div class="item" data-text-element=".slide-text-3">
+                                                    <img src="{% static 'img/Managed_Savings_Service.jpg' %}"
+                                                         alt="" style="width: 100%;">
+
+                                                    <div class="carousel-caption"></div>
+                                                </div>
+                                            </div>
+                                            <!-- Controls -->
+                                            <a class="left carousel-control" href="#carousel-example-generic"
+                                               role="button"
+                                               data-slide="prev">
+                                                <span class="glyphicon glyphicon-chevron-left"
+                                                      aria-hidden="true"></span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            <a class="right carousel-control" href="#carousel-example-generic"
+                                               role="button"
+                                               data-slide="next">
+                                                <span class="glyphicon glyphicon-chevron-right"
+                                                      aria-hidden="true"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p style="text-align:center;font-size:30px;color:#c36207"><span
+                                class="glyphicon glyphicon-chevron-down"></span></p>
+                    </div>
+                </div>
+                <div id="box-section">
+                    <div class="row">
+                        <div class="header">
+                            <h1><span>Specialist Advice</span></h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-{% flag "investec" %}3{% else %}4{% endflag %}">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h2><a href="{% url 'the_biggest_mistake' %}">£100,000 plus in savings?</a></h2>
+                                </div>
+                                <div class="panel-body">
+                                    {% get_static_block home box.concierge as block %}
+                                    <a href="{% url 'the_biggest_mistake' %}">{{ block|safe }}</a>
+                                </div>
+                                <div class="panel-footer">
+                                    <a href="{% url 'the_biggest_mistake' %}">
+                                        <button class="btn btn-default">
+                                            Would you like to know more? <span
+                                                class="glyphicon glyphicon-chevron-right"></span>
+                                        </button>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-{% flag "investec" %}3{% else %}4{% endflag %}">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h2><a href="{% url 'ifa_landing' %}">Wealth Management</a></h2>
+                                </div>
+                                <div class="panel-body">
+                                    {% get_static_block home box.businessandcharity as block %}
+                                    <a href="{% url 'ifa_landing' %}">{{ block|safe }}</a>
+                                </div>
+                                <div class="panel-footer">
+                                    <a href="{% url 'ifa_landing' %}">
+                                        <button class="btn btn-default">
+                                            Would you like to know more? <span
+                                                class="glyphicon glyphicon-chevron-right"></span>
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-{% flag "investec" %}3{% else %}4{% endflag %}">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h2>
+                                        <a href="{% url 'fifty_pound_challenge' %}">Take Our &pound;50 Challenge</a>
+                                    </h2>
+                                </div>
+                                <div class="panel-body">
+                                    {% get_static_block home box.healthcheck as block %}
+                                    <a href="{% url 'fifty_pound_challenge' %}"><p>{{ block|safe }}</p></a>
+                                </div>
+                                <div class="panel-footer">
+                                    <a href="{% url 'fifty_pound_challenge' %}">
+                                        <button class="btn btn-default">
+                                            Would you like to know more? <span
+                                                class="glyphicon glyphicon-chevron-right"></span>
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        {% flag "investec" %}
+                            <div class="col-md-3">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h2>
+                                            <a href="{% url 'investec_baserate_plus_signup' %}">Future Proof Your
+                                                Savings</a>
+                                        </h2>
+                                    </div>
+                                    <div class="panel-body">
+                                        {% get_static_block home box.future_proof as block %}
+                                        <a href="{% url 'investec_baserate_plus_signup' %}"><p>{{ block|safe }}</p></a>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <a href="{% url 'investec_baserate_plus_signup' %}">
+                                            <button class="btn btn-default">
+                                                Would you like to know more? <span
+                                                    class="glyphicon glyphicon-chevron-right"></span>
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endflag %}
+                    </div>
+                </div>
+                <div id="press-section">
+                    <div class="row">
+                        <div class="press-header">
+                            <h1><span>Savings Champion in the Press</span></h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="panel panel-default">
+                                <div class="panel-body user-testimonial">
+                                    {% get_static_block home user.quote1 as block %}
+                                    <div class="user-testimonial-message">{{ block|safe }}</div>
+                                    {% get_static_block home user.quote1.source as block %}
+                                    <div class="user-quote-source">{{ block|safe }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="panel panel-default">
+                                <div class="panel-body user-testimonial">
+                                    {% get_static_block home user.quote2 as block %}
+                                    <div class="user-testimonial-message">{{ block|safe }}</div>
+                                    {% get_static_block home user.quote2.source as block %}
+                                    <div class="user-quote-source">{{ block|safe }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="panel panel-default">
+                                <div class="panel-body user-testimonial">
+                                    {% get_static_block home user.quote3 as block %}
+                                    <div class="user-testimonial-message">{{ block|safe }}</div>
+                                    {% get_static_block home user.quote3.source as block %}
+                                    <div class="user-quote-source">{{ block|safe }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="press-section">
+                    <div class="row">
+                        {% include 'core/press_slider.html' %}
+                    </div>
+                </div>
+
+                <div class="row call-us">
+                    {% get_static_block home callus.block as block %}
+                    {{ block|safe }}
+                </div>
+            </div>
+        </div>
+    {% endblock contenthtml %}
+{% endcache %}
+
+{% block footer_scripts %}
+    {% javascript 'index' %}
+{% endblock footer_scripts %}
+

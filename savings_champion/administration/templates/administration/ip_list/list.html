@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block additional_head %}
+    <link rel="stylesheet" href="{{STATIC_URL}}css/administration/administration.css">
+{% endblock additional_head %}
+
+{% block contenthtml %}
+<div class="content-width">
+    <div id="iplist">
+        <table id="iptable">
+            <thead>
+                <tr>
+                    <th>Ip Address</th>
+                    <th>Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ip, count in ip_dict.items %}
+                    <tr>
+                        <td><a href="{% url 'list_ip_emails' %}?ip_address={{ip}}">{{ip}}</a></td>
+                        <td>{{count}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>      
+        </table>
+    </div>
+</div>
+{% endblock contenthtml %}
+
+{% block footer_scripts %}
+    <script src="{{STATIC_URL}}js/libs/jquery.tablesorter.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $('#iptable').tablesorter();
+    });
+    </script>
+{% endblock footer_scripts %}

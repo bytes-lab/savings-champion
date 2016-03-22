@@ -1,0 +1,16 @@
+{% if signupform %}
+    {% if post.show_concierge_form %}
+        <div class="concierge-form">
+            <form action="{% url 'concierge_thankyou' %}" method="post" class="form news-concierge-form">
+                {% csrf_token %}
+                {{signupform.name.label_tag}}: {{signupform.name}}
+                <label for=id_email"> Email: </label>{{signupform.email}}
+                <label for="id_telephone"> Tel No: </label>{{signupform.telephone}}
+                {{signupform.source}}
+                <input type="submit" value="Enquire Now" class="bluesubmit form-control">
+            </form>
+        </div>
+    {% else %}
+        {{signupform}}
+    {% endif %}
+{% endif %}

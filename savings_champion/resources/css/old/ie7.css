@@ -1,0 +1,6 @@
+	.banner-nav li {
+		list-style-position:outside;
+	}
+	.tabs li.tab2, .balls li.tab2 {
+        width:33%;
+	}

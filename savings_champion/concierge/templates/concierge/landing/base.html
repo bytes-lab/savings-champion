@@ -1,0 +1,334 @@
+{% load static crispy_forms_tags pipeline block_tags %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta name="globalsign-domain-verification" content="FNzUS7OmVfeH3B4afgkdbmR8tBrqW5hXPcqt1dU2lh" />
+    <meta name="google-site-verification" content="TnlaNzxhFuLldfe1ZKKtkMl4fSaVwoYuwtpkBxSJCrU"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link href="{% static 'css/concierge/superhero.css' %}" rel="stylesheet">
+    {% block additional_css %}
+    {% endblock %}
+    <title>{% block title %}Savings Champion{% endblock title %}{% block posttitle %} | Find the best rate. Keep the
+        best rate{% endblock %}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+    {% stylesheet 'main' %}
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" href="{% static 'css/main/ie8.css' %}">
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <meta property="og:title" content="Savings Champion"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="//savingschampion.co.uk"/>
+    <meta property="og:image" content="//savingschampion.co.uk/static/img/logo_edit.png"/>
+    <meta property="og:site_name" content="Savings Champion"/>
+    <meta name="description"
+          content="{% block meta_description %}Want the best savings rate... forever? Savings Champion - whole of market best buys, Rate Tracker, and details of all savings accounts, including closed accounts.{% endblock %}">
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <meta name="msapplication-config" content="none"/>
+    <!-- {{ request.session.referer }} -->
+    <script>
+        var _prum = [
+            ['id', '540d6bc1abe53d3849db8f5d'],
+            ['mark', 'firstbyte', (new Date()).getTime()]
+        ];
+        (function () {
+            var s = document.getElementsByTagName('script')[0]
+                    , p = document.createElement('script');
+            p.async = 'async';
+            p.src = '//rum-static.pingdom.net/prum.min.js';
+            s.parentNode.insertBefore(p, s);
+        })();
+    </script>
+    <link href="{% static 'css/concierge/landing.css' %}" rel="stylesheet">
+</head>
+<body>
+<div id="header">
+    {% block topbar %}
+        {% include "topbar.html" %}
+    {% endblock topbar %}
+
+    {% block logobar %}
+        {% include 'logobar.html' %}
+    {% endblock logobar %}
+
+    {% block navigation %}
+        {% include "bootstrap_navigation.html" %}
+    {% endblock navigation %}
+</div>
+<div class="container-fluid">
+
+    <div class="row">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="row">
+        <div class="panel panel-default" style="background-color: #333333;color: white;">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-3 slide-text slide-text-1">
+                        <h1>Savings Champion Concierge</h1>
+
+                        <h3>Precision Advice, Unparalleled Research</h3>
+                        <h3>Ensuring your savings are working for you.</h3>
+                    </div>
+                    <div class="col-md-9">
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-pause="hover" style="">
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="1"
+                                    class=""></li>
+                            </ol>
+
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner" role="listbox">
+                                <div class="item active" data-text-element=".slide-text-1">
+                                    <img src="{% static 'img/concierge/landing/grayscale_watch_slideshow.jpg' %}"
+                                         alt="" style="width: 100%;">
+
+                                    <div class="carousel-caption"></div>
+                                </div>
+                            </div>
+                            <!-- Controls -->
+                            <a class="left carousel-control" href="#carousel-example-generic" role="button"
+                               data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-example-generic" role="button"
+                               data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"></a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse concierge-menu" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#why-us">Who we advise</a></li>
+                    <li><a href="#how-it-works">How does it work</a></li>
+                    <li><a href="#rate-indication">Our fee</a></li>
+                    <li><a href="#press">Media coverage</a></li>
+                    <li><a href="#team">Meet the team</a></li>
+                    <li><a href="#enquiry">Contact</a></li>
+                </ul>
+
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default" id="why-us">
+                <div class="panel-heading">
+                    <h3>Who we advise</h3>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active">
+                            <a href="#why-us-personal" role="tab" data-toggle="tab" data-account-type="personal">Personal</a>
+                        </li>
+                        <li>
+                            <a href="#why-us-charity" role="tab" data-toggle="tab"
+                               data-account-type="charity">Charity</a>
+                        </li>
+                        <li>
+                            <a href="#why-us-trust" role="tab" data-toggle="tab" data-account-type="trust">Trust</a>
+                        </li>
+                        <li>
+                            <a href="#why-us-business" role="tab" data-toggle="tab" data-account-type="business">Business</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="why-us-personal">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    {% get_static_block concierge-landing who-we-advise-personal as block %}
+                                    {{ block|safe }}
+                                </div>
+                                <div class="col-md-4">
+                                    <img class="img-responsive" src="{% static 'img/concierge/landing/sailboat.jpg' %}">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane" id="why-us-charity">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    {% get_static_block concierge-landing who-we-advise-charity as block %}
+                                    {{ block|safe }}
+                                </div>
+                                <div class="col-md-4">
+                                    <img class="img-responsive" src="{% static 'img/concierge/landing/tree.jpg' %}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="why-us-trust">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    {% get_static_block concierge-landing who-we-advise-trust as block %}
+                                    {{ block|safe }}
+                                </div>
+                                <div class="col-md-4">
+                                    <img class="img-responsive" src="{% static 'img/concierge/landing/harvest.jpg' %}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="why-us-business">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    {% get_static_block concierge-landing who-we-advise-business as block %}
+                                    {{ block|safe }}
+                                </div>
+                                <div class="col-md-4">
+                                    <img class="img-responsive" src="{% static 'img/concierge/landing/city.jpg' %}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default" id="how-it-works">
+                <div class="panel-heading">
+                    <h3>How does it work?</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img class="img-responsive" src="{% static 'img/concierge/landing/watch_face.jpg' %}">
+                        </div>
+                        <div class="col-md-8">
+                            {% get_static_block concierge-landing how-does-it-work as block %}
+                                    {{ block|safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {% include 'concierge/landing/crispy_signup_form_fix.html' %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default" id="rate-indication">
+                <div class="panel-heading">
+                    <h3>Our fee</h3>
+                </div>
+                <div class="panel-body">
+
+                    {% get_static_block concierge-landing our-fee as block %}
+                                    {{ block|safe }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default" id="press">
+                <div class="panel-heading">
+                    <h3>Media coverage</h3>
+                </div>
+                <div class="panel-body">
+                    {% get_static_block concierge-landing media-coverage as block %}
+                                    {{ block|safe }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {% include 'concierge/landing/crispy_signup_form_fix.html' %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default" id="team">
+                <div class="panel-heading">
+                    <h3>Meet the team</h3>
+                </div>
+                <div class="panel-body">
+                    {% get_static_block concierge-landing meet-the-team as block %}
+                                    {{ block|safe }}
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default" id="enquiry">
+                <div class="panel-heading">
+                    <h3>Contact</h3>
+                </div>
+                <div class="panel-body">
+                    {% get_static_block concierge-landing contact as block %}
+                                    {{ block|safe }}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {% include 'concierge/landing/crispy_signup_form_fix.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="{% static '3rd_party/jquery.django-formset/src/django-formset.js' %}"></script>
+<script src="{% static 'js/concierge/landing.js' %}"></script>
+{% block additional_js %}
+
+{% endblock %}
+{% javascript 'global_base' %}
+{% javascript 'index' %}
+<script>
+    $('.js-concierge-enquire').on('click', function () {
+        ga('send', 'event', 'Signup', 'Concierge Pages', '');
+    });
+</script>
+</body>
+</html>

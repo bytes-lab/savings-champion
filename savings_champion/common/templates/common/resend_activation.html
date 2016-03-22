@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Please activate your account
+{% endblock title %}
+{% block bannertext %}
+<div id="left-banner">
+    <h2>Oops, you aren't activated!</h2>
+</div>
+{% endblock bannertext %}
+
+{% block contenthtml %}
+
+<div id="activation-resend">
+    <div class="container">
+        {% if form %}
+
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h1>What was your email address?</h1>
+                        </div>
+                        <div class="panel-body">
+                            {% crispy form %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p>We have sent another activation email to {{email}}. Please log in to your email account and click the link in order to activate your Rate Tracker account</p>
+            <p>Wrong email? <a class="contact-us-button" href="#">Contact Us</a></p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock contenthtml %}

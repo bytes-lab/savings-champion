@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load block_tags pipeline static %}
+{% block additional_head %}
+    <link rel="stylesheet" href="{% static 'css/main/smallfooter.css' %}">
+{% endblock additional_head %}
+
+{% block title %}
+    Welcome
+{% endblock title %}
+{% block topbar %}
+{% endblock topbar %}
+
+{% block navigation %}
+{% endblock navigation %}
+
+{% block bannertext %}
+<div id="healthcheck-signup-banner">
+    <h2>Welcome</h2>
+    {% get_static_block healthcheck-signup banner.subheading as block %}
+        <h5>{{block|safe|striptags}}</h5>
+</div>
+{% endblock bannertext %}
+
+
+{% block contenthtml %}
+<div id="healthcheck-signup">
+    <div class="content-width">
+        <div class="form-section col-md-8">
+            
+            <form id="signup-form" action="{% url 'healthcheck_basket_ratetracker' %}" method="post" class="account-form">
+                {% csrf_token %}
+                
+                {% for f in form.hidden_fields %}
+                    {{ f }}
+                {% endfor %}
+                     
+                {{ form.email.as_hidden }}
+                {{ form.first_name.as_hidden }}
+                {{ form.surname.as_hidden }}
+                {{ form.password.as_hidden }}
+                <div class="initial-form">
+                    {% include "common/initial_product_form.html" %}
+                </div>
+                <p><a href="#" class="add-more">
+                    <img src="{% static 'img/healthcheck/plus-sign.png' %}" alt="Add more products" />
+                    Add another savings account
+                </a></p>    
+                <div class="group ">
+                    <input class="btn btn-primary" type="submit" value="Get your Savings Healthcheck" alt="Submit">
+                </div>
+            </form>
+        </div>
+        
+        <div class="sidebar col-md-4">
+            <div class="alert alert-success">
+                {% get_static_block healthcheck-signup sidebar.block1 as block %}
+                {{ block|safe }}
+            </div>
+
+            
+            
+            <div class="info-popups">
+                <div class="alert alert-info">
+                    <p><b>FAQ</b></p>
+                    <ul>
+                        <li>You can add fixed rate products, via the toggle at the top of the form.</li>
+                        <li>You can start typing the name of your provider or product to speed up your selection</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<div style="display: none" class="additional-form">
+    {% include "common/additional_product_form.html" %}
+</div>
+
+<img src="https://traffic.outbrain.com/network/trackpxl?advid=7577&action=view">
+
+{% endblock contenthtml %}
+
+{% block footer_scripts %}
+    <script src="{% static 'js/select2.js' %}"></script>
+    {% javascript 'healthcheck_signup' %}
+{% endblock footer_scripts %}
+
+{% block footerblock %}
+{% endblock footerblock %}

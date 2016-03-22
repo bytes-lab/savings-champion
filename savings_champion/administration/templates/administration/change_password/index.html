@@ -1,0 +1,9 @@
+{% if form %}
+    <form action="{% url 'change_user_password' %}" method="post">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" />
+    </form>
+{% else %}
+    {{message}}
+{% endif %}

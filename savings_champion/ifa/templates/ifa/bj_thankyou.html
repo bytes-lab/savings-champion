@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load page_tags %}
+
+{% block title %}
+    Wealth Management
+{% endblock title %}
+
+{% block bannertext %}
+<div id="left-banner">
+    {% get_block ifa.bj_complete as message %}
+    <h2>{{ message.block_title }}</h2>
+</div>
+{% endblock bannertext %}
+
+{% block contenthtml %}
+<div id="ifa-landing">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="panel panel-default" style="margin-top: 20px;">
+                    <div class="panel-body">
+                        {% get_block ifa.bj_complete as message %}
+                        {{ message.text|safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock contenthtml %}

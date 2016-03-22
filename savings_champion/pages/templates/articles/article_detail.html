@@ -1,0 +1,42 @@
+{% extends "pages/generic.html" %}
+
+{% block meta_description %}
+    {% if article and article.meta_description %}
+        <meta name="description" content="{{ article.meta_description }}">
+    {% endif %}
+{% endblock meta_description %}
+
+{% block content_class %}light pad{% endblock content_class %}
+
+{% block content %}
+    <a href="/savings-news/" class="back">
+        Back to savings news
+    </a>
+
+    <div class="guide-header group">
+        <h1>{% block title %}{{ article.title }}{% endblock title %}</h1>
+
+        <div class="meta">
+            <span>{{ article.publish_date|date:"jS F Y" }} </span>
+        </div>
+    </div>
+
+    <div class="share">
+        <h2>Share this article with a friend</h2>
+        <!-- AddThis Button BEGIN -->
+        <div class="addthis_toolbox addthis_pill_combo">
+            <a class="addthis_counter addthis_pill_style"></a>
+            <a class="addthis_counter addthis_button_email"></a>
+        </div>
+        <!-- AddThis Button END -->
+    </div>
+
+    {{ article.body|safe }}
+{% endblock content %}
+
+{% block post_content %}
+    <div id="h-nav-wrap">
+        {% include "h-nav.html" %}
+    </div>
+    <script type="application/ld+json"> { "@context" : "http://schema.org", "@type" : "Article", "name" : "{{ post.title|safe }}", "datePublished" : "{{ post.publish_date|date:"dS F Y" }}", "articleBody" : "{{ post.body|striptags|escapejs }}" } </script>
+{% endblock post_content %}

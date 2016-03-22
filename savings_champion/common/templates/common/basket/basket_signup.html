@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+{% load block_tags pipeline static crispy_forms_tags %}
+{% block additional_head %}
+    <link rel="stylesheet" href="{% static 'css/main/smallfooter.css' %}">
+    <link rel="stylesheet" href="{% static 'css/libs/skins/square/blue.css' %}">
+{% endblock additional_head %}
+
+{% block title %}
+    Welcome
+{% endblock title %}
+
+{% block logobar %}
+{% endblock %}
+
+{% block topbar %}
+{% endblock topbar %}
+
+{% block navigation %}
+{% endblock navigation %}
+
+{% block bannertext %}
+    <div id="healthcheck-signup-banner">
+        <h2>Welcome</h2>
+        {% get_static_block healthcheck-signup basket.subheading as block %}
+        <h5>{{ block|safe|striptags }}</h5>
+    </div>
+{% endblock bannertext %}
+
+
+{% block contenthtml %}
+    <div id="healthcheck-basket-signup">
+        <div class="continer-fluid">
+            <div class="col-md-10 col-md-offset-1">
+                <form id="signup-form" action="{% url 'healthcheck_basket_initial' %}" method="post"
+                      class="account-form">
+                    {% csrf_token %}
+
+                    {% for f in form.hidden_fields %}
+                        {{ f }}
+                    {% endfor %}
+
+                    {{ form.email.as_hidden }}
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="panel panel-default" style="margin-bottom:10px;">
+                                <div class="panel-body">
+                                    <div class="col-md-3">
+                                        <img src="{% static 'img/basket/graph-small.png' %}" alt="Image of clipboard"
+                                             class="img-responsive"/>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <p>
+                                            <b>Rate Tracker&copy;</b> - select your savings account, we'll tell you if you are
+                                            getting a good
+                                            deal, and we'll monitor your account, for life.
+
+                                        </p>
+                                        <p>We'll also keep you informed with our savings newsletter.</p>
+                                    </div>
+                                    <div class="col-md-1">
+                                        {{ form.ratetracker }}
+                                    </div>
+                                    <div class="col-md-1">
+                                        <b>Free!</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="panel panel-default" style="margin-bottom:10px;">
+                                <div class="panel-body">
+                                    <div class="col-md-3">
+                                        <img src="{% static 'img/basket/advice-small.png' %}" alt="Advice"
+                                             class="img-responsive"/>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <p>
+                                            <b>Savings Health Check</b> - Specialist savings health check for anyone with &pound;85,000+
+                                        </p>
+                                    </div>
+                                    <div class="col-md-1">
+                                        {{ form.advice }}
+                                    </div>
+                                    <div class="col-md-1">
+                                        <b>Free!</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="panel panel-default" style="margin-bottom:10px;">
+                                <div class="panel-body">
+                                    <div class="col-md-3">
+                                        <img src="{% static 'img/basket/email1-small.png' %}" alt="Newsletter"
+                                             class="img-responsive"/>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <p>
+                                            <b>Savings Newsletter</b> - Receive our newsletter filled with all the latest savings news once a month
+                                        </p>
+                                    </div>
+                                    <div class="col-md-1">
+                                        {{ form.newsletter }}
+                                    </div>
+                                    <div class="col-md-1">
+                                        <b>Free!</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="panel panel-default" style="margin-bottom:10px;">
+                                <div class="panel-body">
+                                    <div class="col-md-3">
+                                        <img src="{% static 'img/basket/email2-small.png' %}" alt="Rate Alerts"
+                                             class="img-responsive"/>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <p>
+                                            <b>Rate Alerts</b> - keeping you informed of competitive rates as they hit the
+                                            market
+                                        </p>
+                                    </div>
+                                    <div class="col-md-1">
+                                        {{ form.ratealert }}
+                                    </div>
+                                    <div class="col-md-1">
+                                        <b>Free!</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="panel panel-default" style="margin-bottom:10px;">
+                                <div class="panel-body">
+                                    <div class="col-md-3">
+                                        <img src="{% static 'img/basket/padlock-small.png' %}" alt="Image of clipboard"
+                                             class="img-responsive"/>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <p>
+                                            <b>The Website</b> - Access to all site content, best buy verdicts, and interactive comments
+                                        </p>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div style="display:none;">{{ form.all_content }}</div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <b>Included Free!</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="panel panel-default" style="margin-bottom:10px;">
+                                <div class="panel-body">
+                                    <div class="col-md-3">
+                                        <img src="{% static 'img/basket/new-clipboard-small.png' %}"
+                                             alt="Image of clipboard"
+                                             class="img-responsive"/>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <p>
+                                            <b>Managed Savings Service</b> - If you have more than £100,000; enquire without obligation about our Managed
+                                            Savings Service.
+
+                                        </p>
+                                        <p>A better, more secure, return for your savings without the hassle</p>
+                                    </div>
+                                    <div class="col-md-1">
+                                        {{ form.concierge }}
+                                    </div>
+                                    <div class="col-md-1">
+                                        <b>Free Review!</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 col-md-offset-10">
+                                <input type="button" value="Give me these"
+                                       class="give-button btn btn-primary pull-right"/>
+                            </div>
+                        </div>
+                        <br/>
+
+                        <div class="row">
+                            <div class="name" style="display:none;">
+                                <div class="panel panel-default" style="margin-bottom:10px;">
+                                    <div class="panel-body">
+                                        <div class="col-md-4">
+
+                                            <p><b>In order for us to be able to provide you with these services we
+                                                require some
+                                                information</b></p>
+
+                                            {% crispy form %}
+                                            <div class="group ">
+                                                <input class="btn btn-primary submit" type="submit" value="Continue"
+                                                       alt="Submit">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-md-offset-5">
+                                            {% get_static_block healthcheck-signup sidebar.block1 as block %}
+                                            {{ block|safe }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div style="display: none" class="additional-form">
+        {% include "common/additional_product_form.html" %}
+    </div>
+
+
+{% endblock contenthtml %}
+
+{% block footer_scripts %}
+    {% javascript 'healthcheck_basket_signup' %}
+{% endblock footer_scripts %}
+
+{% block footerblock %}
+{% endblock footerblock %}

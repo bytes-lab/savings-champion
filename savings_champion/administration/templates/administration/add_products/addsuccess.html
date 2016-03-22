@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block bannertext %}
+    <h3>Product added Successfully</h3>
+{% endblock %}
+
+{% block contenthtml %}
+<p>Successfully added this product</p>
+<a href="{% url 'admininstrationindex' %}"><input type="button" class="form-control bluesubmit" value="Return to administration index"/></a>
+{% endblock %}

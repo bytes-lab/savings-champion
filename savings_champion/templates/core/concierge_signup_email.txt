@@ -1,0 +1,8 @@
+The following user has just signed up for Rate Concierge:
+
+Name: {{name}}
+Email: {{email}}
+Telephone Number: {{telephone}}
+Alt Telephone Number: {{alt_telephone}}
+Best Time to Call: {{best_call_time}}
+Source : {{source}}

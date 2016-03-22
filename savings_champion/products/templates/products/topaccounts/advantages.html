@@ -1,0 +1,4 @@
+{% load static %}
+{% for pro in pros %}
+<p><img src="{% get_static_prefix %}img/advantage.png" alt="Advantage" class="procon-symbol"/>{{pro.text}}</p>
+{% endfor %}

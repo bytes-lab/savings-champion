@@ -1,0 +1,19 @@
+---
+# handlers file for sensu
+- name: restart sensu server
+  service: name=sensu-{{ item }} state=restarted
+  with_items:
+    - server
+    - api
+  when: sensu_install_server
+  sudo: true
+
+- name: restart sensu client
+  service: name=sensu-client state=restarted
+  when: sensu_install_client
+  sudo: true
+
+
+- name: set checks to sensu
+  file: path=/etc/sensu/plugins/ state=directory owner=sensu group=sensu mode=0750 recurse=yes
+  sudo: true

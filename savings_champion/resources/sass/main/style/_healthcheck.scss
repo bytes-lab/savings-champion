@@ -1,0 +1,322 @@
+#healthcheck-signup-banner {
+  text-align: left;
+}
+
+#healthcheck-signup {
+  text-align: left;
+  padding: 20px 0 30px 0;
+  overflow: auto;
+  height: auto;
+
+  .switch-button-container {
+    display: table;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  .switch {
+    display: table-cell;
+    width: 50%;
+    background-color: #BBBBBB;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+    padding: 5px 0 !important;
+    font-size: 16px;
+    font-weight: bold;
+    -webkit-appearance: none;
+  }
+  .selected {
+    background-color: #00B3E6;
+  }
+  .message {
+    font-size: 12px;
+    color: #E77207;
+  }
+
+  .form-section {
+    .remind-me {
+      color: #0085B2;
+      font-weight: bold;
+    }
+    p {
+      padding: 10px 0;
+      font-weight: bold;
+    }
+    .add-more {
+      color: #0085B2;
+      display: block;
+      img {
+        position: relative;
+        top: 3px;
+        margin-right: 5px;
+      }
+    }
+    .bluesubmit {
+      border: none;
+      font-weight: bold;
+      width: 40%;
+      padding: 10px 0;
+      margin-top: 50px;
+    }
+    .initial-form {
+      display: block;
+    }
+    .product-form {
+      border: 3px solid #E7E7E7;
+      background-color: white;
+      padding: 20px;
+      margin: 10px 0;
+      label {
+        display: block;
+      }
+      .datestyle {
+        margin-right: 10px;
+      }
+      select {
+        border: #E3E3E3 3px solid;
+        padding: 10px 0;
+        font-size: 16px;
+        background-color: white;
+      }
+    }
+  }
+  .info-popups {
+    .info-box {
+      background-color: #FEFF78;
+      padding: 5px;
+      margin-bottom: 15px;
+      border: 1px solid black;
+      margin-top: 10px;
+    }
+  }
+  .sidebar {
+    p {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    li {
+      padding: 5px 0;
+    }
+  }
+}
+
+/*
+ *
+ * #SavingsHealthcheck-faq
+ * =====================================================================
+ */
+
+#SavingsHealthcheck-faq {
+  text-align: left;
+  padding: 30px;
+  overflow: auto;
+  .question-section {
+    width: 65%;
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+    float: left;
+    h1 {
+      font-size: 28px;
+      color: #CC5400;
+      border-top: #CCCCCC 1px solid;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      span {
+        background-color: #F3F3F3;
+        padding: 0 15px;
+        position: relative;
+        top: -20px;
+      }
+    }
+    .question-block {
+      background-color: white;
+      margin-bottom: 20px;
+      border: 3px solid #E7E7E7;
+    }
+    .question {
+      font-size: 20px;
+      font-weight: bold;
+      color: #0085B2;
+      padding: 20px 10px 20px 10px;
+      border-bottom: 2px solid #e7e7e7;
+      p {
+        width: 80%;
+        display: inline-block;
+      }
+      .arrow {
+        float: right;
+        display: inline-block;
+      }
+    }
+    .answer {
+      font-size: 16px;
+      padding: 20px 10px 20px 10px;
+      ul {
+        margin-top: 10px;
+        margin-left: 40px;
+        margin-bottom: 10px;
+      }
+      p {
+        margin-bottom: 10px;
+      }
+    }
+  }
+  .enquiry-section {
+    width: 30%;
+    float: right;
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+  }
+  .enquire {
+    padding: 10px;
+    border: 3px solid #E7E7E7;
+    background-color: white;
+    p {
+      padding: 10px 0;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+  .enquiry-section .form {
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: bold;
+      margin: 10px 0 10px 10px;
+    }
+    input {
+      margin-left: 10px;
+      width: 90%;
+      padding: 5px;
+    }
+    select {
+      margin-left: 10px;
+      background-color: white;
+      padding: 5px;
+      width: 90%;
+    }
+    .submit {
+      width: 150px;
+      margin-top: 20px;
+    }
+  }
+  a {
+    color: #0085B2;
+  }
+}
+
+/*
+ * #healthcheck-basket-signup
+ * =============================================================================
+ */
+
+#healthcheck-signup-banner {
+  text-align: left;
+}
+
+#healthcheck-basket-signup {
+  text-align: left;
+  padding: 20px 0 30px 0;
+  overflow: auto;
+  .form-section {
+    width: 100%;
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+    float: left;
+  }
+  td {
+    padding: 5px;
+    vertical-align: middle;
+  }
+  table {
+    .image .basket-image {
+      width: 100px;
+      height: 65px;
+    }
+    .text {
+      font-weight: bold;
+    }
+    .free {
+      color: #c50;
+      font-weight: bold;
+    }
+  }
+  .form-section {
+    form {
+      padding-left: 30px;
+    }
+    .name {
+      margin-left: 20px;
+    }
+    p {
+      display: inline-block;
+      width: 80%;
+      padding: 10px 5px;
+      font-weight: bold;
+    }
+    input[type=text], .text {
+      width: 450px;
+      border: #E3E3E3 3px solid;
+      padding: 10px 0;
+      font-size: 16px;
+    }
+    .add-more {
+      color: #0085B2;
+      display: block;
+    }
+    .bluesubmit {
+      border: none;
+      font-weight: bold;
+      width: 40%;
+    }
+    .initial-form {
+      display: block;
+    }
+    .product-form {
+      border: 3px solid #E7E7E7;
+      background-color: white;
+      padding: 20px;
+      margin: 10px 0;
+      width: 450px;
+      display: inline-block;
+    }
+  }
+  .info-popups {
+    margin-top: 100px;
+    .info-box {
+      background-color: #FEFF78;
+      padding: 5px;
+      margin-bottom: 15px;
+      border: 1px solid black;
+      margin-top: 10px;
+    }
+  }
+  .form-section {
+    .product-form {
+      label {
+        display: block;
+      }
+      .datestyle {
+        margin-right: 10px;
+      }
+    }
+    .give-button {
+      float: right;
+    }
+  }
+  .sidebar {
+    p {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    ul {
+      padding: 10px 10px;
+    }
+    li {
+      padding: 5px 0;
+    }
+  }
+}

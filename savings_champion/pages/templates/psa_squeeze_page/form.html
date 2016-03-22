@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load block_tags static crispy_forms_tags %}
+
+{% block title %}
+    Get your free factsheet on the NEW Personal Savings Allowance
+{% endblock title %}
+
+{% block bannertext %}
+    <div id="left-banner">
+        <h2 class="js-banner-title" style="font-size: 30px">Get your free factsheet on the NEW Personal Savings Allowance</h2>
+    </div>
+{% endblock bannertext %}
+
+{% block contenthtml %}
+    <div id="ifa-landing">
+        <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col-sm-3">
+                            <img class="img-responsive" src="{% static 'img/psa_squeeze_page/guide.png' %}">
+                        </div>
+                        <div class="col-sm-9">
+                            <h2>Get your free factsheet on the NEW Personal Savings Allowance</h2>
+                            <p>As of the 6th of April 2016, a new Personal Savings Allowance will be introduced by HMRC. The following is a helpful factsheet that outlines how this new allowance will work.</p>
+                            {% crispy form %}
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col-sm-12">
+                            <p>SavingsChampion.co.uk guarentees 100% privacy. The information you disclose in this form will not be shared without your express permission</p>
+                            <p>Please note that SavingsChampion.co.uk are not tax specialists and therefore this is for informational purposes only. If you have any concerns you should seek professional tax advice.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenthtml %}
+

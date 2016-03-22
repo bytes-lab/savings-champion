@@ -1,0 +1,126 @@
+#page {
+  text-align: left;
+  display: block;
+  padding: 30px 0;
+  overflow: hidden;
+  .content-section {
+    text-align: justify;
+    h1 {
+      font-size: 28px;
+      color: #CC5500;
+    }
+    p {
+      margin-bottom: 20px;
+    }
+    ul {
+      margin: 10px 0 10px 60px;
+    }
+    li {
+      margin: 5px 0;
+    }
+    a {
+      color: #0085b2;
+      text-decoration: none;
+    }
+  }
+}
+
+/*
+ * #page-sidebar
+ *  ===========================================================
+ */
+
+#page-sidebar {
+  .left-nav {
+    width: 100%;
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+    .page-links {
+      margin-bottom: 20px;
+    }
+    ul {
+      list-style-type: none;
+    }
+    li {
+      margin-top: 0;
+      border-top: #E7E7E7 1px solid;
+      color: #0085B2;
+      font-size: 14px;
+      font-weight: bold;
+      &.bottom {
+        border-bottom: #E7E7E7 1px solid;
+      }
+      &.active {
+        font-weight: bold;
+        color: #000000;
+      }
+    }
+    .signup-box {
+      background-color: white;
+      margin-top: 30px;
+      padding: 10px;
+      p {
+        padding: 10px 0;
+      }
+      input {
+        margin: 10px 0;
+      }
+      .bluesubmit {
+        padding: 2px 0;
+      }
+    }
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+.add-row-fact-find, .delete-row-fact-find, .take-the-fact-find {
+  margin-top:10px;
+  margin-bottom: 10px;
+}
+
+.panel-orange-border {
+  border: rgba(216, 117, 23, 0.75) solid 5px;
+}
+
+.panel-transparent-black {
+  background-color: rgba(41, 41, 41, 0.85);
+  color: white;
+}
+
+.fb-iht-guide--lower-bar-offset {
+  margin-left: -30px;
+  margin-right: -30px;
+}
+
+@media screen and (min-width: 1200px){
+  .fb-iht-guide--lower-bar-offset {
+    margin-top: -290px;
+  }
+}
+
+@media screen and (max-width: 1199px) and (min-width: 992px) {
+  .fb-iht-guide--lower-bar-offset {
+    margin-top: -240px;
+  }
+}
+
+.fb-iht-guide--lower-bar-offset {
+  margin-left: -30px;
+  margin-right: -30px;
+}
+
+@media screen and (min-width: 1200px) {
+  .mindful-money-healthcheck--lower-bar-offset {
+    margin-top: -600px;
+  }
+}
+
+@media screen and (max-width: 1199px) and (min-width: 992px) {
+  .mindful-money-healthcheck--lower-bar-offset {
+    margin-top: -500px;
+  }
+}

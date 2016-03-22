@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load bestbuy_tags block_tags cache static %}
+
+{% block title %}
+    Best Buy Savings Accounts
+{% endblock %}
+
+{% block meta_description %}
+    Savings Champion monitors over 4,000 accounts from the whole UK savings market. Our best buys are selected from the best available, not by any commercial arrangement.
+{% endblock %}
+
+{% cache 43200 bestbuy_index %}
+{% block bannertext %}
+<div id="left-banner">
+    {% get_static_block bestbuy-index banner.heading as block %}
+        <h2>{{block|safe|striptags}}</h2>
+    {% get_static_block bestbuy-index banner.subheading as block %}
+        <h5>{{block|safe|striptags}}</h5>
+</div>
+{% endblock bannertext %}
+
+{% block contenthtml %}
+<a name="overview"></a>
+<div id="topaccounts">
+    <div class="container-fluid">
+        
+        {% include "products/topaccounts/leftnav.html" %}
+        <div class="info-section col-sm-8">
+            <h1><span>Overview</span></h1>
+            {% for bestbuy in bestbuys %}
+                <div class="account-box">
+                    <div class="heading-bar">
+                        <h3><a href="{% url 'personal_table' bestbuy.slug %}#table">{{bestbuy.get_title_display}}</a> ></h3>
+                    </div>
+                    <div class="heading">{{bestbuy.landing_page_description|safe}}</div>
+                    <div class="pros-cons">
+                        <p class="bold">Pros/Cons</p>
+                        {% get_bestbuy_pros bestbuy %}
+                        {% get_bestbuy_cons bestbuy %}
+                    </div>
+                    <div class="tips">
+                        <p class="bold">Tips</p>
+                            {{bestbuy.tips|safe}}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+            
+    </div>    
+</div>
+{% endblock contenthtml %}
+{% endcache %}

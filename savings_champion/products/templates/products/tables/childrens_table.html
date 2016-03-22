@@ -1,0 +1,40 @@
+{% extends "products/tables/base_table.html" %}{% load thumbnail humanize %}
+
+{% block table_content %}           
+
+<tr class="tdrow">
+  <td colspan="{{total}}"><span class="td-icon"></span>Minimum Deposit</td>
+</tr>
+<tr>
+  {% for product in products %}
+    <td>{% if product.minimum %}&pound;{{product.minimum}}{% else %}&nbsp;{% endif %}</td>
+  {% endfor %}
+</tr>
+
+{% include "products/tables/rows/gross_rate_row.html" %}
+
+  
+<tr class="tdrow">
+  <td colspan="{{total}}"><span class="td-icon"></span>Minimum Age</td>
+</tr>
+<tr>
+  {% for product in products %}
+    <td>{% firstof product.minimum_age "0" %}</td>
+  {% endfor %}
+</tr> 
+
+  
+<tr class="tdrow">
+  <td colspan="{{total}}"><span class="td-icon"></span>Maximum Age</td>
+</tr>
+<tr>
+  {% for product in products %}
+    <td>{% firstof product.maximum_age "-" %}</td>
+  {% endfor %}
+</tr> 
+
+{% include "products/tables/rows/access_row.html" %}
+
+{% include "products/tables/rows/facts_row.html" %}
+{% endblock table_content %}
+            

@@ -1,0 +1,8 @@
+[program:uwsgi]
+autorestart=true
+command=/home/savingschampion/.virtualenvs/savings_champion/bin/uwsgi --socket {{ ansible_eth0.ipv4.address }}:9191 --master --stats localhost:1717 --enable-threads --single-interpreter --workers 4 --home /home/savingschampion/.virtualenvs/savings_champion --chdir {{ code_location }}/savings_champion --file django.wsgi --harakiri=60 --reaper
+directory={{ code_location }}/savings_champion
+redirect_stderr=true
+stdout_logfile=/tmp/uwsgi-savingschampion.log
+stopsignal=QUIT
+user=www-data

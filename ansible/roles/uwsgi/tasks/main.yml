@@ -1,0 +1,11 @@
+---
+
+- name: Ensure Supervisor is installed
+  apt: name=supervisor state=latest
+  sudo: true
+
+- name: Set Up Uwsgi with Supervisor
+  template: src=uwsgi.conf.j2 dest=/etc/supervisor/conf.d/uwsgi.conf
+  sudo: true
+  notify:
+    - restart Uwsgi

@@ -1,0 +1,132 @@
+{% if tv_press|length > 0 %}
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            TV/Video Appearances
+        </div>
+        <table class="table table-responsive table-bordered">
+            <thead>
+            <tr>
+                <th>Channel</th>
+                <th style="width:30%;">TV Show</th>
+                <th>Host</th>
+                <th>Date</th>
+                <th>Link</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for tv_appearance in tv_press %}
+                <tr>
+                    <td>{{ tv_appearance.publication }}</td>
+                    <td>{{ tv_appearance.title }}</td>
+                    <td>{{ tv_appearance.author }}</td>
+                    <td>{{ tv_appearance.date_featured }}</td>
+                    <td>
+                        {% if tv_appearance.link %}
+                            <a target="_blank"
+                               href="{{ tv_appearance.link }}">
+                                <button class="btn btn-info">Watch now</button>
+                            </a>
+                        {% else %}
+                            <button class="btn btn-default">Expired</button>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+    <div class="alert alert-info">
+        <p>No Matching TV Appearances</p>
+    </div>
+{% endif %}
+{% if radio_press|length > 0 %}
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Radio Appearances
+            </div>
+            <table class="table table-responsive table-bordered">
+                <thead>
+                <tr>
+                    <th>Station</th>
+                    <th style="width:30%;">Radio Show</th>
+                    <th>Host</th>
+                    <th>Date</th>
+                    <th>Link</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for tv_appearance in radio_press %}
+                    <tr>
+                        <td>{{ tv_appearance.publication }}</td>
+                        <td>{{ tv_appearance.title }}</td>
+                        <td>{{ tv_appearance.author }}</td>
+                        <td>{{ tv_appearance.date_featured }}</td>
+                        <td>
+                            {% if tv_appearance.link %}
+                                <a target="_blank"
+                                   href="{{ tv_appearance.link }}">
+                                    <button class="btn btn-info">Listen now</button>
+                                </a>
+                            {% else %}
+                                <button class="btn btn-default">Expired</button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% else %}
+    <div class="alert alert-info">
+        <p>No Matching Radio Appearances</p>
+    </div>
+{% endif %}
+{% if newspaper_press|length > 0 %}
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Newspaper/Online Appearances
+        </div>
+        <table class="table table-responsive table-bordered">
+            <thead>
+            <tr>
+                <th>Publication</th>
+                <th style="width:30%;">Article</th>
+                <th>Author</th>
+                <th>Date</th>
+                <th>Link</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for tv_appearance in newspaper_press %}
+                <tr>
+                    <td>{{ tv_appearance.publication }}</td>
+                    <td>{{ tv_appearance.title }}</td>
+                    <td>{{ tv_appearance.author }}</td>
+                    <td>{{ tv_appearance.date_featured }}</td>
+                    <td>
+                        {% if tv_appearance.link %}
+                            <a target="_blank"
+                               href="{{ tv_appearance.link }}">
+                                <button class="btn btn-info">Read now</button>
+                            </a>
+                        {% else %}
+                            <button class="btn btn-default">Expired</button>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+    <div class="alert alert-info">
+        <p>No Matching Newspaper Appearances</p>
+    </div>
+{% endif %}

@@ -1,0 +1,17 @@
+{% if paginated_list %}
+<div id="paginator" class="article-pagination">
+    <span class="step-links">
+        {% if paginated_list.has_previous %}
+            <a href="?page={{ paginated_list.previous_page_number }}">&lt;</a>
+        {% endif %}
+
+        <span class="current">
+            {{ paginated_list.number }}
+        </span>
+
+        {% if paginated_list.has_next %}
+            <a href="?page={{ paginated_list.next_page_number }}">&gt;</a>
+        {% endif %}
+    </span>
+</div>
+{% endif %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load page_tags static crispy_forms_tags %}
+
+{% block title %}
+    Wealth Management
+{% endblock title %}
+
+{% block bannertext %}
+    <div id="left-banner">
+        {% get_block ifa.incentive as message %}
+        <h2 class="js-banner-title" style="font-size: 30px">{{ message.block_title }}</h2>
+    </div>
+{% endblock bannertext %}
+
+{% block contenthtml %}
+
+    {% get_block ifa.incentive as message %}
+    <div id="ifa-landing">
+        <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col-sm-9">
+                            {% get_block ifa.call.up as message %}
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    {{ message.text|safe }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <img class="img-responsive" src="{% static 'img/ifa/guide-small.png' %}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenthtml %}
+

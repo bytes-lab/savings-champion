@@ -1,0 +1,79 @@
+{% load product_tags product_filters page_tags common_tags %}
+
+{% get_carousel_tabs as tabs %}
+
+<div id="slides">
+	<div class="slides_container">		
+		{% for tab in tabs %}
+		{% if forloop.counter == 2 %}
+      <div class="slide">
+        <div class="steps">
+          <h1>We review the whole savings market so you don't have to</h1>
+          <h2>3 steps to savings success</h2>
+          <ul class="group">
+            <li>
+              <a href="{% url view_bestbuys %}"> <span class="num"></span> <span class="icon"></span> <span class="text">Choose from our comprehensive savings <strong>Best Buy</strong> tables<span class="call"></span></span> </a>
+            </li>
+  
+            <li class="mid second">
+              <a href="{% url rate_check %}"><span class="num"></span> <span class="icon secnd"></span> <span class="text">Use <strong>Rate Tracker</strong><sup>&reg;</sup> to compare and track your rates<span class="call"></span></span> </a>
+            </li>
+  
+            <li class="third">
+              {% if user.is_authenticated %}
+              <a href="{% url rate_tracker %}"><span class="num"></span> <span class="icon"></span> <span class="text">Add more products to your <strong>Rate Tracker<sup>&reg;</sup></strong> portfolio.<span class="call"></span></span> </a>
+              {% else %}
+              <div class="step">
+                <span class="num"></span>
+                <span class="icon"></span>
+                <span class="text">Relax while we monitor your rates.<span class="call"></span></span>
+  
+              </div>
+              {% endif %}
+            </li>
+          </ul>
+        </div>
+      </div>
+    {% endif %}
+		<div class="slide">
+			<div class="hero-content">
+				<h1>{{tab.title|safe}}</h1>
+				<p>{{tab.description|safe}}</p>
+				{% if tab.cta_link %}
+				<a class="cta-link link" href="{{tab.cta_link}}" target="_self">
+					<span>{{tab.cta_link_title}}</span>
+				</a>
+				{% endif %}
+			</div>
+			{% if tab.media %}
+			<div class="hero-image">
+				<img src="{{tab.media.url}}" alt="{{tab.title}}" />
+			</div>
+			{% endif %}
+
+		</div><!-- end slider tab -->
+		{% endfor %}
+		<!--<div class="panel3 slider-tab">
+			<div class="hero-content">
+				<h2>Fighting for a fair deal for savers</h2>
+				<blockquote>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam aliquet lacus eu purus posuere sodales. Suspendisse potenti. Aliquam porttitor vulputate sem, vitae tempor justo volutpat quis. Vestibulum et mauris nec purus viverra laoreet lacinia quis neque. </p>
+				</blockquote>
+				<div class="ctas group">
+					<div class="ratetracker-cta">
+						<h3><a href="{% url rate_tracker%}">Ratetracker</a></h3>
+						<p>Give your savings an MOT</p>
+					</div>
+					<div class="bestbuys-cta">
+						<h3><a href="{% url view_bestbuy_tables %}">Best Buys</a></h3>
+						<p>The Best in savings products</p>
+					</div>
+				</div>
+			</div>
+			<div class="hero-image">
+				<img src="{{STATIC_URL}}img/anna.jpg" alt="" />
+			</div>
+
+		</div>-->
+	</div>
+</div><!-- slides -->

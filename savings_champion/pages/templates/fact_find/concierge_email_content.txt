@@ -1,0 +1,11 @@
+Name: {{ name }}
+
+Email: {{ email }}
+
+Phone: {{ phone }}
+
+Accounts List:
+{% for account in accounts %}
+
+Type: {{ account.get_account_type_display }} Provider: {{ account.provider }} Balance: {{ account.amount }} Rate: {{ account.rate }}%
+{% endfor %}

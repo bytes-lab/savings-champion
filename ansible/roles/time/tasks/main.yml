@@ -1,0 +1,8 @@
+---
+- name: Install NTP time server
+  apt: name=ntp state=latest update_cache=true
+  sudo: true
+
+- name: Start NTP time server
+  service: name=ntp state=started
+  sudo: true

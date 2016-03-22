@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block bannertext %}
+    <h3>Memcached Statistics</h3>
+{% endblock %}
+
+{% block content %}
+    <br>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1>cache status</h1>
+                </div>
+                <table class="table table-bordered">
+                    <tr>
+                        <td class="active">version</td>
+                        <td colspan="2">{{ stats.version }}</td>
+                    </tr>
+                    <tr>
+                        <td class="active">pid</td>
+                        <td colspan="2">{{ stats.pid }}</td>
+                    </tr>
+                    <tr>
+                        <td class="active">uptime</td>
+                        <td colspan="2">{{ stats.uptime }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="active">cache traffic</td>
+                    </tr>
+                    <tr>
+                        <td class="active">in</td>
+                        <td colspan="2">{{ stats.bytes_read|filesizeformat }}</td>
+                    </tr>
+                    <tr>
+                        <td class="active">out</td>
+                        <td colspan="2">{{ stats.bytes_written|filesizeformat }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="active"></td>
+                    </tr>
+                    <tr>
+                        <td class="active">memory usage</td>
+                        <td colspan="2">{{ stats.bytes|filesizeformat }}</td>
+                    </tr>
+                    <tr>
+                        <td class="active">memory limit</td>
+                        <td colspan="2">{{ stats.limit_maxbytes|filesizeformat }}</td>
+                    </tr>
+                    <tr>
+                        <td class="active">keys in cache</td>
+                        <td colspan="2">{{ stats.curr_items }} of {{ stats.total_items }}</td>
+                    </tr>
+                    <tr>
+                        <td class="active">cache hits</td>
+                        <td>{{ stats.get_hits }} of {{ stats.cmd_get }}</td>
+                        <td>{{ hit_rate }}%</td>
+                    </tr>
+                    <tr>
+                        <td class="active">cache misses</td>
+                        <td>{{ stats.get_misses }} of {{ stats.cmd_get }}</td>
+                        <td>{{ miss_rate }}%</td>
+                    </tr>
+                    <tr>
+                        <td class="active">connections used</td>
+                        <td colspan="2">{{ stats.curr_connections }} of {{ stats.total_connections }}</td>
+                    </tr>
+                    <tr>
+                        <td class="active">gets</td>
+                        <td colspan="2">{{ stats.cmd_get }}</td>
+                    </tr>
+                    <tr>
+                        <td class="active">sets</td>
+                        <td colspan="2">{{ stats.cmd_set }}</td>
+                    </tr>
+                    <tr>
+                        <td class="active">evictions</td>
+                        <td colspan="2">{{ stats.evictions }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

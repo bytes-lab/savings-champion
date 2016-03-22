@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load page_tags static crispy_forms_tags %}
+
+{% block title %}
+    Savings Healthcheck
+{% endblock title %}
+
+{% block bannertext %}
+    <div id="left-banner">
+        {% get_block savings_health_check.post as message %}
+        <h2 class="js-banner-title" style="font-size: 30px">{{ message.block_title }}</h2>
+    </div>
+{% endblock bannertext %}
+
+{% block contenthtml %}
+    <div id="savings_health_check-landing">
+        <div class="no-offering container">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-7">
+                            {% get_block savings_health_check.post as message %}
+                            {{ message.text|safe }}
+                        </div>
+                        <div class="col-md-5">
+                            <img class="img-responsive" src="{% static 'img/index/healthcheckpig.png' %}">
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            {% crispy form %}
+                        </div>
+                        {% get_block savings_health_check.grey_box as grey_box %}
+                        <div class="col-md-9">
+                            <div class="well">
+                                {{ grey_box.text|safe }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenthtml %}

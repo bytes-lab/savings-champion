@@ -1,0 +1,104 @@
+{% extends "base.html" %} {% load product_filters page_tags %}
+
+{% block meta_description %}
+	{% if current_bestbuy and current_bestbuy.comparison_meta_description %}
+    <meta name="description" content="{{current_bestbuy.comparison_meta_description}}">
+	{% endif %}
+{% endblock meta_description %} 
+
+{% block navigation %}
+    {% include "main_navigation.html" with section="bestbuys" %}
+{% endblock navigation %}
+
+{% block main_class %}bestbuy-comparison{% endblock main_class %}
+
+{% block sidebar_top %}
+    <div class="banner-nav-wrap">
+      <ul class="banner-nav">
+      	{% for obj in rates %}
+        <li {% ifequal obj.0.bestbuy_type current_bestbuy.pk %}class="active"{% endifequal %}>
+                <a href="{% url view_bestbuy obj.0.bestbuy_type__slug %}#top">
+                  <span class="banner"></span>
+                  {{obj.0.bestbuy_type__title}}
+                  <span class="arr"></span>
+                </a>
+              </li>
+       {% endfor %}
+      </ul>
+    </div>
+{% endblock sidebar_top %}
+
+{% block sidebar_bottom %}
+{% endblock sidebar_bottom %}
+
+{% block pre_content %}
+<div id="pre-content" class="group">
+    	<h1 id="top">{% block title %}Best Buy Comparison - {{current_bestbuy.title}}{% endblock title %}</h1>
+          
+		<h2 class="market-overview" id="market-overview">Market Overview</h2>
+		<p class="market-overview-desc">The table below shows you a comparison of the best rates on each type of savings account, from Easy Access to Children’s Accounts, so that you can easily see which accounts are the most competitive at the moment. Click on the blue bars to go through to the full best buy tables.</p>
+		<a class="viewtable" href="{% url view_bestbuy_table current_bestbuy.slug %}">View our tables</a>
+
+</div>
+		{% endblock pre_content %}
+
+{% block content %}
+
+<div class="bestbuys-chart-wrap">
+<ul id="bestbuys-chart">
+	{% for obj in rates %}
+	<li {% ifequal obj.0.bestbuy_type current_bestbuy.pk %}class="active"{% endifequal %}>
+	 <span class="bar" style="width:{{obj.0.aer|as_percent:overall_max_rate}}%;"><a href="{% url view_bestbuy_table obj.0.bestbuy_type__slug %}" title="View {{obj.0.bestbuy_type__title}} Best Buy table">&nbsp;</a></span>{% ifequal obj.0.bestbuy_type current_bestbuy.pk %}<span class="max-rate"><span>{{obj.0.aer|floatformat:2}}%</span>max rate</span>{% endifequal %}
+	</li>
+{% endfor %}
+</ul>
+<span class="sep"></span>
+<span class="min">0.1%</span>
+<span class="mid">{{overall_max_rate|divide_by:2|floatformat:2}}%</span>
+<span class="max">{{overall_max_rate|floatformat:2}}%</span>
+</div>
+<div class="bestbuys-chart-axis">Annual Equivalent Rate (AER)</div>
+
+{% endblock content %}
+
+{% block post_content %}
+
+<div class="pre-post light group">
+	<h2>{{current_bestbuy}}</h2>
+	<div class="content">
+		{{current_bestbuy.description|safe}}
+        
+	<a class="viewtable" href="{% url view_bestbuy_table current_bestbuy.slug %}">View our tables</a>
+	</div>
+	<div class="user-message-wrap">
+		{% get_block bestbuys.message as message %}
+	     <div class="user-message">
+	     {% if message %}
+	        {{message.text|safe}}
+	     {% endif %}
+	     </div>
+	</div>
+
+</div>
+
+<div id="h-nav-wrap">
+{% include "h-nav.html" %}
+</div>
+{% endblock post_content %}
+
+
+{% block extra_scripts %}
+<script type="text/javascript">
+  $(function(){
+  	$('#bestbuys-chart > li').hover(
+  	  function () {
+	    $(this).addClass("hover");
+	  },
+	  function () {
+	    $(this).removeClass("hover");
+	  }
+	);
+
+  });
+</script>
+{% endblock extra_scripts %}

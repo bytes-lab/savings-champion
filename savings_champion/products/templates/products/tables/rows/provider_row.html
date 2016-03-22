@@ -1,0 +1,14 @@
+{% load thumbnail %}
+<tr class="tdrow">
+  <td colspan="{{total}}"><div class="hider">Provider</div></td>
+</tr>
+<tr class="pr">
+{% for product in products %}
+<td>
+	<div class="wrap">
+		{% if product.provider.logo %}{% thumbnail product.provider.logo.file "130x100" as im %}<img src="{{ im.url }}" alt="Logo for {{product.provider}}">{% endthumbnail %}{% else %}{{product.provider}}{% endif %}
+		<span class="arr"></span>
+	</div>
+</td>
+{% endfor %}
+</tr>

@@ -1,0 +1,58 @@
+<script type="text/javascript">
+
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var bestBuyType = document.getElementById('top').innerHTML;
+        var date = new Date();
+        var css = "<html>\n<head>\n <link rel=\"stylesheet\" type=\"text/css\"  href=\"/static/css/styles.css\">\n</head><body><div style=\"text-align:center\">\n" + bestBuyType + "&nbsp;&nbsp;&nbsp;&nbsp;" + date.toUTCString() + printContents
+        var xopen = window.open("about:blank");
+        xopen.document.write(css);
+    }
+</script>
+
+<div id="printButton">
+    <input type="button" onclick="printDiv('printArea')" value="Printer Friendly Version"/>
+</div>
+
+<div id="printArea">
+    <table id="bestbuys-table">
+        <colgroup>
+            {% for product in products %}
+                <col class="{% cycle 'odd' 'even' %} {% if product.is_sc_stamp %}recommended{% endif %}"/>
+            {% endfor %}
+        </colgroup>
+        <thead>
+        <tr>
+            {% for product in products %}
+                <th id="header-{{ forloop.counter }}"><span class="numbers">{{ forloop.counter }}
+                        {% if product.is_sc_stamp %}<span class="recommended"></span>{% endif %}</span></th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% include "products/tables/rows/provider_row.html" %}
+        <tr class="tdrow an">
+            <td colspan="{{ total }}">Account name</td>
+        </tr>
+        <tr>
+            {% for product in products %}
+                <td data-title="{{ product.title }}">{{ product.title }}</td>
+            {% endfor %}
+        </tr>
+
+        {% block table_content %}
+            {% include "products/tables/rows/gross_rate_row.html" %}
+            <tr class="tdrow">
+                <td colspan="{{ total }}"><span class="td-icon"></span>Minimum Deposit</td>
+            </tr>
+            <tr>
+                {% for product in products %}
+                    <td>{% if product.minimum %}&pound;{{ product.minimum }}{% else %}&nbsp;{% endif %}</td>
+                {% endfor %}
+            </tr>
+            {% include "products/tables/rows/access_row.html" %}
+            {% include "products/tables/rows/facts_row.html" %}
+        {% endblock table_content %}
+        </tbody>
+    </table>
+</div>

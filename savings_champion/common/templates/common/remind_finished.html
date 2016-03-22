@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load block_tags %}
+
+{% block title %}
+    Thanks for signing up
+{% endblock %}
+
+{% block bannertext %}
+<div id="left-banner">
+    {% if rate_alerts %}
+        <h2>We have signed you up for Rate Alerts</h2>
+    {% else %}
+        <h2>Thanks</h2>
+    {% endif %}
+</div>
+
+{% endblock bannertext %}
+
+{% block contenthtml %}
+<div id="reminder-finish">
+    <div class="content-width">
+        {% if rate_alerts %}
+            <p>Perfect, We have sent an activation email for your rate alerts subscriptions as well as a reminder email</p>
+        {% else %}
+            <p>Thanks, we will send you a reminder email later</p>
+        {% endif %}
+        
+        {% get_static_block healthcheck-signup reminder.concierge as block %}
+            {{block|safe}}
+    </div>
+</div>
+{% endblock contenthtml %}

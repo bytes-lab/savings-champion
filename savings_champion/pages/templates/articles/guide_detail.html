@@ -1,0 +1,40 @@
+{% extends "articles/article_detail.html" %}
+
+
+{% block content_class %}light pad{% endblock content_class %}
+
+{% block content %}
+    <a href="/advice-guides/" class="back">
+        Back to Advice &amp; Guides
+    </a>
+
+    <div class="guide-header group">
+        <h1>{% block title %}{{ article.title }}{% endblock title %}</h1>
+
+        <div class="meta">
+            {% for document in article.document.all %}
+                <a href="{% url view_document document.slug %}" class="pdf-ico" target="_blank">{{ document }}
+                    ({{ document.document.file.size|filesizeformat }})</a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="share">
+        <h2>Share this article with a friend</h2>
+        <!-- AddThis Button BEGIN -->
+        <div class="addthis_toolbox addthis_pill_combo">
+            <a class="addthis_counter addthis_pill_style"></a>
+            <a class="addthis_counter addthis_button_email"></a>
+        </div>
+        <!-- AddThis Button END -->
+    </div>
+
+    {{ article.body|safe }}
+
+{% endblock content %}
+
+{% block post_content %}
+    <div id="h-nav-wrap">
+        {% include "h-nav.html" %}
+    </div>
+{% endblock post_content %}

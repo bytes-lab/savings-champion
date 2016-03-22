@@ -1,0 +1,25 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>
+            Per Adviser, Work Done Inside Date Range
+            <span class="js-refresh-adviser-timing pull-right glyphicon glyphicon-refresh"></span>
+        </h3>
+
+    </div>
+    <table class="table">
+        <tr>
+            <td>Adviser Name</td>
+            <td>Averaged Time To Claim</td>
+        </tr>
+        {% for adviser in timing_data %}
+            <tr>
+                <td>
+                    <p>{{ adviser.adviser }}</p>
+                </td>
+                <td>
+                    <p>{{ adviser.claim_time }}</p>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>

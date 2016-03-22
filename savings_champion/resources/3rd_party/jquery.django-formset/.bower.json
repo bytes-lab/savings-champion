@@ -1,0 +1,15 @@
+{
+  "name": "jquery.django-formset",
+  "homepage": "https://github.com/mbertheau/jquery.django-formset",
+  "version": "0.2.0",
+  "_release": "0.2.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.2.0",
+    "commit": "eb0825bf75dc1cf09023ac4ae0996dfa80b1413d"
+  },
+  "_source": "git://github.com/mbertheau/jquery.django-formset.git",
+  "_target": "~0.2.0",
+  "_originalSource": "mbertheau/jquery.django-formset",
+  "_direct": true
+}

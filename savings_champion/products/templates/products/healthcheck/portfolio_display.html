@@ -1,0 +1,297 @@
+{% load block_tags product_filters humanize cache static %}
+
+<div class="row visible-print-block">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p>Portfolio for {{ user.first_name }} {{ user.last_name }} as of {% now "jS F Y H:i" %}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if portfolio %}
+    {% if not concierge.is_client %}
+        {% if conciergeUpsell %}
+            {% get_static_block healthcheck-portfolio concierge.upsell as block %}
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    Your savings may not be fully protected
+                </div>
+                <div class="panel-body">
+                    {{ block|safe }}
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+    <div class="row">
+        <div class="col-md-2">
+            <div class="menu-section">
+                {% if not concierge.is_client %}
+                    <input type="button" class="js-add-variable-product-button btn btn-info"
+                           value="Add Variable Account"/>
+                {% endif %}
+                {% if not concierge.is_client %}
+                    <input type="button" class="js-add-fixed-product-button btn btn-info"
+                           value="Add Fixed Account"/>
+                {% endif %}
+                <a href="{% url 'print-healthcheck-portfolio' %}" target="_blank"
+                   class="print-button btn btn-info form-control"
+                   style="height:auto!important;">Print
+                    Portfolio Summary Sheet</a>
+                {% if not concierge.is_client %}
+                    {% include "products/healthcheck/filter-menu.html" %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div id="portfolio-container">
+                <div class="portfolios">
+                    {% for p in portfolio %}
+                        {#            {% cache 86400 'portfolio' p.id p.account_type p.last_updated %}#}
+                        <div id="product-portfolio-{{ p.pk }}" class="product-box panel {{ p.get_personal_rating_bootstrap_class }} {{ p.get_personal_rating_readable|lower }}">
+                            <div class="panel-heading">
+                                <h3 class="rating">{{ p.get_personal_rating_readable }}</h3>
+                                {% if p.get_is_changing %}
+                                    <div class="changing">Changing</div>
+                                {% endif %}
+                                {% if not p.maturity_date %}
+                                    <p class="provider">{{ p.master_product.provider|truncatechars:30 }},</p>
+                                {% else %}
+                                    <p class="provider">{{ p.provider|truncatechars:30 }},</p>
+                                {% endif %}
+                                {% if not p.maturity_date %}
+                                    <p class="product">{{ p.master_product.title|truncatechars:30 }}</p>
+                                {% else %}
+                                    <p class="product">{{ p.account_type }}</p>
+                                {% endif %}
+
+                                {% if not p.master_product.removal_reason %}
+                                <span class="closed-interest-rate">Effective Rate:
+                                        <span class="rate">{{ p.get_latest_rate|floatformat:2 }}</span>%
+                                </span>
+                                {% else %}
+                                    <span class="closed-interest-rate">Account Closed
+                                    </span>
+                                {% endif %}
+
+                                <span class="bold closed-maturity-date" style="display: none;">
+                                    {% if p.get_matured_status %}Matured: {% else %}Matures: {% endif %}
+                                    {{ p.maturity_date|date:"F Y" }}
+                                </span>
+                                {% if concierge.is_client or p.account_type == 'Variable Rate Bond' %}
+                                    <div class="pull-right">
+                                        <p class="bold closed-balance"
+                                           style="margin: auto 0;{% if not concierge.is_client and p.get_bestbuy_type != 'Variable Rate Bond' %}display: none;{% endif %}">
+                                            Balance: &pound;{{ p.balance }} </p>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                {% endif %}
+                                {% if not concierge.is_client and p.get_bestbuy_type != 'Variable Rate Bond' %}
+                                    <a href="#" class="arrow close-arrow">
+                                        <img class="expanded-arrow-img" src="{% static 'img/portfolio/downarrow.png' %}"
+                                             alt="Minimise Portfolio Button">
+                                        <img class="closed-arrow-img" style="display: none;"
+                                             src="{% static 'img/portfolio/sidearrow.png' %}"
+                                             alt="Minimise Portfolio Button">
+                                    </a>
+                                    <span class="id-info" style="display: none;">{{ p.id }}</span>
+                                    <div class="extra-details">
+                                    </div>
+                                {% endif %}
+                            </div>
+                            {% if not concierge.is_client %}
+                                <div class="panel-body">
+                                    <div class="info-box col-sm-3">
+                                        {% if not p.maturity_date %}
+                                            <p>
+                                                <span class="bold">Account Name: </span>
+                                                <span class="account-type">{{ p.master_product.title }}</span>
+                                            </p>
+
+                                            <p>
+                                                <span class="bold">Account Type: </span>
+                                                <span class="account-type">{{ p.product_account_type }}</span>
+                                            </p>
+                                        {% else %}
+                                            <p><span class="bold">Account Type: </span><span
+                                                    class="account-type">{{ p.account_type }}</span>
+                                            </p>
+                                        {% endif %}
+                                        <p>
+                                            <span class="bold">Last Reported Balance: </span>
+                                            &pound;<span class="balance">{{ p.balance|intcomma }}</span>
+                                        </p>
+                                        {% if p.maturity_date and p.get_latest_rate == 0 %}
+                                            <div class="alert alert-warning">
+                                                <p>Whilst the interest rate on a fixed rate bond does not change and so
+                                                    does
+                                                    not need to be tracked in the same way as a variable rate, we have
+                                                    included
+                                                    a section that allows you to input the rate for your own records</p>
+                                            </div>
+                                        {% endif %}
+                                        <p>
+                                            {% if not p.master_product.removal_reason %}
+                                                <span class="bold">Effective Interest Rate: </span>
+                                                {{ p.get_latest_rate|floatformat:2 }}%
+                                            {% else %}
+                                                <span class="bold">Account removed: </span>
+                                                {{ p.master_product.removal_reason }}
+                                            {% endif %}
+
+                                        </p>
+                                        {% if p.maturity_date %}
+                                            <p>
+                                                <span class="bold maturitydate">Maturity Date: </span>
+                                                {{ p.maturity_date|date:"F Y" }}
+                                            </p>
+                                        {% endif %}
+                                        {% if p.check_bonus %}
+                                            <p>
+                                                <span class="bold">Bonus Amount: </span>
+                                                {{ p.get_bonus_amount|floatformat:2 }}%
+                                            </p>
+
+                                            <p>
+                                                <span class="bold">Bonus Expiry Date: </span>
+                                                {{ p.get_bonus_expiry|date:"F Y" }}
+                                            </p>
+                                            {% if not p.get_bonus_expiry %}
+                                                <p class="red bold">
+                                                    Missing?
+                                                    <a class="bluelink opening-date-click" href="#">Enter an opening
+                                                        date</a>
+                                                </p>
+                                            {% endif %}
+                                        {% endif %}
+                                        <p>
+                                            {% if p.maturity_date %}
+                                                <span><a class="btn btn-info updatereminder" href='#'>Edit</a></span>
+                                            {% else %}
+                                                <span><a class="btn btn-info updateportfolio" href='#'>Edit</a></span>
+                                            {% endif %}
+                                            <span><a class="delete btn btn-danger" href='#'>Delete</a></span>
+                                        </p>
+                                    </div>
+
+                                    <div class="middle-box col-sm-6">
+                                        {% if p.outside_lifecycle %}
+                                        {% endif %}
+                                        {% if p.outside_balance %}
+                                            <p class="bold">The balance you have entered is outside of the minimum or
+                                                maximum deposit we
+                                                believe this account offers, because of this the interest rate displayed
+                                                may be
+                                                inaccurate.</p>
+                                        {% endif %}
+                                        {% if p.expiring_next_month %}
+                                            <p class="expiring">
+                                                {% if p.maturity_date %}
+                                                    This {{ p.account_type }} is maturing in the next month
+                                                {% else %}
+                                                    The bonus on this account is expiring in the next month
+                                                {% endif %}
+                                            </p>
+                                        {% endif %}
+                                        {% if p.maturity_date and p.get_personal_rating > 2 or p.product_account_type.title == 'Variable Rate Bond' %}
+                                            {% if p.is_index_linked_certificate %}
+                                                <p class="rate-explanation">The rate on this account is index linked</p>
+
+                                                <p>
+                                                    This account is currently within term.
+                                                </p>
+                                            {% elif p.product_account_type.title == 'Variable Rate Bond' %}
+                                                <p class="rate-explanation">Your account is variable and currently
+                                                    within
+                                                    the fixed term</p>
+                                                <p>The rate you are earning is variable and is not due to mature.
+                                                    As this account has a fixed term, we will
+                                                    contact you when the rate changes or it is due to mature.</p>
+                                            {% else %}
+                                                <p class="rate-explanation">Your account is fixed and currently within
+                                                    the fixed term</p>
+                                                <p>The rate you are earning is fixed and is not due to mature
+                                                    until {{ p.maturity_date }}.
+                                                    As this account has a fixed rate and a fixed term, we will
+                                                    contact you when it is due to mature.</p>
+                                            {% endif %}
+                                        {% elif p.get_personal_rating < 10 %}
+                                            {{ p.get_rate_text|safe }}
+                                        {% endif %}
+                                        {% if p.product_account_type.title != 'Variable Rate Bond' %}
+                                            {% if p.show_comparison %}
+                                                <p class="compare">
+                                                    {% if p.maturity_date %}
+                                                        <a href="{{ p.build_compare_url }}">Compare with the Top
+                                                            5 {{ p.account_type }} Accounts ></a>
+                                                    {% else %}
+                                                        <a href="{{ p.build_compare_url }}">Compare with the Top
+                                                            5 {{ p.master_product.get_bestbuy_type }}
+                                                            Accounts ></a>
+                                                    {% endif %}
+                                                </p>
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                    {% if p.get_personal_rating < 6 and p.account_type.has_table and p.get_extra_personal_earnings > 0 and p.get_extra_personal_earnings != '' %}
+                                        <div class="earn-box col-sm-3">
+                                            {% if p.account_type.title == 'Regular Savings' %}
+                                                <p class="earn-p">You could get</p>
+
+                                                <p class="extra">
+                                                    {{ p.get_top_personal_bestbuy_rate|floatformat:2 }}%
+                                                </p>
+                                            {% else %}
+                                                <p class="earn-p">You could earn</p>
+
+                                                <p class="extra">
+                                                    {% if not p.maturity_date %}
+                                                        +
+                                                    {% endif %}
+                                                    &pound;{{ p.get_extra_personal_earnings|floatformat:2|intcomma }}
+                                                </p>
+
+                                            {% endif %}
+                                            <p>by switching to <span
+                                                    class="bold">{{ p.get_top_personal_bestbuy }}</span></p>
+
+                                            {% if p.master_product.url %}
+                                            <a class="apply-now-click" target="_blank"
+                                               href="{% url 'outbound_clickthrough' p.master_product.pk %}">
+                                                <button class="btn btn-success btn-block">Apply Now</button>
+                                            </a>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        {#            {% endcache %}#}
+                    {% endfor %}
+                </div>
+                <div class="total-container critical expired attention changing good excellent matured within">
+                    <div class="portfolio-total">
+                        <p>Total: &pound;{{ grandtotal|intcomma }}</p>
+                    </div>
+                </div>
+                {% if not concierge.is_client %}
+                    <div class="add-products-box">
+                        <a href="#" class="js-add-variable-product-button btn btn-info">Add another variable savings account</a>
+                        <a href="#" class="js-add-fixed-product-button btn btn-info">Add another fixed savings
+                            account</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% else %}
+    <div class="no-products">
+        <p>You haven't added any products yet!</p>
+        <ul>
+            <li><a href="#" class="js-add-variable-product-button">Click here to get started with a variable account</a></li>
+            <li><a href="#" class="js-add-fixed-product-button">Click here to get started with a fixed account</a></li>
+        </ul>
+    </div>
+{% endif %}

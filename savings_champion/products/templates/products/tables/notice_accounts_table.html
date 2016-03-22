@@ -1,0 +1,45 @@
+{% extends "products/tables/base_table.html" %}{% load product_filters humanize %}
+
+{% block table_content %}           	
+
+<tr class="tdrow">
+  <td colspan="{{total}}"><span class="td-icon"></span>Minimum Deposit</td>
+</tr>
+<tr>
+  {% for product in products %}
+    <td>{% if product.minimum %}&pound;{{product.minimum|intcomma}}{% else %}&nbsp;{% endif %}</td>
+  {% endfor %}
+</tr>
+
+{% include "products/tables/rows/gross_rate_row.html" %}
+
+<tr class="tdrow info">
+  <td colspan="{{total}}"><div class="hider">AER</div></td>
+</tr>
+<tr class="hide">
+  <td colspan="{{total}}">This stands for Annual Equivalent Rate and is to help you to compare different savings accounts, even if the interest is paid at different times, or a bonus applies for less than 12 months. The AER indicates the amount of interest you can earn before tax, if you were to leave the money invested for 12 months</td>
+</tr>
+<tr>
+  {% for product in products %}
+  <td>{% if product.aer %}{{product.aer|floatformat:2}}%{% else %}&nbsp;{% endif%}</td>
+  {% endfor %}
+</tr>   
+
+<tr class="tdrow info">
+  <td colspan="{{total}}"><div class="hider">Notice</div></td>
+</tr>
+<tr class="hide">
+  <td colspan="{{total}}">This is the number of days' notice that you need to give in order to make penalty free withdrawals from your account. </td>
+</tr>
+<tr>
+  {% for product in products %}
+    <td>{% if product.notice %}{{product.notice}} days{% else %}&nbsp;{% endif %}</td>
+  {% endfor %}
+</tr>
+
+{% include "products/tables/rows/access_row.html" %}
+
+{% include "products/tables/rows/facts_row.html" %}
+
+{% endblock table_content %}
+            

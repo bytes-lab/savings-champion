@@ -1,0 +1,30 @@
+{% extends "pages/generic.html" %}
+{% load thumbnail %}
+
+{% block content_class %}light pad{% endblock content_class %}
+{% block content %}
+
+<div class="sc-bio">
+	<div class="bio-img">
+		{% if profile.small_image %}
+		{% thumbnail profile.small_image "200x100" as im %}<img src="{{ im.url }}" alt="Profile picture of {{profile.user.first_name}} {{profile.user.last_name}}">{% endthumbnail %}
+		{% endif %}
+
+	</div>
+
+	<div class="bio-content">
+		<h1 class="bio-title">
+			{% block title %}{{profile.user.first_name}} {{profile.user.last_name}} {% endblock title %}
+			{% if profile.twitter_url %}<a class="ir twitter" href="{{profile.twitter_url}}" rel="me">twitter</a>{% endif %}
+			{% if profile.linked_in_url %}<a class="ir linked" href="{{profile.linked_in_url}}" rel="me">linked in</a>{% endif %}
+		</h1>
+		{{current_page.body.text|safe}}
+	</div>
+</div>
+	{% endblock content %}
+
+{% block post_content %}
+    <div id="h-nav-wrap">
+	    {% include "h-nav.html" %}
+	</div>
+{% endblock post_content %}

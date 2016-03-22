@@ -1,0 +1,8 @@
+{% load static %}
+Thank you for your interest in Wealth Management.
+
+Your new free guide is attached to this email for safe keeping.
+
+If your email provider removes attachments, please enter the following address into your web browser to download it.
+
+{% static 'docs/ifa/9_steps_to_choosing_an_independent_financial_adviser.pdf' %}

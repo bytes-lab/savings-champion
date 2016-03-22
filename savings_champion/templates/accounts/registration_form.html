@@ -1,0 +1,145 @@
+{% extends "pages/generic.html" %}
+{% load page_tags %}
+
+{% block title %}
+    {% get_block registration.incentive as message %}
+    {{ message.block_title }}
+{% endblock title %}
+
+{% block content %}
+
+    {% get_block registration.incentive as message %}
+
+    <h1>{{ message.block_title }}</h1>
+
+    {% if request.GET.tracker or request.GET.downloads %}
+        <div class="message registration-message">
+            <span class="ico info"></span>
+            {% if request.GET.tracker %}
+                <p>In order to track products with our Rate Tracker <sup>&reg;</sup> or ISA Tracker &trade; service, you
+                    will need to <a
+                            href="{% url 'auth_login' %}{% if messages %}{% for message in messages %}{{message}}{% endfor %}{% endif %}">login</a>
+                    or register</p>
+            {% else %}
+                {% if request.GET.downloads %}
+                    <p>In order to download Savings Champion guides you will first need to <a
+                            href="{% url 'auth_login' %}">login</a> or register</p>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {{ message.text|safe }}
+
+    <form action="{% url 'registration_register' %}" method="post" autocomplete="off">
+        {% for f in form.hidden_fields %}{{ f }}{% endfor %}
+        <div class="registration-form">
+
+            {% csrf_token %}
+            <div class="login-details group">
+                <div class="req">The following fields are required in order for us to register your savings account with
+                    Rate Tracker.
+                </div>
+                <ol class="">
+                    <li {% if form.username.errors %}class="errors"{% endif %}>
+                        {{ form.email.label_tag }}
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <p class="ico-error">
+                                <span class="err"></span>
+                                <span class="arr"></span>{% for error in form.email.errors %}{{ error }}{% endfor %}</p>
+                        {% endif %}
+                        <div class="instructions">Please enter your email address so we can contact you when rates
+                            change on your account.<span class="no one"></span></div>
+                        <span class="no one"></span>
+                    </li>
+                    <li {% if form.email2.errors %}class="errors"{% endif %}>
+                        {{ form.email2.label_tag }}
+                        {{ form.email2 }}
+                        {% if form.email2.errors %}
+                            <p class="ico-error">
+                                <span class="err"></span><span class="arr"></span>
+                                {% for error in form.email2.errors %}{{ error }}{% endfor %}
+                            </p>
+                        {% endif %}
+                        <span></span>
+                    </li>
+                    <li {% if form.password1.errors %}class="errors"{% endif %}>
+                        {{ form.password1.label_tag }}
+                        {{ form.password1 }}
+                        {% if form.password1.errors %}
+                            <p class="ico-error"><span class="err"></span><span
+                                    class="arr"></span>{% for error in form.password1.errors %}{{ error }}{% endfor %}
+                            </p>
+                        {% endif %}
+                        <div class="instructions">Please enter your password. Please ensure it is a minimum of 6
+                            characters long.<span class="no two"></span></div>
+                        <span class="no two"></span>
+                    </li>
+                    <li {% if form.password2.errors %}class="errors"{% endif %}>
+                        {{ form.password2.label_tag }}
+                        {{ form.password2 }}
+                        {% if form.password2.errors %}
+                            <p class="ico-error"><span class="err"></span><span
+                                    class="arr"></span>{% for error in form.password2.errors %}{{ error }}{% endfor %}
+                            </p>
+                        {% endif %}
+                    </li>
+                </ol>
+            </div>
+            <br/>
+
+            <div class="member-details group">
+                <div class="name-fields group
+                        {% if form.salutation.errors or form.first_name.errors or form.surname.errors %}errors{% endif %}">
+                    <div class="req">
+                        Your first name and surname are mandatory. The final fields are optional but completing them
+                        will help us know whether you apply for particular age related savings products and even if you
+                        are eligible for a product from a small local savings account provider.
+                    </div>
+                    <div class="salutation">
+                        {{ form.salutation.label_tag }}
+                        {{ form.salutation }}
+                    </div>
+                    <div class="first-name">
+                        {{ form.first_name.label_tag }}
+                        {{ form.first_name }}
+                    </div>
+                    <div class="sur-name">
+                        {{ form.surname.label_tag }}
+                        {{ form.surname }}
+                    </div>
+                    {% if form.first_name.errors or form.surname.errors %}
+                        <div>
+                            <p class="ico-error"><span class="err"></span><span class="arr"></span>Please enter a valid name</p>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="dob-fields group{% if form.dob.errors %} errors {% endif %}">
+                    {{ form.dob.label_tag }}
+                    {{ form.dob }}
+                </div>
+                <div class="">
+                    {{ form.telephone.label_tag }}
+                    {{ form.telephone }}
+
+                    {{ form.postcode.label_tag }}
+                    {{ form.postcode }}
+                    <div class="row">
+                        {{ form.newsletter.label_tag }}
+                        {{ form.newsletter }}
+                    </div>
+                    <div class="row">
+                        {{ form.ratealerts.label_tag }}
+                        {{ form.ratealerts }}
+                    </div>
+                </div>
+
+                <div class="group">
+                    <input class="button" type="image" value="submit" alt="Submit" src="{{ STATIC_URL }}img/register-submit.png">
+                </div>
+            </div>
+
+        </div>
+    </form>
+{% endblock content %}

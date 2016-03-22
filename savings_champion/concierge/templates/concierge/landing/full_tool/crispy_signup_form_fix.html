@@ -1,0 +1,18 @@
+<form class="form-inline" method="post">
+    {% csrf_token %}
+
+    <div id="div_id_name" class="form-group">
+        <label for="id_name" class="sr-only requiredField">Name</label>
+        <input class="textinput textInput form-control" id="id_name" name="name" placeholder="Name" type="text">
+    </div>
+    <div id="div_id_email" class="form-group">
+        <label for="id_email" class="sr-only requiredField">Email</label>
+        <input class="emailinput form-control" id="id_email" name="email" placeholder="Email" type="email"></div>
+    <div id="div_id_phone" class="form-group">
+        <label for="id_phone" class="sr-only requiredField">Phone</label>
+        <input class="textinput textInput form-control" id="id_phone" name="phone" placeholder="Phone" type="text">
+    </div>
+    <button type="submit" class="btn btn-success js-concierge-enquire">
+        <span class="glyphicon glyphicon-earphone"></span> Enquire
+    </button>
+</form>

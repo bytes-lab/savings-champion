@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Advice &amp; Guides
+{% endblock title %}
+{% block bannertext %}
+    <div id="left-banner">
+        <h2>Advice &amp; Guides</h2>
+    </div>
+    
+{% endblock bannertext %}
+
+{% block contenthtml %}
+<div id="news-index">
+    <div class="container-fluid">
+        {% include "advice/leftnav.html" %}
+        
+        <div class="post-list col-sm-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1>{{ heading }}</h1>
+                </div>
+                <div class="panel panel-body">
+                    {% regroup posts by guide_section as categories %}
+                    {% for category in categories %}
+                        <h3>{{ category.grouper }}</h3>
+                        {% for post in category.list %}
+                            {% if forloop.counter0|divisibleby:3 %}
+                                <div class="row">
+                            {% endif %}
+                                    <div class="post col-md-4" style="margin: 0;">
+                                        <div class="guide-content">
+                                            <div class="title">
+                                                {% if post.url_reverse %}
+                                                    <a href="{% url post.url_reverse %}">{{ post.title }}</a>
+                                                {% else %}
+                                                    <a href="{% url 'view_advice' post.slug %}">{{ post.title }}</a>
+                                                {% endif %}
+                                            </div>
+                                            {% if post.image %}
+                                            <div class="guide-cover-image">
+                                                {% if post.url_reverse %}
+                                                    <a href="{% url post.url_reverse %}">
+                                                        <img class="img-responsive" src="{{ post.image.url }}">
+                                                    </a>
+                                                {% else %}
+                                                    <a href="{% url 'view_advice' post.slug %}">
+                                                        <img class="img-responsive" src="{{ post.image.url }}">
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                            {% endif %}
+                                            <div class="teaser">
+                                                {% if post.url_reverse %}
+                                                    <a href="{% url post.url_reverse %}">
+                                                        {{ post.teaser|safe }}
+                                                    </a>
+{#                                                {% elif post.document %}#}
+{#                                                    <a href="{{ post.document.document.url }}">{{ post.teaser|safe }}</a>#}
+                                                {% else %}
+                                                    <a href="{% url 'view_advice' post.slug %}">
+                                                        {{ post.teaser|safe }}
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                            {% if forloop.counter|divisibleby:3 or forloop.last %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>  
+    </div>
+</div>
+{% endblock contenthtml %}
+
+{% block footer_scripts %}
+    <script type="text/javascript" src="{% static 'js/analytics/news_index.js' %}"></script>
+{% endblock footer_scripts %}

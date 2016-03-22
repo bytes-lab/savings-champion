@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static crispy_forms_tags %}
+
+{% block additional_head %}
+    <link rel="stylesheet" type="text/css" href="{% static '3rd_party/pace/themes/pace-theme-flat-top.css' %}">
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+{% endblock %}
+
+{% block bannertext %}
+    <h1>Management Dashboard</h1>
+    <h3>Adviser Statistics</h3>
+{% endblock %}
+
+{% block contenthtml %}
+    <div class="container-fluid">
+        <div id="statistics" class="row" data-url="{% url 'management_statistics' %}">
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {% crispy date_form %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>
+                        Per Adviser, Work Done Inside Date Range
+                        <span class="js-refresh-advisor-workload pull-right glyphicon glyphicon-refresh"></span>
+                    </h3>
+
+                </div>
+                <table class="table table-condensed table-bordered table-responsive table-striped"
+                       style="max-height:300px;overflow-y: auto">
+                    <thead>
+                    <tr>
+                        <th>Adviser Name</th>
+                        <th>Claimed</th>
+                        <th>Attempted Contact</th>
+                        <th>Contacted</th>
+                        <th>Fact Finds</th>
+                        <th>Illustrated</th>
+                        <th>Recommendation</th>
+                        <th>Signed</th>
+                        <th>Unsuitable</th>
+                        <th>Fake Leads</th>
+                        <th>3 Calls + Email</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody id="adviser_workload" data-url="{% url 'management_adviser_workload' %}">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="source-pipeline" class="row" data-url="{% url 'management_source_pipeline' %}">
+        </div>
+        <div id="adviser-timings" class="row" data-url="{% url 'management_adviser_timing' %}">
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer_scripts %}
+    <script type="application/javascript" src="{% static 'js/concierge/management_dashboard.js' %}"></script>
+    <script type="application/javascript" src="{% static '3rd_party/pace/pace.min.js' %}"></script>
+    <script type="application/javascript" src="{% static '3rd_party/parsleyjs/parsley.js' %}"></script>
+    <script type="application/javascript" src="//cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.js"></script>
+{% endblock %}

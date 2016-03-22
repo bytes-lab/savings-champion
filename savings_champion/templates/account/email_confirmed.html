@@ -1,0 +1,29 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account %}
+
+{% block bannertext %}
+    <h3>{% trans "Confirm E-mail Address" %}</h3>
+{% endblock %}
+
+
+{% block contenthtml %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+
+                </div>
+                <div class="panel-body">
+                    {% user_display email_address.user as user_display %}
+
+                    <p>{% blocktrans with email_address.email as email %}You have confirmed that
+                        <a href="mailto:{{ email }}">{{ email }}</a> is your e-mail address and that you want to register with Savings Champion.{% endblocktrans %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

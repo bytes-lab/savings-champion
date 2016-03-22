@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load cache block_tags static %}
+{% block title %}
+    {{ post.title }}
+{% endblock title %}
+
+{% block meta_description %}
+    {% if post and post.meta_description %}
+        {{ post.meta_description }}
+    {% endif %}
+{% endblock meta_description %}
+
+{% block bannertext %}
+    <div id="left-banner">
+        <h2>News &amp; Advice</h2>
+    </div>
+
+{% endblock bannertext %}
+
+{% block contenthtml %}
+    <div id="rate-alert-overview">
+        <div class="container-fluid">
+            {% include "news/leftnav.html" %}
+            <div class="col-md-9">
+                <div class="post panel panel-default">
+                    <div class="post-title panel-heading">
+                        <h1>{{ post.title }}</h1>
+
+                        <div class="publish_date">{{ post.publish_date|date:"dS F Y" }}</div>
+                    </div>
+                    <div class=" panel-body">
+                        <div class="post-body">
+                            <div class="signup-box">
+                                <p class="bold signup-message">Subscribe to our free Rate Alert emails</p>
+
+                                <form action="{% url 'signup_ratealert' %}" method="post" class="signup-post-form">
+                                    {% csrf_token %}
+
+                                    <input name="email" maxlength="75" type="email" required=""
+                                           placeholder="Enter your email address" class="email form-control" id="id_email"/>
+                                    <input type="submit" alt="Submit" value="Sign Up" class="btn btn-primary btn-block">
+                                </form>
+                            </div>
+                            <div class="message">
+                                {{ post.body|safe }}
+                            </div>
+
+                        </div>
+                        <div class="social-links">
+                            <fb:like href="{{ post.get_absolute_url }}" send="true" width="350"
+                                     show_faces="true"></fb:like>
+                            <a href="https://twitter.com/share" class="twitter-share-button" data-via="savingschampion"
+                               data-url="{{ post.get_absolute_url }}" data-text="{{ post.title }}">Tweet</a>
+                            <script>!function (d, s, id) {
+                                var js, fjs = d.getElementsByTagName(s)[0];
+                                if (!d.getElementById(id)) {
+                                    js = d.createElement(s);
+                                    js.id = id;
+                                    js.src = "//platform.twitter.com/widgets.js";
+                                    fjs.parentNode.insertBefore(js, fjs);
+                                }
+                            }(document, "script", "twitter-wjs");</script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock contenthtml %}
+
+{% block footer_scripts %}
+    <script type="text/javascript" src="{% static 'js/news/comment.js' %}"></script>
+    <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+{% endblock footer_scripts %}

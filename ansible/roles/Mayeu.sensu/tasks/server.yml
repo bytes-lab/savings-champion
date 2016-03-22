@@ -1,0 +1,76 @@
+---
+- name: copy the patched init script
+  copy:
+    src=sensu-{{ item }}
+    dest=/etc/init.d/
+    owner=root
+    group=root
+    mode=755
+    backup=yes
+  sudo: true
+  with_items:
+    - server
+    - api
+
+- name: ensure the patched init script are used
+  command: /usr/sbin/update-rc.d -f sensu-{{ item }} remove && /usr/sbin/update-rc.d sensu-{{ item }} defaults
+  sudo: true
+  with_items:
+    - server
+    - api
+
+- name: enable sensu-{server,api} to survive reboot
+  service: name=sensu-{{ item }} enabled=yes
+  sudo: true
+  with_items:
+    - server
+    - api
+
+- name: generate /etc/sensu/conf.d/checks.json
+  sudo: true
+  template:
+    src=checks.json.j2
+    dest=/etc/sensu/conf.d/checks.json
+    owner=sensu
+    group=sensu
+    mode=0750
+  notify:
+    - restart sensu server
+    - restart sensu client
+  tags:
+    - update_checks
+
+- name: generate /etc/sensu/conf.d/handlers.json
+  sudo: true
+  template:
+    src=handlers.json.j2
+    dest=/etc/sensu/conf.d/handlers.json
+    owner=sensu
+    group=sensu
+    mode=0750
+  notify:
+    - restart sensu server
+
+- name: copy the handlers files
+  sudo: true
+  copy:
+    src=files/sensu/handlers/
+    dest=/etc/sensu/handlers/
+    owner=sensu
+    group=sensu
+    mode=0750
+  notify:
+    - restart sensu server
+
+- name: Install the dashboard
+  apt: name=uchiwa state=latest
+  sudo: true
+
+- name: Enable uchiwa start on boot
+  service: name=uchiwa enabled=yes
+  sudo: true
+
+- name: Enable uchiwa start on boot
+  service: name=uchiwa state=started
+  sudo: true
+

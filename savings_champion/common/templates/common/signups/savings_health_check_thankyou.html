@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load page_tags static %}
+
+{% block title %}
+    Wealth Management
+{% endblock title %}
+
+{% block bannertext %}
+    <div id="left-banner">
+        {% get_block savings_health_check.thankyou as message %}
+        <h2 class="js-banner-title" style="font-size: 30px">{{ message.block_title }}</h2>
+    </div>
+{% endblock bannertext %}
+
+{% block contenthtml %}
+    <div id="savings_health_check-landing">
+        <div class="content-width">
+            {% get_block savings_health_check.thankyou as message %}
+            <div>
+                {{ message.text|safe }}
+            </div>
+        </div>
+    </div>
+{% endblock contenthtml %}

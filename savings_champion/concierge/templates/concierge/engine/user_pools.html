@@ -1,0 +1,4 @@
+{% load static crispy_forms_tags crispy_forms_filters %}
+
+{% crispy pools %}
+<input type="submit" value="Save Pool Changes" name="save-pool-changes" class="btn btn-info pull-right" data-action="{% url 'engine_update_pool' %}"/>

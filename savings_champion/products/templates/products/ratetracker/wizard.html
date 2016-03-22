@@ -1,0 +1,558 @@
+{% extends "products/tracker_base.html" %}
+{% load product_tags page_tags  %}
+
+{% block title %}{% get_block ratetrackeromrc.meta as message %}{{message.block_title}}{% endblock title %}
+
+{% block meta_description %}
+		{% get_block ratetrackeromrc.meta as message %}
+    {% if message %}
+    <meta name="description" content="{{message.text|striptags}}">
+		{% endif %}
+{% endblock %}
+
+{% block tracker_tabs %}
+	<ul class="tracker-tabs">
+		<li><a href="{% url rate_check %}" class="active">One Minute Rate Check</a></li>
+		<li><a href="{% url rate_tracker %}">My Rate Tracker <sup>&reg;</sup> Portfolio</a></li>
+	</ul>
+{% endblock tracker_tabs %}
+
+{% block extra_scripts %}
+<script src="{{STATIC_URL}}js/timformvalidation.js"></script>
+<script type="text/javascript">
+
+function openingCheck(optionValue){
+		$.ajaxSetup({ 
+	     beforeSend: function(xhr, settings) {
+	         function getCookie(name) {
+	             var cookieValue = null;
+	             if (document.cookie && document.cookie != '') {
+	                 var cookies = document.cookie.split(';');
+	                 for (var i = 0; i < cookies.length; i++) {
+	                     var cookie = jQuery.trim(cookies[i]);
+	                     // Does this cookie string begin with the name we want?
+	                 if (cookie.substring(0, name.length + 1) == (name + '=')) {
+	                     cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+	                     break;
+	                 }
+	             }
+	         }
+	         return cookieValue;
+	         }
+	         if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+	             // Only send the token to relative URLs i.e. locally.
+	             xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+	         }
+	     } 
+	});
+		$.post("/best-buys/check_opening/", {productID: optionValue }, function(data) {
+        if(data == "True")
+        	{
+	        	$('#opening_date_group').show();
+        	}
+    	else
+    		{
+	    		$('#opening_date_group').hide();
+	    	}
+        
+    });
+		
+	};
+
+$(function() {
+	// this cannot be within the script file unless we create a plugin and pass the json to it
+	
+	var info_type = 1, error_type = 2;
+	
+	var frb_msg = "<h2>Fixed Rate Accounts</h2><p>We don\’t hold details on Fixed Rate Accounts because the rates won’t change before maturity, "+
+	"so there\’s no need to track them. However, if you want us to remind you shortly before your bond matures and to show you the best rates available at that time "+
+	"let us know the month and year that your bond is due to mature and register for our {{RATETRACKER_TYPE}} Tracker service. " +
+	"If you have already registered for {{RATETRACKER_TYPE}} Tracker, click \"Check your results\" to add this {% ifequal RATETRACKER_TYPE|lower 'isa' %}ISA {% else %}bond or ISA {% endifequal %} to your {{RATETRACKER_TYPE}} Tracker portfolio.</p>";
+		
+	var no_accounts_msg = '<h2>No accounts found</h2><p>We have been unable to find a matching account based on your search criteria. If you cannot find your savings account, ' +
+	'please send an email to <a href="mailto:info@savingschampion.co.uk">info@savingschampion.co.uk</a> '+
+	'and we will look into it for you.</p>';
+	
+	var valid_balance_msg = "<h2>Invalid Balance</h2><p>Please enter a valid balance</p>";
+	
+	
+	var unknown_acc_msg = '<h2>If you don\'t know the Account Name</h2>' +
+		'<p>In order for us to track your account, we will need to know the account'+
+		' name, so you may need to check with your provider, then let us know. If you still'+
+		' can not find your account, send an email to <a href="mailto:info@savingschampion.co.uk">info@savingschampion.co.uk</a>  and we will look into it for you.</p>';
+		
+	var unknown_type_msg = '<h2>If you don\'t know the Savings Type</h2>' +
+		'<p>If you are unsure of the type of savings account you have, take a look under the different options available to see if you can find it, ' +
+		'or ask your provider.  We\'ll need to know the account name too, so check this with them at the same time. ' +
+		'You are welcome to email us at <a href="mailto:info@savingschampion.co.uk">info@savingschampion.co.uk</a> with the account name if you know it, and we\'ll look into it for you.</p>';
+		
+	{% block bestbuys_json_init %}
+	
+	{% get_bestbuys_json as bestbuy_json %}
+	var bestbuysJSON = {{bestbuy_json|safe}};
+
+	{% get_providers_bestbuy_json as json %}
+	var productsJSON = {{json|safe}};
+	{% endblock bestbuys_json_init %}
+	
+	{% get_maturity_based_accounts as json %}
+	var maturity_basedJSON = {{json|safe}};
+	
+	
+	
+ 	$('select[name="provider"]', '#ac-account-form').change(function(){
+ 		var $this = $(this);	
+
+ 		if($this.val()) {
+ 			var $type_select = $('select[name="account_type"]');
+ 	
+ 			var $allowed_options = new Array();
+ 			
+ 			$.each(productsJSON, function(index, item){
+ 				if(item.id == $this.val()){
+ 					$allowed_options = item.bestbuys;	
+ 				}
+ 			});
+			// obliterate the current select then replace with allowed options
+			
+			var val = $type_select.find('option:selected').val();
+						
+			$type_select.find('option').remove();
+
+ 			$.each($allowed_options, function(outer_index, outer_item) {
+ 				
+ 				$.each(bestbuysJSON, function(inner_index, inner_item){
+ 					
+ 					if(inner_item.id == outer_item) {
+ 						$type_select.append($('<option>', { value : inner_item.id }).text(inner_item.title));
+ 					}
+ 				});
+ 			});
+ 			
+ 			// now we see if we can remake the selected option
+ 			$type_select.prepend($('<option>', { value : '' }).text('Select savings type'));
+ 			$type_select.append($('<option>', { value : '0' }).text('I don\'t know'));
+ 			$type_select.val('');
+
+ 			
+ 		}
+ 		
+ 		return false;
+	});
+	
+	
+	$('select[name="provider"]', '#ac-account-form').change(function(){
+		if($(this).val() != '') {
+			//	
+			completeToStep(1);
+			
+			removeMessage($('li#provider'));
+			
+			var provider = $(this).val();
+			
+			// provider is completed on completion, must ensure the next tab is active
+			$('li[name="account-type"]').addClass('active');
+			
+			if($('select[name="account_type"]', '#ac-account-form').val() != ''){
+				
+				var account_type = $(this).val();
+				
+				if(hasBalance($('input[name="balance"]', '#ac-account-form'))) {
+					
+					var balance = $('input[name="balance"]', '#ac-account-form').val();
+			        balance = balance.replace(/,/g,'');
+                    balance = balance.replace(/£/g,'');
+					updateAccounts();
+				}
+				
+			}
+			
+		}
+	});
+	// check if all three have a value
+	$('select[name="account_name"]', '#ac-account-form').live('change', function(){
+		if($(this).val() != '0') {
+			$('#tracker-content').children('.response-message').remove();
+	    $('#result-button').show();
+		}
+	});
+	
+	$('input[name="balance"]').keypress(function(event) { return event.keyCode != 13; });
+
+	/**
+	 * Depending on how this changes - we may want to show/hide the maturity date fields.
+	 * We look at some JSON fields which contain the ids which are maturity based
+	 */
+	$('select[name="account_type"]', '#ac-account-form').change(function(){
+		if($(this).val() != '') {
+			//
+			completeToStep(2);
+			
+			if($(this).val() != '0') {
+				$('#tracker-content').children('.response-message').remove();
+		    $('#result-button').show();
+			} else {
+				$('#result-button').hide();
+			}
+			var account_type = $(this).val();
+			$('li[name="balance"]').addClass('active');
+			
+			var found = false;
+			
+			$.each(maturity_basedJSON, function(index, item){
+ 				if(item.id == account_type){
+ 					found = true;
+ 				}
+ 			});
+ 			
+ 			// TODO toggle several things
+ 			if(found == true) {
+ 				setMessage($('li#type'), info_type, frb_msg);
+ 				$('#id_balance').focus();
+ 				
+ 				$('#maturity_date_group').show();
+ 				$('#account_name_group').hide();
+ 			} else {
+ 				removeMessage($('li#type'));
+ 				
+ 				if($(this).val() == '0'){
+ 					setMessage($(this).parents('li'), info_type, unknown_type_msg);
+ 				} else {
+ 					
+ 				}
+ 				
+ 				$('#maturity_date_group').hide();
+ 				$('#account_name_group').show();
+ 			}
+ 			
+			if($('select[name="provider"]', '#ac-account-form').val() != ''){
+				
+				var provider = $(this).val();
+				
+				if(hasBalance($('input[name="balance"]', '#ac-account-form'))) {
+					removeMessage($('li#balance'));
+					var balance = $('input[name="balance"]', '#ac-account-form').val();
+                    balance = balance.replace(/,/g,'');
+                    balance = balance.replace(/£/g,'');
+					$('li[name="balance"], li[name="account-name"]').addClass('active');
+					updateAccounts();
+				}
+			}
+		}
+	});
+	
+	$('select[name="product"]', '#ac-account-form').live('click', function(e){
+		if(($(this).val() != '') && ($(this).val() != '0')) {
+			  $('#result-button').show();
+			return false;
+		}
+	});
+	
+	$('input[name="next"]', '#ac-account-form').click(function(e){
+		var $li_element = $('li#balance');
+		
+		if(hasBalance($('input[name="balance"]', '#ac-account-form'))) {
+			//
+			completeToStep(3);
+			
+			removeMessage($li_element);
+			var balance = $('input[name="balance"]', '#ac-account-form').val();
+            balance = balance.replace(/,/g,'');
+            balance = balance.replace(/£/g,'');
+			if($('select[name="provider"]', '#ac-account-form').val() != ''){
+				var provider = $(this).val();
+				
+				if($('select[name="account_type"]', '#ac-account-form').val() != ''){
+					var account_type = $(this).val();
+
+					
+					updateAccounts();
+					
+				}
+			}
+		}	else {
+			setMessage($li_element, error_type, valid_balance_msg);
+		}
+		return false;
+	});
+	
+	$('input[name="balance"]', '#ac-account-form').keyup(function(e){
+        var $li_element = $('li#balance');
+        
+        if(hasBalance($('input[name="balance"]', '#ac-account-form'))) {
+            //
+            completeToStep(3);
+            
+            removeMessage($li_element);
+            var balance = $('input[name="balance"]', '#ac-account-form').val();
+            balance = balance.replace(/,/g,'');
+            balance = balance.replace(/£/g,'');
+            if($('select[name="provider"]', '#ac-account-form').val() != ''){
+                var provider = $(this).val();
+                
+                if($('select[name="account_type"]', '#ac-account-form').val() != ''){
+                    var account_type = $(this).val();
+
+                    
+                    updateAccounts();
+                    
+                }
+            }
+        }   else {
+            setMessage($li_element, error_type, valid_balance_msg);
+        }
+        return false;
+    });
+	
+	
+	function hasBalance($element) {
+		var value = $element.val();
+		value = value.replace(/,/g,'');
+		value = value.replace(/£/g,'');
+		
+		if((value != '') && (value != '0.00')){
+			return $.isNumeric(value);
+		}
+		return false;
+	}
+	
+	function updateAccounts(){
+		var post_data = $('#ac-account-form').serialize();
+		
+		var $account_select = $('#id_product');
+		if($account_select.is(':visible') == false){
+			return false;
+		}
+		
+		var $type_select = $('#id_account_type');
+		if($type_select.val() == '' || $type_select.val() == '0'){
+			return false;
+		}
+		
+		$.get("{% url products_json %}", post_data, function( data ) {
+	     $account_select.find('option').remove();
+	     
+	     var $li_element = $('#account_name_group');
+	     if((data) && (data.length > 0)) {
+	        
+	        var val = '<option value="">Select your savings account</option>';
+	        
+	        $.each(data, function(index, item) {
+	          val += ('<option value="' +item.id  +'">' + item.title + '</option>');
+	        })
+	        $('#id_product').replaceWith('<select id="id_product" name="product" class="number required" onchange="openingCheck(this.value)">' + val +'<option value="0">I don\'t know</option></select>');
+	     
+	     		  $('#result-button').show();
+	     		
+	     		removeMessage($li_element);
+	     } else {
+	     	
+	     	setMessage($li_element, info_type, no_accounts_msg);
+	     	
+	       $('#result-button').hide();
+	     }
+	    	
+	    // ensure the submit button is shown and the response messages are clear?
+	    $('#tracker-content').children('.response-message').remove();
+	    
+			return false;
+	  });
+
+	}
+
+
+	$('input[name="reset"]').click(function(){
+   		$('#ac-account-form')[0].reset();
+   		  $('#result-button').show();
+   		$('#maturity_date_group').hide();
+ 			$('#account_name_group').show();
+		$('#opening_date_group').hide();
+   		removeMessage($('ol.ac-account li'))
+   		completeToStep(0);
+   		return false;
+  });
+
+	/**
+	 * 
+	 */
+	function completeToStep(step){
+		$('ul#steps li').each(function(index, item){
+			var $a = $(item).find('a');
+
+			if(index < step){
+				if(!$a.hasClass('complete')){
+					$a.addClass('complete').removeClass('active');
+				}
+			} else if(index == step){
+				$a.addClass('active').removeClass('complete');
+			} else {
+				$a.removeClass('complete').removeClass('active');
+			}
+		});
+		
+		// there is a fork around step 3, 
+		if(step >= 3){
+			step = 6;
+		}
+		$('.ac-account li').each(function(index, item){
+			if(index <= step){	
+				if(!$(item).hasClass('active')){
+					$(item).addClass('active');
+				}
+			} 
+		});
+	}
+
+	$(".ratetracker #id_product").live('change', function(){
+		var $this = $(this);
+		var value = $this.val();
+		if(value == "0"){
+			  $('#result-button').hide();
+			setMessage($this.parents('li'), info_type, unknown_acc_msg);
+		} else {
+			removeMessage($this.parents('li'));
+		}
+	});
+
+	
+	function removeMessage($li_element){
+		$li_element.removeClass('message').removeClass('errors');
+		$li_element.find('a.ico').removeClass('active');
+		$li_element.find('div.text').hide();
+	}
+	
+	function setMessage($li_element, message_type, msg){
+		$li_element.removeClass('message').removeClass('errors');
+		
+		$('ol.ac-account li').find('div.text').hide();
+		
+		if(message_type == info_type){
+			$li_element.addClass('message');
+		}	else {
+			$li_element.addClass('errors');
+		}
+		$li_element.find('div.text').html(msg).show();
+		$li_element.find('a.ico').addClass('active');
+	}
+	
+	
+});
+</script>
+{% endblock extra_scripts %}
+
+{% block tracker_intro %}
+	{% get_block ratetracker.intro as message %}
+
+	{% if message %}
+		<div class="tracker-summary">
+			{{message.text|safe}}	
+		</div>
+		{% endif %}
+		
+{% endblock tracker_intro %}	
+
+{% block tracker_content %}
+<form id="ac-account-form" action="{% block form_endpoint %}{% url rate_check %}{% endblock form_endpoint %}#main" method="post" autocomplete="off">
+	<div class="group">
+		<ul class="account-steps group" id="steps">
+			<li><a class="active" href="#provider"><span>Step 1</span>Provider</a></li>
+			<li><a href="#type"><span>Step 2</span>Savings Type</a></li>
+			<li><a href="#balance"><span>Step 3</span>Balance(£)</a></li>
+			<li><a href="#name"><span>Step 4</span>Savings Account</a></li>
+			<li><a class="last" href="#results"><span>Step 5</span>Results</a></li>
+		</ul>
+	</div>
+    <input type="hidden" name="search" value="true" />
+    {% csrf_token %}
+    {% for hidden_field in ratetracker_form.hidden_fields %}{{hidden_field}}{% endfor  %}
+    <ol class="ac-account group">
+		<li class="active group{% if ratetracker_form.provider.errors %} errors{% endif %}" data-step="1" id="provider">
+
+			<label for="id_provider"><span class="no one"></span>Provider</label>
+			<div class="input-wrap">{{ratetracker_form.provider}}</div>
+			<div class="info">
+				<a class="ico" href="#"></a>
+				<div class="text">
+					<p>Select your bank or building society from the names listed in the drop down menu.</p>
+				</div>
+			</div>
+			<span class="loa"></span>
+		</li>
+		<li class="group{% if ratetracker_form.account_type.errors %} errors{% endif %}{% if ratetracker_form.is_bound %} active{% endif %}" data-step="2" name="account-type" id="type">
+
+			<label for="id_account_type"><span class="no two"></span>Savings Type</label>
+			<div class="input-wrap">{{ratetracker_form.account_type}}</div>
+			<div class="info">
+				<a class="ico" href="#"></a>
+				<div class="text">
+					<p>The type of account you have, for example Easy Access, ISA etc.</p>
+				</div>
+			</div>
+		</li>
+		<li class="group{% if ratetracker_form.balance.errors %} errors{% endif %}{% if ratetracker_form.is_bound %} active{% endif %}" data-step="3" name="balance" id="balance">
+
+			<label for="balance" for="id_balance"><span class="no three"></span>Current Balance (&pound;)</label>
+			<div class="input-wrap balance">{{ratetracker_form.balance}}<input class="reset" type="image" name="next" src="{{STATIC_URL}}img/confirm.png" id="next" value="next" alt="Confirm"/></div>
+
+			<div class="info">
+				<a class="ico" href="#"></a>
+				<div class="text">
+					<p>This helps us to show you the rate you are earning based on the amount you are holding in your savings account.</p>
+				</div>
+			</div>
+		</li>
+		<li class="group {% if ratetracker_form.product.errors %} errors{% endif %}{% if ratetracker_form.is_bound %} active{% endif %}" {% if ratetracker_form.set_reminder %} style="display: none;"{% endif %} id="account_name_group" data-step="4" name="account-name">
+
+			<label for="id_product"><span class="no four"></span>Savings Account</label>
+			<div class="input-wrap">{{ratetracker_form.product}}</div>
+			<div class="info">
+				<a class="ico" href="#"></a>
+				<div class="text">
+					<p>This list of accounts is based on the combination of provider, savings type and balance you’ve entered, except for Fixed Rate Bonds and Fixed Rate ISAs where the box is not displayed. If you cannot find your account name select "I don’t know" from the list.</p>
+				</div>
+			</div>
+		</li>
+
+		<li class="group maturity {% if ratetracker_form.maturity_date.errors %} errors{% endif %}{% if ratetracker_form.is_bound %} active {% endif %}" {% if not ratetracker_form.set_reminder %} style="display:none;"{% endif %} id="maturity_date_group" data-step="4" name="maturity-date">
+			<label for="id_maturity_date_day">Maturity date<span class="no four"></span></label>
+			<div class="input-wrap">
+     		{{ratetracker_form.maturity_date}}
+			</div>
+			<div class="info">
+				<div class="text">
+					<h2>If you don't know your Providers name</h2>
+					<p>If you are unsure of the type of savings account you have, take a look under the different options available to see if you can find it, or ask your provider. We'll need to know the account name too, so check this with them at the same time. You are welcome to email us at <a href="mailto:info@savingschampion.co.uk">info@savingschampion.co.uk</a> with the account name if you know it, and we'll look into it for you.</p>
+				</div>
+			</div>
+		</li>
+		
+		<li class="group opening_date {% if ratetracker_form.opening_date.errors %} errors{% endif %}{% if ratetracker_form.is_bound %} active {% endif %}" id="opening_date_group" data-step="5" name="opening-date" {% if not ratetracker_form.opening_date_required %} style="display:none; {% endif %}>
+			<label for="id_opening_date_day">Opening Date<span class="no five"></span></label>
+			<div class="input-wrap">
+     		{{ratetracker_form.opening_date}}
+			</div>
+			<div class="info">
+			    <a class="ico" href="#"></a>
+                <div class="text">
+                    <p>We need the opening date to ensure we quote the correct interest rate, as your bonus may have expired.</p>
+                </div>
+            </div>
+		</li>
+    </ol>
+    <div class="submit_row">
+    	<input type="image" value="reset" name="reset" src="{{STATIC_URL}}img/reset.png" alt="Reset" class="lower-reset">
+  		<input id="result-button" class="result-button" type="image" src="{{STATIC_URL}}img/{{RATETRACKER_TYPE|lower}}results.png" value="view results"/>
+    </div>
+	</form>
+	
+	{% block tracker_message %}
+	{% get_block ratetracker.message as message %}
+	{% if message %}
+	<div class="tracker-message"><p>{{message.text|safe}}</p></div>
+
+	{% endif %}
+
+	{% endblock tracker_message %}
+	
+
+{% endblock tracker_content %}

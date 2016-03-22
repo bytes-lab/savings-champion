@@ -1,0 +1,17 @@
+	.ico-nav .arr {
+		background:url('../../img/ico-nav-arr.png') no-repeat 0 0 #4fbb30;
+	}
+	.ico-nav .minute .arr,
+	.ico-nav .guides .arr {
+		background-position:0 -70px;
+	}
+	.ico-nav .newsletter .arr {
+		background-position:0 -140px;
+	}
+	.ico-nav .jargon .arr {
+		background-position:0 -210px;
+	}
+	.ico-nav .best-buy .arr,
+	.ico-nav .compare .arr {
+		background-position:0 -280px;
+	}

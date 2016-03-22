@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load block_tags static crispy_forms_tags %}
+
+{% block title %}
+    10 Steps to Cut Your Inheritance Tax Bill
+{% endblock title %}
+
+{% block bannertext %}
+    <div id="left-banner">
+        {% get_static_block fb-iht-guide incentive as block %}
+        <h2 class="js-banner-title" style="font-size: 30px">{{ block|safe }}</h2>
+    </div>
+{% endblock bannertext %}
+
+{% block topbar %}
+{% endblock %}
+
+{% block logobar %}
+    {% include 'logobar-thin.html' %}
+{% endblock logobar %}
+
+{% block navigation %}
+{% endblock %}
+
+{% block contenthtml %}
+    <div id="ifa-landing">
+        <div class="container">
+            <div class="row" style="padding-top: 10px;">
+                <img src="{% static image_static %}" class="img-responsive" style="width:100%;">
+            </div>
+            <div class="row fb-iht-guide--lower-bar-offset">
+                <div class="col-md-7">
+                    <div class="panel panel-transparent-black">
+                        <div class="panel-body">
+                            <p style="font-size: 32px;font-weight: bold;">Are you giving your family's inheritance to the taxman?</p>
+
+                            <p style="font-size: 22px;">Find out:</p>
+                            <ul style="font-size: 20px;">
+                                <li>How IHT will affect you and your loved ones</li>
+                                <li>10 simple steps to reduce the amount of IHT you have to pay</li>
+                                <li>Real life case studies with IHT fully eliminated</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-md-offset-1">
+                    <div class="panel panel-orange-border">
+                        <div class="panel-heading">
+                            <h4>Fill in this simple form and download your free guide now</h4>
+                        </div>
+                        <div class="panel-body">
+                            {% crispy form %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock contenthtml %}
+
+{% block footerblock %}
+{% endblock %}
+
+{% block bottombar %}
+{% endblock %}
+
